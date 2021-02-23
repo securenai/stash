@@ -1,0 +1,23 @@
+{
+	"name": "stash",
+	"version": "1.0.0",
+	"description": "asset manager app",
+	"main": "server.js",
+	"scripts": {
+		"client-install": "cd client && npm install",
+		"start": "node server.js",
+		"server": "nodemon server.js",
+		"client": "npm start --prefix client",
+		"dev": "concurrently \"npm run server\" \"npm run client\""
+	},
+	"author": "_nova",
+	"license": "ISC",
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	},
+	"dependencies": {
+		"concurrently": "^6.0.0",
+		"cors": "^2.8.5",
+		"express": "^4.17.1"
+	}
+}

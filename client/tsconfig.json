@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "jsx": "react",
+        "watch": true,
+        "target": "es5",
+        "lib": ["es6","dom"],
+        "esModuleInterop": true,
+        "sourceMap": true,
+        // "typeRoots" : ["node_modules/@types", "src/types"]
+    },
+    // "include": ["src/custom.d.ts"]
+}
