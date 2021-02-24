@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Header from './components/Header';
+import './index.scss';
 
 ReactDOM.render(
-	<h1>
+	<div>
 		<div>
-			<div>stack</div>
+			<h1>stack</h1>
+			{/* <Header text={'hello'} /> */}
 		</div>
-	</h1>,
+	</div>,
 	document.querySelector('#root')
 );
