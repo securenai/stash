@@ -1,0 +1,21 @@
+.loginPage{
+    display: flex;
+    flex-direction: column;
+    background-color: #6D81A3;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+}
+.loginBox {
+    background-color: #7BBFA6;
+    padding: 20px;
+    margin-top: 50px;
+    width: 40%;
+    margin: 35px auto 0px auto;
+    display: flex;
+    // align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.listFields {
+    list-style-type: none;
+}

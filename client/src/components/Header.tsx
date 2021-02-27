@@ -19,12 +19,15 @@ const Header: React.FC<HeaderProps> = ({ text }) => {
 			.then((data) => {
 				console.log(data[0][0]._id);
 				console.log(data[0][0].user);
+				console.log(data[0][1]._id);
+				console.log(data[0][1].user);
 			});
 	};
 	return (
 		<div className="component_header">
 			{text}
 			<button onClick={handleClick}>click me</button>
+			<div>{}</div>
 		</div>
 	);
 };
