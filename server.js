@@ -1,6 +1,9 @@
 const express = require('express');
+require('dotenv').config();
 // const router = express.Router();
 // const db = require('./db/db.js');
+const jwt = require('express-jwt');
+const jwtDecode = require('jwt-decode');
 const app = express();
 cors = require('cors');
 const PORT = '5000';
@@ -8,13 +11,15 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const User = require('./db/models/user.js');
-
+const session = require('express-session');
 const mongoose = require('mongoose');
+
+const { createToken, hashPassword, verifyPassword } = require('./util');
 
 try {
 	// Connect to the MongoDB cluster
 	mongoose.connect(
-		'mongodb+srv://nova:xwn2VCcDUw7JTOmA@cluster-stash.qw2o7.mongodb.net/StashDB?retryWrites=true&w=majority',
+		process.env.ATLAS_URL,
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		() => {
 			console.log(' Mongoose is connected');
@@ -27,8 +32,34 @@ try {
 	console.log('could not connect');
 }
 
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET,
+		resave: true,
+		saveUninitialized: false,
+		cookie: {
+			httpOnly: true,
+			maxAge: parseInt(process.env.SESSION_MAX_AGE)
+		}
+	})
+);
+// app.use((req, res, next) => {
+// 	console.log('hi');
+// 	console.log(req.session);
+// 	next();
+// });
+
 mongoose.connection.on('connected', () => {
 	console.log('connected!!');
+});
+
+app.get('/api/chk', (req, res) => {
+	if (req.session) {
+		console.log(req.session);
+		res.send({ msg: 'ok' });
+	} else {
+		res.send({ msg: 'no session' });
+	}
 });
 
 app.post('/api/login', (req, res) => {
@@ -36,8 +67,25 @@ app.post('/api/login', (req, res) => {
 	const b = req.body.userPassword;
 	console.log('post');
 	User.find({ name: a, password: b }).then((data) => {
-		console.log(data);
-		res.send(data);
+		// console.log(data.length > 0);
+		if (data.length > 0) {
+			console.log('pass');
+			const token = createToken(data[0]._id);
+			const decodedToken = jwtDecode(token);
+			const expiresAt = decodedToken.exp;
+			res.json({
+				message: 'Authentication successful!',
+				token,
+				userInfo: { dataId: data[0]._id, userName: a },
+				expiresAt
+			});
+			// req.session.userId = data[0]._id;
+			// console.log(req.session);
+			// res.send(data);
+			// return res.redirect('/');
+		} else {
+			res.send(data);
+		}
 	});
 });
 

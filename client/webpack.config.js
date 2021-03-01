@@ -52,8 +52,11 @@ module.exports = {
 	],
 	devServer: {
 		contentBase: path.join(__dirname, 'dist'),
-		port: 9000
-		// historyApiFallback: true,
+		port: 9000,
+		historyApiFallback: true,
+		proxy: {
+			'/api': 'http://localhost:5000'
+		}
 	},
 	optimization: {
 		minimizer: [new UglifyJsPlugin()]

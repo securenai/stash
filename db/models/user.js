@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+// const bcrypt = require('bcrypt');
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -11,6 +12,10 @@ var UserSchema = new mongoose.Schema({
 		required: true
 	}
 });
+// hash password b4 saving to database
+// LoginSchema.pre('save',(next)=>{
 
-var User = mongoose.model('User', UserSchema);
+// })
+
+const User = mongoose.model('User', UserSchema);
 module.exports = User;
