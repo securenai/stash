@@ -67,16 +67,20 @@ app.post('/api/login', (req, res) => {
 	const b = req.body.userPassword;
 	console.log('post');
 	User.find({ name: a, password: b }).then((data) => {
-		// console.log(data.length > 0);
+		// console.log(data);
 		if (data.length > 0) {
-			console.log('pass');
 			const token = createToken(data[0]._id);
 			const decodedToken = jwtDecode(token);
 			const expiresAt = decodedToken.exp;
 			res.json({
 				message: 'Authentication successful!',
 				token,
-				userInfo: { dataId: data[0]._id, userName: a },
+				userInfo: data[0],
+				// userInfo: {
+				// 	dataId: data[0]._id,
+				// 	userName: data[0].name,
+				// 	email: data[0].email
+				// },
 				expiresAt
 			});
 			// req.session.userId = data[0]._id;

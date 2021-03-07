@@ -3,7 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
 	name: 'user',
 	initialState: {
-		user: null
+		user: {
+			token: localStorage.getItem('token') || null,
+			expiresAt: localStorage.getItem('expiresAt') || null,
+			userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
+			isAuthenticated:
+				localStorage.getItem('expiresAt') !== null
+					? new Date().getTime() / 1000 < localStorage.getItem('expiresAt')
+					: false
+		}
 	},
 	reducers: {
 		login: (state, action) => {
@@ -13,8 +21,8 @@ export const userSlice = createSlice({
 			// immutable state based off those changes
 			state.user = action.payload;
 		},
-		logout: (state) => {
-			state.user = null;
+		logout: (state, action) => {
+			state.user = action.payload;
 		}
 	}
 });

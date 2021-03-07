@@ -1,0 +1,30 @@
+.nav {
+	display: flex;
+	flex-direction: column;
+	margin-top: 1.5em;
+}
+
+/* --------------------------
+  Media Queries
+--------------------------- */
+@media (min-width: 769px) {
+	.nav {
+		margin-top: 3em;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.nav a {
+		border-bottom-color: transparent;
+	}
+}
+@media (min-width: 1025px) {
+	.nav {
+		margin-top: 10px;
+		margin-bottom: 0px;
+		align-self: center;
+	}
+	.nav li {
+		margin-left: 0.65em;
+		margin-right: 0.65em;
+	}
+}

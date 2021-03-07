@@ -8,6 +8,7 @@ import { selectUser } from '../../slices/userSlice';
 import { login, logout } from '../../slices/userSlice';
 
 export interface LoginProps {
+	//auth: boolean;
 	// login: () => void;
 	// setSession: (val: String) => void;
 }
@@ -21,18 +22,9 @@ const Login: React.FC<LoginProps> = () => {
 	const [userPassword, setUserPassword] = useState('123');
 	const [valErrMsg, setValErrMsg] = useState('');
 
-	const handleChkSession = () => {
-		console.log('ppp');
-		fetch('http://localhost:5000/api/chk', { method: 'GET' })
-			.then(checkStatus)
-			.then((res) => {
-				console.log(res);
-				return res.json();
-			})
-			.then((data) => {
-				console.log(data.msg);
-			});
-	};
+	// useEffect(() => {
+	// 	// setloggedIn(true);
+	// }, []);
 
 	const handleLogin = (e) => {
 		e.preventDefault();
@@ -52,17 +44,23 @@ const Login: React.FC<LoginProps> = () => {
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data);
 				if (data.message) {
-					console.log('good');
 					setValErrMsg(data.message);
-					setTimeout(() => {
-						setloggedIn(true);
-					}, 1000);
+					setloggedIn(true);
+					// setTimeout(() => {
+					// 	setloggedIn(true);
+					// }, 1000);
+					console.log(data.userInfo);
+					localStorage.setItem('token', data.token);
+					localStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+					localStorage.setItem('expiresAt', data.expiresAt);
 					dispatch(
 						login({
-							uid: data.userInfo.dataId,
-							displayName: data.userInfo.userName
+							token: data.token,
+							expiresAt: data.expiresAt,
+							userInfo: data.userInfo,
+							isAuthenticated: true
+							// password: data.userInfo.password
 						})
 					);
 				} else {
@@ -81,44 +79,50 @@ const Login: React.FC<LoginProps> = () => {
 
 	return (
 		<>
-			{loggedIn && <Redirect to="/" />}
+			{user.isAuthenticated && <Redirect to="/myDashBoard" />}
 			<div className="loginPage">
+				<div className="image_placer">
+					<img src={logo} />
+				</div>
 				<div className="loginBox">
 					<form>
-						<div>
-							<img src={logo} />
-						</div>
-						<h3>type in login info</h3>
-						<ul className="listFields">
-							<li>
-								username :{' '}
-								<input
-									type="text"
-									value={userName}
-									placeholder="username"
-									onChange={(e) => setUserName(e.target.value)}
-								/>
-							</li>
-							<li>
-								password :{' '}
-								<input
-									type="text"
-									value={userPassword}
-									placeholder="password"
-									onChange={(e) => setUserPassword(e.target.value)}
-								/>
-							</li>
-						</ul>
-						<div className="error_msg">
-							<ErrorDisplay errMsg={valErrMsg} />
-						</div>
-						<button onClick={handleLogin}>login</button>
-
-						<div>
-							<Link to="/">home</Link>
+						<div className="form_wrapper">
+							<h2 className="login_greeting">WELCOME!</h2>
+							<div className="input_title">EMAIL</div>
+							<div className="login_input">
+								<div className="input_outline">
+									<input
+										type="text"
+										value={userName}
+										placeholder="username"
+										onChange={(e) => setUserName(e.target.value)}
+									/>
+								</div>
+							</div>
+							<div className="input_title">PASSWORD</div>
+							<div className="login_input">
+								<div className="input_outline">
+									<input
+										type="text"
+										value={userPassword}
+										placeholder="password"
+										onChange={(e) => setUserPassword(e.target.value)}
+									/>
+								</div>
+							</div>
+							<div className="error_msg">
+								<ErrorDisplay errMsg={valErrMsg} />
+							</div>
+							<div className="help_msg">FORGOT PASSWORD?</div>
+							<div className="login_btn" onClick={handleLogin}>
+								Login
+							</div>
+							<div className="help_msg">NEED AN ACCOUNT ? SIGN UP HERE !</div>
+							<div>
+								<Link to="/">home</Link>
+							</div>
 						</div>
 					</form>
-					<button onClick={handleChkSession}>check session</button>
 				</div>
 			</div>
 		</>
