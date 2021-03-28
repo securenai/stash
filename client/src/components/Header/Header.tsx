@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './assets/stash_logo.png';
-import { Button } from '../../stories/Button';
+import { Link } from 'react-router-dom';
+import { Button } from '../Button/Button';
 import './Header.css';
 import styled from 'styled-components';
 import { NavBar } from '../NavBar/NavBar';
@@ -18,38 +19,45 @@ const Icon = styled.img`
 `;
 
 export interface HeaderProps {
-	user?: {};
-	onLogin: () => void;
-	onLogout: () => void;
-	onCreateAccount: () => void;
+	user?: {
+		token: string;
+		expiresAt: number;
+		userInfo: object;
+		isAuthenticated: boolean;
+	};
 }
 
-export const Header: React.FC<HeaderProps> = ({
-	user,
-	onLogin,
-	onLogout,
-	onCreateAccount
-}) => (
-	<header>
-		<div className="wrapper">
-			<div>
-				<Logo>
-					<Icon src={logo} />
-				</Logo>
+export const Header: React.FC<HeaderProps> = ({ user }) => {
+	const test = () => {
+		console.log(user);
+	};
+
+	return (
+		<header>
+			<div className="wrapper">
+				<div>
+					<Logo>
+						<Icon src={logo} onClick={test} />
+					</Logo>
+				</div>
+				<div>
+					<NavBar />
+				</div>
+				<div>
+					{user.isAuthenticated ? (
+						<Link to="/myDashBoard">
+							<Button size="small" label="To DashBoard" />
+						</Link>
+					) : (
+						<>
+							<Link to="/login">
+								<Button size="small" label="Log In" />
+							</Link>
+							<Button primary size="small" label="Sign Up" />
+						</>
+					)}
+				</div>
 			</div>
-			<div>
-				<NavBar />
-			</div>
-			<div>
-				{user ? (
-					<Button size="small" onClick={onLogout} label="Log out" />
-				) : (
-					<>
-						<Button size="small" onClick={onLogin} label="Log in" />
-						<Button primary size="small" onClick={onCreateAccount} label="Sign up" />
-					</>
-				)}
-			</div>
-		</div>
-	</header>
-);
+		</header>
+	);
+};

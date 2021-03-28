@@ -1,0 +1,22 @@
+.dashsidetop-container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding: 20px;
+	background-color: rgb(49, 50, 56);
+	align-items: center;
+	color: antiquewhite;
+}
+.avatar {
+	height: 70px;
+	width: 70px;
+	border: 2px solid black;
+	border-radius: 90px;
+	/* background-image: url('./assets/avatar.png'); */
+	background-size: 70px 70px;
+	cursor: pointer;
+}
+.userName {
+	margin-top: 10px;
+	font-weight: 600;
+}

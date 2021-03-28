@@ -1,0 +1,21 @@
+.stash-item {
+	list-style: none;
+	background-color: rgb(43, 60, 78);
+	border: 1px solid rgb(245, 240, 216);
+	cursor: pointer;
+	margin: 5px;
+	padding: 5px;
+	font-weight: 600;
+}
+.stash-item:hover {
+	background-color: rgb(67, 93, 121);
+}
+.item-box {
+	display: flex;
+}
+.item-icon {
+	margin-right: 5px;
+}
+.curr-item {
+	background-color: rgb(138, 28, 61);
+}
