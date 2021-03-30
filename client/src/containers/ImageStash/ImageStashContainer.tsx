@@ -3,6 +3,8 @@ import ImageStash from '../../components/DashMain/ImageStash/ImageStash';
 import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { selectUser } from '../../slices/userSlice';
+import fetchProgress from 'fetch-progress';
+import Processing from '../../components/Processing/Processing'
 
 export interface ImageStashContainerProps {}
 
@@ -10,6 +12,8 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	const currStash = useSelector(selectCurrentStash);
 	const user = useSelector(selectUser);
 	const [imageIds, setImageIds] = useState([]);
+	const [startUpload, setStartUpload] = useState(false)
+	const [uploadComplete, setUploadComplete] = useState(false)
 
 	useEffect(() => {
 		const folderName = `stash/imageStash/${user.userInfo._id}/${currStash.id}`;
@@ -33,6 +37,7 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	}, []);
 
 	const uploadImage = (data: File, fileName: string) => {
+		setStartUpload(true)
 		console.log('dddlololol');
 		const saveTo = `stash/imageStash/${user.userInfo._id}/${currStash.id}/${fileName}`;
 		const options = {
@@ -44,12 +49,21 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		};
 		fetch('http://localhost:5000/api/stashImages/upload', options)
 			.then(checkStatus)
+			.then(fetchProgress({
+				// implement onProgress method
+				onProgress(progress) {
+				  console.log({ progress });
+				},
+			  }))
 			.then((res) => {
-				// console.log(res.json());
 				return res.json();
 			})
 			.then((result) => {
 				console.log(result.msg);
+				if(result.msg === 'file uploaded') {
+					setUploadComplete(true)
+					setStartUpload(false)
+				}
 			});
 	};
 
@@ -72,11 +86,15 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	};
 
 	return (
-		<ImageStash
+		<div>
+			{uploadComplete === false && startUpload === true ? <Processing /> : null}
+			<ImageStash
 			currentStash={currStash}
 			uploadImage={(data, fileName) => uploadImage(data, fileName)}
 			imageIds={imageIds}
 		/>
+		</div>
+		
 	);
 };
 

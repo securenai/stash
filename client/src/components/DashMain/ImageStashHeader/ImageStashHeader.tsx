@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import { Button } from '../../Button/Button';
 import './ImageStashHeader.css';
 
+
 export interface ImageStashHeaderProps {
 	stashName: string;
 	uploadImage: (data: File, name: string) => void;
@@ -13,6 +14,7 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 }) => {
 	const [imageSrc, setImageSrc] = useState(null);
 	const [selectedFile, setSelectedFile] = useState(null);
+	const [showUplaodBtn, setShowUplaodBtn] = useState(false);
 
 	const handleFileSelected = (e) => {
 		const file = e.target.files[0];
@@ -22,6 +24,7 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 		reader.readAsDataURL(e.target.files[0]);
 		reader.onloadend = () => {
 			setImageSrc(reader.result);
+			setShowUplaodBtn(true);
 		};
 	};
 
@@ -29,6 +32,7 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 		console.log(selectedFile);
 		if (!selectedFile) return;
 		uploadImage(imageSrc, selectedFile.name.replace(/\.[^/.]+$/, ''));
+		setShowUplaodBtn(false);
 	};
 
 	return (
@@ -36,7 +40,9 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 			<div>{stashName}</div>
 			<div>
 				<input type="file" name="image" onChange={handleFileSelected} />
-				<button onClick={handleSubmitFile}>upload</button>
+				{showUplaodBtn === true ? (
+					<button onClick={handleSubmitFile}>upload</button>
+				) : null}
 			</div>
 		</div>
 	);
