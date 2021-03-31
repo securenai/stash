@@ -1,0 +1,23 @@
+.stashList-title {
+	text-align: center;
+	height: 30px;
+	padding: 0 5px;
+	margin: 0 10px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.stashList-title:hover {
+	background-color: #292828;
+	cursor: pointer;
+}
+.add-stash-icon {
+	font-weight: 600;
+	height: 18px;
+	width: 30px;
+	border-radius: 90px;
+	background-color: #292828;
+}
+.add-stash-icon:hover {
+	background-color: #3d3b3b;
+}

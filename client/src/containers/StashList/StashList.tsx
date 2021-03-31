@@ -3,8 +3,10 @@ import './StashList.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../slices/userSlice';
 import { selectCurrentStash } from '../../slices/appSlice';
-import { StashItem } from '../../components/StashItem/StashItem';
+import { StashItem } from '../../components/DashSide/StashItem/StashItem';
 import { setAppInfo } from '../../slices/appSlice';
+import StashListHeader from '../../components/DashSide/StashListHeader/StashListHeader';
+import StashCreateWindow from '../../components/DashSide/StashCreateWindow/StashCreateWindow';
 export interface StashListProps {}
 
 const StashList: React.FC<StashListProps> = () => {
@@ -12,6 +14,7 @@ const StashList: React.FC<StashListProps> = () => {
 	const user = useSelector(selectUser);
 	const currentStash = useSelector(selectCurrentStash);
 	const [stashItems, setStashItems] = useState([]);
+	const [openStashCreateWindow, setOpenStashCreateWindow] = useState(false);
 
 	useEffect(() => {
 		const uid = user.userInfo._id;
@@ -53,10 +56,18 @@ const StashList: React.FC<StashListProps> = () => {
 		);
 	};
 
+	const handleCloseCreateStashWindow = () => {
+		setOpenStashCreateWindow(false);
+	};
+
+	const handleCreateStashWindow = () => {
+		setOpenStashCreateWindow(true);
+	};
+
 	return (
 		<div className="stashList-container">
 			<div className="stashList">
-				<h4 className="stashList-title">My Stash</h4>
+				<StashListHeader createStash={handleCreateStashWindow} />
 				<ul className="stashList-list">
 					{stashItems.length ? (
 						stashItems.map((item) => {
@@ -76,6 +87,11 @@ const StashList: React.FC<StashListProps> = () => {
 						<div>your stash is currently empty</div>
 					)}
 				</ul>
+			</div>
+			<div>
+				{openStashCreateWindow === true ? (
+					<StashCreateWindow closeCreate={handleCloseCreateStashWindow} />
+				) : null}
 			</div>
 		</div>
 	);
