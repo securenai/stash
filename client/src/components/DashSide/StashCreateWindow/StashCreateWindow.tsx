@@ -19,8 +19,9 @@ import {
 	ChnDelBtn
 } from './style.js';
 
-const ChannelCreate = ({ closeCreate }) => {
-	const [channelName, setChannelName] = useState('');
+const StashCreateWindow = ({ closeCreate, createStash }) => {
+	const [stashName, setStashName] = useState('');
+	const [stashType, setStashType] = useState('Text');
 
 	return (
 		<Dialog
@@ -43,12 +44,17 @@ const ChannelCreate = ({ closeCreate }) => {
 								autoFocus
 								type="text"
 								maxLength="999"
-								value={channelName}
+								value={stashName}
 								onChange={(e) => {
-									setChannelName(e.target.value);
+									setStashName(e.target.value);
 								}}
 							/>
 						</ChnCreateInput>
+						<select onChange={(e) => setStashType(e.target.value)}>
+							<option>Text</option>
+							<option>Code</option>
+							<option>Images</option>
+						</select>
 					</ChnDelDialogPromptQues>
 				</DialogContent>
 
@@ -57,7 +63,10 @@ const ChannelCreate = ({ closeCreate }) => {
 						<Button onClick={closeCreate} color="primary">
 							<ChnDelBtn>Cancel</ChnDelBtn>
 						</Button>
-						<Button color="primary" autoFocus>
+						<Button
+							onClick={() => createStash(stashName, stashType)}
+							color="primary"
+							autoFocus>
 							<ChnDelBtn>Create</ChnDelBtn>
 						</Button>
 					</DialogActions>
@@ -67,4 +76,4 @@ const ChannelCreate = ({ closeCreate }) => {
 	);
 };
 
-export default ChannelCreate;
+export default StashCreateWindow;

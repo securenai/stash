@@ -28,7 +28,7 @@ const StashList: React.FC<StashListProps> = () => {
 				'Content-Type': 'application/json'
 			})
 		};
-		fetch('http://localhost:5000/api/userInventory', options)
+		fetch('http://localhost:5000/api/userInventory/query', options)
 			.then(checkStatus)
 			.then((res) => {
 				// console.log(res.json());
@@ -64,6 +64,29 @@ const StashList: React.FC<StashListProps> = () => {
 		setOpenStashCreateWindow(true);
 	};
 
+	const handleCreateStash = (stashName: string, stashType: string) => {
+		const options = {
+			method: 'POST',
+			body: JSON.stringify({
+				name: stashName,
+				type: stashType,
+				owner: user.userInfo._id
+			}), // data can be `string` or {object}!
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		};
+		fetch('http://localhost:5000/api/userInventory/create', options)
+			.then(checkStatus)
+			.then((res) => {
+				// console.log(res.json());
+				return res.json();
+			});
+		// .then((arr) => {
+		// 	if (arr.length !== 0) setStashItems(arr.stashes);
+		// });
+	};
+
 	return (
 		<div className="stashList-container">
 			<div className="stashList">
@@ -90,7 +113,10 @@ const StashList: React.FC<StashListProps> = () => {
 			</div>
 			<div>
 				{openStashCreateWindow === true ? (
-					<StashCreateWindow closeCreate={handleCloseCreateStashWindow} />
+					<StashCreateWindow
+						closeCreate={handleCloseCreateStashWindow}
+						createStash={handleCreateStash}
+					/>
 				) : null}
 			</div>
 		</div>
