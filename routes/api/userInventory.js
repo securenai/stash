@@ -16,7 +16,15 @@ router.post('/query', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
+	UserInventory.create(req.body).then((result,err) => {
+		console.log('123');
+		if (result) {
+			res.send(result);
+		  } else {
+			res.send(err);
+		  }
+	})
 });
 
 module.exports = router;

@@ -23,6 +23,12 @@ const StashCreateWindow = ({ closeCreate, createStash }) => {
 	const [stashName, setStashName] = useState('');
 	const [stashType, setStashType] = useState('Text');
 
+	const handleCreateStash = () => {
+		closeCreate()
+		const stashId = stashName + new Date().toLocaleString()
+		createStash(stashName, stashType, stashId)
+	}
+
 	return (
 		<Dialog
 			open={true}
@@ -51,9 +57,9 @@ const StashCreateWindow = ({ closeCreate, createStash }) => {
 							/>
 						</ChnCreateInput>
 						<select onChange={(e) => setStashType(e.target.value)}>
-							<option>Text</option>
-							<option>Code</option>
-							<option>Images</option>
+							<option>text</option>
+							<option>code</option>
+							<option>image</option>
 						</select>
 					</ChnDelDialogPromptQues>
 				</DialogContent>
@@ -64,7 +70,7 @@ const StashCreateWindow = ({ closeCreate, createStash }) => {
 							<ChnDelBtn>Cancel</ChnDelBtn>
 						</Button>
 						<Button
-							onClick={() => createStash(stashName, stashType)}
+							onClick={handleCreateStash}
 							color="primary"
 							autoFocus>
 							<ChnDelBtn>Create</ChnDelBtn>

@@ -10,13 +10,13 @@ export interface ImageStashProps {
 		name: string;
 	};
 	uploadImage: (data, fileName) => void;
-	imageIds: string[];
+	imageFiles: {public_id:string,bytes:number,fileName:string,format:string}[];
 }
 
 const ImageStash: React.FC<ImageStashProps> = ({
 	currentStash,
 	uploadImage,
-	imageIds
+	imageFiles
 }) => {
 	return (
 		<div className="image-stash-wrapper">
@@ -25,7 +25,7 @@ const ImageStash: React.FC<ImageStashProps> = ({
 					stashName={currentStash.name}
 					uploadImage={uploadImage}
 				/>
-				<ImageStashBody imageIds={imageIds} />
+				<ImageStashBody imageFiles={imageFiles} />
 			</div>
 		</div>
 	);

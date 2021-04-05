@@ -20,7 +20,7 @@ const StashList: React.FC<StashListProps> = () => {
 		const uid = user.userInfo._id;
 		console.log(uid);
 		const data = { uid };
-		console.log(JSON.stringify(data));
+		// console.log(JSON.stringify(data));
 		const options = {
 			method: 'POST',
 			body: JSON.stringify(data), // data can be `string` or {object}!
@@ -37,9 +37,10 @@ const StashList: React.FC<StashListProps> = () => {
 			.then((arr) => {
 				if (arr.length !== 0) setStashItems(arr.stashes);
 			});
-	}, []);
+	}, [currentStash]);
 
 	const checkStatus = (response) => {
+		console.log('chk')
 		if (response.ok) {
 			return Promise.resolve(response);
 		} else {
@@ -64,13 +65,22 @@ const StashList: React.FC<StashListProps> = () => {
 		setOpenStashCreateWindow(true);
 	};
 
-	const handleCreateStash = (stashName: string, stashType: string) => {
+	// const setToCurrentStash = () => {
+	// 	dispatch(
+	// 		setAppInfo({
+	// 			currentStash: { id:, type, name }
+	// 		})
+	// 	);
+	// };
+
+	const handleCreateStash = (stashName: string, stashType: string, stashId: string) => {
 		const options = {
 			method: 'POST',
 			body: JSON.stringify({
 				name: stashName,
 				type: stashType,
-				owner: user.userInfo._id
+				owner: user.userInfo._id,
+				stashId: stashId
 			}), // data can be `string` or {object}!
 			headers: new Headers({
 				'Content-Type': 'application/json'
@@ -81,10 +91,13 @@ const StashList: React.FC<StashListProps> = () => {
 			.then((res) => {
 				// console.log(res.json());
 				return res.json();
-			});
-		// .then((arr) => {
-		// 	if (arr.length !== 0) setStashItems(arr.stashes);
-		// });
+			}).then((newStash) => {
+			dispatch(
+				setAppInfo({
+					currentStash: { id:newStash._id, name:newStash.name, type:newStash.type}
+				})
+			);
+		});
 	};
 
 	return (

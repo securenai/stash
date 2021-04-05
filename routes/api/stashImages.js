@@ -15,10 +15,10 @@ router.post('/query', async (req, res) => {
 			.sort_by('public_id', 'desc')
 			.max_results(50)
 			.execute();
-		const publicIds = resources.map((file) => {
-			return file.public_id;
+		const files = resources.map((file) => {
+			return {public_id:file.public_id,bytes:file.bytes,fileName:file.filename,format:file.format};
 		});
-		res.send(publicIds);
+		res.send(files);
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ err: 'something went wrong2' });

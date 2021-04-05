@@ -11,33 +11,19 @@ export interface ImageStashContainerProps {}
 const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	const currStash = useSelector(selectCurrentStash);
 	const user = useSelector(selectUser);
-	const [imageIds, setImageIds] = useState([]);
+	// const [fileCount, setFileCount] = useState(0);
+	const [imageFiles, setImageFiles] = useState([]);
 	const [startUpload, setStartUpload] = useState(false)
 	const [uploadComplete, setUploadComplete] = useState(false)
 
 	useEffect(() => {
-		const folderName = `stash/imageStash/${user.userInfo._id}/${currStash.id}`;
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({ folderName }), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
-		};
-		fetch('http://localhost:5000/api/stashImages/query', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((result) => {
-				console.log(result);
-				setImageIds(result);
-			});
-	}, []);
+		console.log('load images')
+		queryFiles();
+	}, [currStash]);
 
 	const uploadImage = (data: File, fileName: string) => {
 		setStartUpload(true)
+		setUploadComplete(false)
 		console.log('dddlololol');
 		const saveTo = `stash/imageStash/${user.userInfo._id}/${currStash.id}/${fileName}`;
 		const options = {
@@ -63,19 +49,36 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 				if(result.msg === 'file uploaded') {
 					setUploadComplete(true)
 					setStartUpload(false)
+					setTimeout(() => {
+						queryFiles();
+					}, 1000);
+					
 				}
 			});
 	};
 
-	// const loadImages = async () => {
-	//     try {
-	//         const res = await fetch('http://localhost:5000/api/stashImages/load')
-	// 		const data = await res.json();
-	// 		setImageIds(data)
-	//     } catch (error) {
-	//         console.log(error)
-	//     }
-	// }
+	const queryFiles =()=> {
+		console.log('loadddddd')
+	    const folderName = `stash/imageStash/${user.userInfo._id}/${currStash.id}`;
+		const options = {
+			method: 'POST',
+			body: JSON.stringify({ folderName }), // data can be `string` or {object}!
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		};
+		fetch('http://localhost:5000/api/stashImages/query', options)
+			.then(checkStatus)
+			.then((res) => {
+				// console.log(res.json());
+				return res.json();
+			})
+			.then((result) => {
+				console.log(result);
+				console.log('settt');
+				setImageFiles(result);
+			});
+	}
 
 	const checkStatus = (response) => {
 		if (response.ok) {
@@ -91,7 +94,7 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 			<ImageStash
 			currentStash={currStash}
 			uploadImage={(data, fileName) => uploadImage(data, fileName)}
-			imageIds={imageIds}
+			imageFiles={imageFiles}
 		/>
 		</div>
 		
