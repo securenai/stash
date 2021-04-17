@@ -1,11 +1,14 @@
 .stash-item {
 	list-style: none;
-	background-color: rgb(43, 60, 78);
-	border: 1px solid rgb(245, 240, 216);
+	background-color: rgb(34, 31, 31);
+	/* border: 1px solid rgb(245, 240, 216); */
+	border-radius: 3px;
 	cursor: pointer;
 	margin: 5px;
 	padding: 5px;
 	font-weight: 600;
+	width: 90%;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .stash-item:hover {
 	background-color: rgb(67, 93, 121);

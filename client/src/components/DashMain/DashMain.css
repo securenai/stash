@@ -1,4 +1,6 @@
 .dashmain-body {
-  height: 100vh;
-  width: 100%;
+	height: 100vh;
+	width: 100%;
+	/* background-color: rgb(43, 42, 49); */
+	background-color: rgb(49, 50, 56);
 }

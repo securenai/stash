@@ -1,8 +1,9 @@
 .dashside-body {
-	height: 100vh;
-	width: 15%;
+	/* height: 100vh; */
+	width: 20%;
 	min-width: 200px;
 	border-right: 1px solid rgb(83, 78, 78);
 	font-family: 'Courier New', Courier, monospace;
 	color: antiquewhite;
+	background-color: rgb(49, 50, 56);
 }

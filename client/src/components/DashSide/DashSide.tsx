@@ -1,5 +1,5 @@
 import React from 'react';
-import StashList from '../../containers/StashList/StashList';
+import StashListContainer from '../../containers/StashList/StashListContainer';
 import './DashSide.css';
 import { DashSideTop } from './DashSideTop/DashSideTop';
 
@@ -18,7 +18,7 @@ const DashSide: React.FC<DashSideProps> = ({ user }) => {
 	return (
 		<div className="dashside-body">
 			<DashSideTop userName={user.userInfo.name} />
-			<StashList />
+			<StashListContainer />
 		</div>
 	);
 };

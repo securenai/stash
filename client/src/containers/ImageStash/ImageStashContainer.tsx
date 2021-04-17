@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ImageStash from '../../components/DashMain/ImageStash/ImageStash';
+import ImageStash from '../../components/DashMain/ImageCategory/ImageStash/ImageStash';
 import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { selectUser } from '../../slices/userSlice';

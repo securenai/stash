@@ -37,7 +37,7 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 
 	return (
 		<div className="image-stash-header">
-			<div>{stashName}</div>
+			<div>hello!!! - {stashName}</div>
 			<div>
 				<input type="file" name="image" onChange={handleFileSelected} />
 				{showUplaodBtn === true ? (

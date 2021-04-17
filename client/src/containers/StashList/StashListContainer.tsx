@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './StashList.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../slices/userSlice';
 import { selectCurrentStash } from '../../slices/appSlice';
@@ -7,9 +6,10 @@ import { StashItem } from '../../components/DashSide/StashItem/StashItem';
 import { setAppInfo } from '../../slices/appSlice';
 import StashListHeader from '../../components/DashSide/StashListHeader/StashListHeader';
 import StashCreateWindow from '../../components/DashSide/StashCreateWindow/StashCreateWindow';
+import StashList from '../../components/DashSide/StashList/StashList';
 export interface StashListProps {}
 
-const StashList: React.FC<StashListProps> = () => {
+const StashListContainer: React.FC<StashListProps> = () => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const currentStash = useSelector(selectCurrentStash);
@@ -40,7 +40,7 @@ const StashList: React.FC<StashListProps> = () => {
 	}, [currentStash]);
 
 	const checkStatus = (response) => {
-		console.log('chk')
+		console.log('chk');
 		if (response.ok) {
 			return Promise.resolve(response);
 		} else {
@@ -48,7 +48,7 @@ const StashList: React.FC<StashListProps> = () => {
 		}
 	};
 
-	const handleItemClick = (id, type, name) => {
+	const handleItemClick = (id: string, type: string, name: string) => {
 		localStorage.setItem('currentStash', JSON.stringify({ id, type, name }));
 		dispatch(
 			setAppInfo({
@@ -73,7 +73,11 @@ const StashList: React.FC<StashListProps> = () => {
 	// 	);
 	// };
 
-	const handleCreateStash = (stashName: string, stashType: string, stashId: string) => {
+	const handleCreateStash = (
+		stashName: string,
+		stashType: string,
+		stashId: string
+	) => {
 		const options = {
 			method: 'POST',
 			body: JSON.stringify({
@@ -91,38 +95,29 @@ const StashList: React.FC<StashListProps> = () => {
 			.then((res) => {
 				// console.log(res.json());
 				return res.json();
-			}).then((newStash) => {
-			dispatch(
-				setAppInfo({
-					currentStash: { id:newStash._id, name:newStash.name, type:newStash.type}
-				})
-			);
-		});
+			})
+			.then((newStash) => {
+				dispatch(
+					setAppInfo({
+						currentStash: {
+							id: newStash._id,
+							name: newStash.name,
+							type: newStash.type
+						}
+					})
+				);
+			});
 	};
 
 	return (
 		<div className="stashList-container">
-			<div className="stashList">
+			<div>
 				<StashListHeader createStash={handleCreateStashWindow} />
-				<ul className="stashList-list">
-					{stashItems.length ? (
-						stashItems.map((item) => {
-							const isCurr = item._id === currentStash.id;
-							return (
-								<StashItem
-									itemId={item._id}
-									itemName={item.name}
-									itemType={item.type}
-									onItemClick={handleItemClick}
-									isCurr={isCurr}
-									key={item.name}
-								/>
-							);
-						})
-					) : (
-						<div>your stash is currently empty</div>
-					)}
-				</ul>
+				<StashList
+					stashItems={stashItems}
+					currentStash={currentStash}
+					itemClick={handleItemClick}
+				/>
 			</div>
 			<div>
 				{openStashCreateWindow === true ? (
@@ -136,4 +131,4 @@ const StashList: React.FC<StashListProps> = () => {
 	);
 };
 
-export default StashList;
+export default StashListContainer;
