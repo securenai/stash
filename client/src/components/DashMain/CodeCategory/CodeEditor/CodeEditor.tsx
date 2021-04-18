@@ -5,6 +5,7 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css'; //Example style, you can use another
 import './CodeEditor.css';
+import { TiPencil } from 'react-icons/ti';
 
 export interface CodeEditorProps {
 	codeStash: {
@@ -25,18 +26,36 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 	deleteCode
 }) => {
 	const [code, setCode] = React.useState('');
+	const [topic, setTopic] = React.useState('');
+	const [enableTopicEdit, setEnableTopicEdit] = React.useState(false);
 
 	useEffect(() => {
-		console.log(codeStash.content);
-		// const kkk = codeStash.content.replace(/ /g, '\n')
-		// console.log(kkk)
+		setTopic(codeStash.topic);
 		setCode(codeStash.content);
 	}, []);
 
 	return (
 		<div className="code-editor-frame">
 			<div className="code-editor-header">
-				<span className="code-editor-title">{codeStash.topic}</span>
+				<span className="code-editor-title">
+					{enableTopicEdit === true ? (
+						<input
+							autoFocus
+							className="code-editor-title-input"
+							value={topic}
+							onChange={(e) => {
+								setTopic(e.target.value);
+							}}
+						/>
+					) : (
+						<span className="code-editor-title-plain">{topic}</span>
+					)}
+				</span>
+				<span
+					className="code-editor-edit-icon"
+					onClick={() => setEnableTopicEdit(!enableTopicEdit)}>
+					<TiPencil />
+				</span>
 			</div>
 			<div className="code-editor">
 				<Editor
@@ -54,7 +73,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 			<div className="code-editor-controls">
 				<div
 					className="code-editor-save"
-					onClick={() => saveCode(codeStash._id, codeStash.topic, code)}>
+					onClick={() => {
+						saveCode(codeStash._id, topic, code);
+						setEnableTopicEdit(false);
+					}}>
 					save
 				</div>
 				<div

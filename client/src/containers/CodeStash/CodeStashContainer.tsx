@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { selectUser } from '../../slices/userSlice';
 import { useSelector } from 'react-redux';
+import { selectCurrentStash } from '../../slices/appSlice';
 import CodeStash from '../../components/DashMain/CodeCategory/CodeStash/CodeStash';
 
 export interface CodeStashContainerProps {}
 
 const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 	const user = useSelector(selectUser);
+	const currStash = useSelector(selectCurrentStash);
 	const [codeList, setCodeList] = useState([]);
 
 	useEffect(() => {
@@ -37,6 +39,7 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 	};
 
 	const handleSaveCode = (id: string, topic: string, code: string) => {
+		console.log(topic);
 		const options = {
 			method: 'POST',
 			body: JSON.stringify({
@@ -99,6 +102,7 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 
 	return (
 		<CodeStash
+			currentStash={currStash}
 			codeList={codeList}
 			saveCode={handleSaveCode}
 			deleteCode={handleDeleteCode}

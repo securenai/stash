@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 // import { Button } from '../../Button/Button';
-import './ImageStashHeader.css';
-
+// import './ImageStashHeader.css';
 
 export interface ImageStashHeaderProps {
-	stashName: string;
 	uploadImage: (data: File, name: string) => void;
 }
 
-const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
-	stashName,
-	uploadImage
-}) => {
+const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({ uploadImage }) => {
 	const [imageSrc, setImageSrc] = useState(null);
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [showUplaodBtn, setShowUplaodBtn] = useState(false);
@@ -36,14 +31,11 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 	};
 
 	return (
-		<div className="image-stash-header">
-			<div>hello!!! - {stashName}</div>
-			<div>
-				<input type="file" name="image" onChange={handleFileSelected} />
-				{showUplaodBtn === true ? (
-					<button onClick={handleSubmitFile}>upload</button>
-				) : null}
-			</div>
+		<div>
+			<input type="file" name="image" onChange={handleFileSelected} />
+			{showUplaodBtn === true ? (
+				<button onClick={handleSubmitFile}>upload</button>
+			) : null}
 		</div>
 	);
 };

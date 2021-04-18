@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { selectUser } from '../../slices/userSlice';
 import fetchProgress from 'fetch-progress';
-import Processing from '../../components/Processing/Processing'
+import Processing from '../../components/Processing/Processing';
 
 export interface ImageStashContainerProps {}
 
@@ -13,17 +13,17 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	const user = useSelector(selectUser);
 	// const [fileCount, setFileCount] = useState(0);
 	const [imageFiles, setImageFiles] = useState([]);
-	const [startUpload, setStartUpload] = useState(false)
-	const [uploadComplete, setUploadComplete] = useState(false)
+	const [startUpload, setStartUpload] = useState(false);
+	const [uploadComplete, setUploadComplete] = useState(false);
 
 	useEffect(() => {
-		console.log('load images')
+		console.log('load images');
 		queryFiles();
 	}, [currStash]);
 
 	const uploadImage = (data: File, fileName: string) => {
-		setStartUpload(true)
-		setUploadComplete(false)
+		setStartUpload(true);
+		setUploadComplete(false);
 		console.log('dddlololol');
 		const saveTo = `stash/imageStash/${user.userInfo._id}/${currStash.id}/${fileName}`;
 		const options = {
@@ -35,31 +35,32 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		};
 		fetch('http://localhost:5000/api/stashImages/upload', options)
 			.then(checkStatus)
-			.then(fetchProgress({
-				// implement onProgress method
-				onProgress(progress) {
-				  console.log({ progress });
-				},
-			  }))
+			.then(
+				fetchProgress({
+					// implement onProgress method
+					onProgress(progress) {
+						console.log({ progress });
+					}
+				})
+			)
 			.then((res) => {
 				return res.json();
 			})
 			.then((result) => {
 				console.log(result.msg);
-				if(result.msg === 'file uploaded') {
-					setUploadComplete(true)
-					setStartUpload(false)
+				if (result.msg === 'file uploaded') {
+					setUploadComplete(true);
+					setStartUpload(false);
 					setTimeout(() => {
 						queryFiles();
 					}, 1000);
-					
 				}
 			});
 	};
 
-	const queryFiles =()=> {
-		console.log('loadddddd')
-	    const folderName = `stash/imageStash/${user.userInfo._id}/${currStash.id}`;
+	const queryFiles = () => {
+		console.log('loadddddd');
+		const folderName = `stash/imageStash/${user.userInfo._id}/${currStash.id}`;
 		const options = {
 			method: 'POST',
 			body: JSON.stringify({ folderName }), // data can be `string` or {object}!
@@ -78,7 +79,7 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 				console.log('settt');
 				setImageFiles(result);
 			});
-	}
+	};
 
 	const checkStatus = (response) => {
 		if (response.ok) {
@@ -92,12 +93,11 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		<div>
 			{uploadComplete === false && startUpload === true ? <Processing /> : null}
 			<ImageStash
-			currentStash={currStash}
-			uploadImage={(data, fileName) => uploadImage(data, fileName)}
-			imageFiles={imageFiles}
-		/>
+				currentStash={currStash}
+				uploadImage={(data, fileName) => uploadImage(data, fileName)}
+				imageFiles={imageFiles}
+			/>
 		</div>
-		
 	);
 };
 
