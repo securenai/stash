@@ -1,0 +1,44 @@
+.crud-button {
+	font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	// font-weight: 700;
+	border: 0;
+	border-radius: 3px;
+	cursor: pointer;
+	display: inline-block;
+	// line-height: 1;
+	font-family: monospace;
+	color: white;
+	margin: 5px;
+	width: 100px;
+}
+.crud-button--create {
+	color: white;
+	background-color: #1ea7fd;
+}
+.crud-button--save {
+	background-color: rgb(58, 73, 58);
+	&:hover {
+		background-color: rgb(74, 102, 74);
+	}
+}
+.crud-button--delete {
+	background-color: rgb(151, 80, 80);
+	&:hover {
+		background-color: rgb(240, 93, 112);
+	}
+}
+.crud-button--small {
+	font-size: 12px;
+	padding: 5px 16px;
+}
+.crud-button--medium {
+	font-size: 14px;
+	padding: 6px 20px;
+}
+.crud-button--large {
+	font-size: 16px;
+	padding: 7px 24px;
+}
+.crud-icon {
+	margin-left: 5px;
+}

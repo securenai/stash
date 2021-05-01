@@ -6,6 +6,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css'; //Example style, you can use another
 import './CodeEditor.scss';
 import { TiPencil } from 'react-icons/ti';
+import { CrudButton } from '../../../Widgets/Button/CrudButtons/CrudButton';
 
 export interface CodeEditorProps {
 	codeStash: {
@@ -66,24 +67,25 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 					style={{
 						fontFamily: '"Fira code", "Fira Mono", monospace',
 						fontSize: 13
-						//whiteSpace: 'pre'
 					}}
 				/>
 			</div>
 			<div className="codeEditor__controls">
-				<div
-					className="code-editor-save"
+				<CrudButton
+					size="small"
+					label="SAVE"
+					crudType="save"
 					onClick={() => {
 						saveCode(codeStash._id, topic, code);
 						setEnableTopicEdit(false);
-					}}>
-					save
-				</div>
-				<div
-					className="code-editor-del"
-					onClick={() => deleteCode(codeStash._id)}>
-					delete
-				</div>
+					}}
+				/>
+				<CrudButton
+					size="small"
+					label="DELETE"
+					crudType="delete"
+					onClick={() => deleteCode(codeStash._id)}
+				/>
 			</div>
 		</div>
 	);

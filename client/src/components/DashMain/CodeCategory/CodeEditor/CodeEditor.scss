@@ -19,10 +19,12 @@
 	display: flex;
 }
 .codeEditor__title {
+	width: 100%;
 	padding: 5px;
 	flex-grow: 1;
 }
 .codeEditor__title--editing {
+	width: 100%;
 	color: rgb(253, 60, 53);
 }
 .codeEditor__editIcon {
@@ -45,32 +47,6 @@
 }
 .codeEditor__controls {
 	@include flexy($dir: row-reverse);
-	padding: 0 5px 5px 0px;
-}
-
-// ---------------------------------------- btn
-
-.code-editor-save {
-	color: #fafafa;
-	background-color: rgb(58, 73, 58);
-	padding: 5px;
-	cursor: pointer;
-	border-radius: 3px;
-	font-family: monospace;
-	margin: 3px;
-}
-.code-editor-del:hover {
-	background-color: rgb(240, 93, 112);
-}
-.code-editor-del {
-	color: #fafafa;
-	background-color: rgb(151, 80, 80);
-	padding: 5px;
-	cursor: pointer;
-	border-radius: 3px;
-	font-family: monospace;
-	margin: 3px;
-}
-.code-editor-save:hover {
-	background-color: rgb(74, 102, 74);
+	width: 98%;
+	padding: 0 10px 5px 0px;
 }
