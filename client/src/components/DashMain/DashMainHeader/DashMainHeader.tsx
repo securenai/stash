@@ -1,7 +1,7 @@
 import React from 'react';
 import CodeStashHeader from '../CodeCategory/CodeStashHeader/CodeStashHeader';
 import ImageStashHeader from '../ImageCategory/ImageStashHeader/ImageStashHeader';
-import './DashMainHeader.css';
+import './DashMainHeader.scss';
 
 export interface DashMainHeaderProps {
 	stashType: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './UserInfo.css';
+import './UserInfo.scss';
 import styled from 'styled-components';
 
 export interface UserInfoProps {

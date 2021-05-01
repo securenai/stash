@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './assets/stash_logo.png';
 import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
-import './Header.css';
+import './Header.scss';
 import styled from 'styled-components';
 import { NavBar } from '../NavBar/NavBar';
 

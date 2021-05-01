@@ -4,7 +4,7 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css'; //Example style, you can use another
-import './CodeEditor.css';
+import './CodeEditor.scss';
 import { TiPencil } from 'react-icons/ti';
 
 export interface CodeEditorProps {
@@ -35,29 +35,29 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 	}, []);
 
 	return (
-		<div className="code-editor-frame">
-			<div className="code-editor-header">
-				<span className="code-editor-title">
+		<div className="codeEditor">
+			<div className="codeEditor__header">
+				<span className="codeEditor__title">
 					{enableTopicEdit === true ? (
 						<input
 							autoFocus
-							className="code-editor-title-input"
+							className="codeEditor__title--editing"
 							value={topic}
 							onChange={(e) => {
 								setTopic(e.target.value);
 							}}
 						/>
 					) : (
-						<span className="code-editor-title-plain">{topic}</span>
+						<span className="codeEditor__title--text">{topic}</span>
 					)}
 				</span>
 				<span
-					className="code-editor-edit-icon"
+					className="codeEditor__editIcon"
 					onClick={() => setEnableTopicEdit(!enableTopicEdit)}>
 					<TiPencil />
 				</span>
 			</div>
-			<div className="code-editor">
+			<div className="codeEditor__codeBlock">
 				<Editor
 					value={code}
 					onValueChange={(code) => setCode(code)}
@@ -70,7 +70,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 					}}
 				/>
 			</div>
-			<div className="code-editor-controls">
+			<div className="codeEditor__controls">
 				<div
 					className="code-editor-save"
 					onClick={() => {

@@ -15,9 +15,15 @@
 }
 .item-box {
 	display: flex;
+	align-items: center;
 }
 .item-icon {
-	margin-right: 5px;
+	margin-right: 10px;
+	margin-left:  5px;
+	width: 15px;
+}
+.item-wrapper{
+	padding-bottom: 5px;
 }
 .curr-item {
 	background-color: rgb(138, 28, 61);

@@ -1,0 +1,29 @@
+// flexbox container
+@mixin flexy($dis: flex, $dir: null, $wrap: null, $just: null, $ali: null) {
+	display: $dis;
+	flex-direction: $dir;
+	flex-wrap: $wrap;
+	justify-content: $just;
+	align-items: center;
+}
+
+// rounded elements
+@mixin roundy($dim, $brdr) {
+	width: $dim;
+	height: $dim;
+	border: $brdr;
+	border-radius: 50%;
+}
+
+// scrollbar default style
+@mixin scrollStyle($col-bg: #3f4144, $col-thumb: null) {
+	&::-webkit-scrollbar {
+		width: 8px;
+		background: $col-bg;
+		border-radius: 10px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: $col-thumb;
+		border-radius: 10px;
+	}
+}

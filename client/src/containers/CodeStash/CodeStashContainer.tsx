@@ -3,6 +3,7 @@ import { selectUser } from '../../slices/userSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import CodeStash from '../../components/DashMain/CodeCategory/CodeStash/CodeStash';
+import DashMainHeader from '../../components/DashMain/DashMainHeader/DashMainHeader';
 
 export interface CodeStashContainerProps {}
 
@@ -101,12 +102,14 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 	};
 
 	return (
-		<CodeStash
-			currentStash={currStash}
-			codeList={codeList}
-			saveCode={handleSaveCode}
-			deleteCode={handleDeleteCode}
-		/>
+		<div>
+			<DashMainHeader stashType={currStash.type} stashName={currStash.name} />
+			<CodeStash
+				codeList={codeList}
+				saveCode={handleSaveCode}
+				deleteCode={handleDeleteCode}
+			/>
+		</div>
 	);
 };
 

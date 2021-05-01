@@ -1,0 +1,10 @@
+@import '../../../styles/stash-theme';
+
+.dash-main-header {
+	display: flex;
+	justify-content: space-between;
+	height: 60px;
+	background-color: $stash-theme-color-secondary;
+	border-bottom: $stash-theme-border-color-primary;
+	padding: 20px 20px 0px 20px;
+}

@@ -21,7 +21,7 @@ import {
 
 const StashCreateWindow = ({ closeCreate, createStash }) => {
 	const [stashName, setStashName] = useState('');
-	const [stashType, setStashType] = useState('Text');
+	const [stashType, setStashType] = useState('');
 
 	const handleCreateStash = () => {
 		closeCreate()

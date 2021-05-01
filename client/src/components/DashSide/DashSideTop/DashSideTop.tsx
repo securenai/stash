@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './DashSideTop.css';
+import './DashSideTop.scss';
 import avatar from './assets/avatar.png';
 import UserInfoContainer from '../../../containers/UserInfo/UserInfoContainer';
 

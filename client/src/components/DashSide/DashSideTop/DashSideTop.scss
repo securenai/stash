@@ -1,19 +1,15 @@
+@import '../../../styles/utils/layout-mixins';
+
 .dashsidetop-container {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
+	@include flexy($dir: column, $just: center, $ali: center);
 	padding: 20px;
 	background-color: rgb(49, 50, 56);
-	align-items: center;
 	color: antiquewhite;
 }
 .avatar {
-	height: 70px;
-	width: 70px;
-	border: 2px solid black;
-	border-radius: 90px;
+	@include roundy(70px, 2px solid black);
 	/* background-image: url('./assets/avatar.png'); */
-	background-size: 70px 70px;
+	// background-size: 70px 70px;
 	cursor: pointer;
 }
 .userName {

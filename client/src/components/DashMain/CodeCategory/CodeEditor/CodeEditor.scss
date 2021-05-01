@@ -1,0 +1,76 @@
+@import '../../../../styles/utils/layout-mixins';
+@import '../../../../styles/stash-theme';
+
+.codeEditor {
+	@include flexy($dir: column, $wrap: wrap);
+	margin: 20px;
+	min-width: 530px;
+	width: 40%;
+	background-color: #221f1f;
+}
+.codeEditor__header {
+	width: 98%;
+	font-family: monospace;
+	font-weight: 600;
+	font-size: 14px;
+	color: #fafafa;
+	padding: 5px;
+	border-bottom: $stash-theme-border-color-primary;
+	display: flex;
+}
+.codeEditor__title {
+	padding: 5px;
+	flex-grow: 1;
+}
+.codeEditor__title--editing {
+	color: rgb(253, 60, 53);
+}
+.codeEditor__editIcon {
+	align-self: center;
+	margin-right: 5px;
+	cursor: pointer;
+	padding: 3px;
+	border-radius: 3px;
+	&:hover {
+		background-color: #494545;
+	}
+}
+.codeEditor__codeBlock {
+	min-width: 500px;
+	max-height: 500px;
+	background-color: #fafafa;
+	margin: 10px;
+	overflow-y: scroll;
+	@include scrollStyle($col-bg: #e3e4e6, $col-thumb: #313030);
+}
+.codeEditor__controls {
+	@include flexy($dir: row-reverse);
+	padding: 0 5px 5px 0px;
+}
+
+// ---------------------------------------- btn
+
+.code-editor-save {
+	color: #fafafa;
+	background-color: rgb(58, 73, 58);
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 3px;
+	font-family: monospace;
+	margin: 3px;
+}
+.code-editor-del:hover {
+	background-color: rgb(240, 93, 112);
+}
+.code-editor-del {
+	color: #fafafa;
+	background-color: rgb(151, 80, 80);
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 3px;
+	font-family: monospace;
+	margin: 3px;
+}
+.code-editor-save:hover {
+	background-color: rgb(74, 102, 74);
+}

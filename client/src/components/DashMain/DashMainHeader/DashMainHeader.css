@@ -1,9 +1,0 @@
-.dash-main-header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	height: 60px;
-	background-color: #221f1f;
-	border-bottom: 1px solid rgb(110, 105, 94);
-	padding: 20px 20px 0px 20px;
-}
