@@ -5,8 +5,8 @@ import { selectCurrentStash } from '../../slices/appSlice';
 import { StashItem } from '../../components/DashSide/StashItem/StashItem';
 import { setAppInfo } from '../../slices/appSlice';
 import StashListHeader from '../../components/DashSide/StashListHeader/StashListHeader';
-import StashCreateWindow from '../../components/DashSide/StashCreateWindow/StashCreateWindow';
 import StashList from '../../components/DashSide/StashList/StashList';
+import StashCreateModal from '../../components/DashSide/StashCreateModal/StashCreateModal';
 export interface StashListProps {}
 
 const StashListContainer: React.FC<StashListProps> = () => {
@@ -121,7 +121,7 @@ const StashListContainer: React.FC<StashListProps> = () => {
 			</div>
 			<div>
 				{openStashCreateWindow === true ? (
-					<StashCreateWindow
+					<StashCreateModal
 						closeCreate={handleCloseCreateStashWindow}
 						createStash={handleCreateStash}
 					/>
