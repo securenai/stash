@@ -33,3 +33,4 @@ app.use('/api/login', require('./routes/api/login'));
 app.use('/api/userInventory', require('./routes/api/userInventory'));
 app.use('/api/stashImages', require('./routes/api/stashImages'));
 app.use('/api/codeStash', require('./routes/api/codeStash'));
+app.use('/api/avatar', require('./routes/api/avatar'));

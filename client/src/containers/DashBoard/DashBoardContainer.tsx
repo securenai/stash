@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { selectUser } from '../../slices/userSlice';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,14 @@ import DashBoard from '../../components/DashBoard/DashBoard';
 export interface DashBoardContainerProps {}
 
 const DashBoardContainer: React.FC<DashBoardContainerProps> = () => {
+	const [avatar, setAvatar] = useState('');
+
+	// useEffect(() => {
+	// 	if (localStorage.getItem('userAvatar')) {
+	// 		setAvatar(localStorage.getItem('userAvatar'));
+	// 	}
+	// }, [avatar]);
+
 	console.log('db');
 	const user = useSelector(selectUser);
 	const currentStash = useSelector(selectCurrentStash);

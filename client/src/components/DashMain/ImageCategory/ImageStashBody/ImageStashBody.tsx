@@ -3,7 +3,12 @@ import './ImageStashBody.css';
 import { Image, Transformation } from 'cloudinary-react';
 
 export interface ImageStashBodyProps {
-	imageFiles: {public_id:string,bytes:number,fileName:string,format:string}[];
+	imageFiles: {
+		public_id: string;
+		bytes: number;
+		fileName: string;
+		format: string;
+	}[];
 }
 
 const ImageStashBody: React.FC<ImageStashBodyProps> = ({ imageFiles }) => {
@@ -16,14 +21,17 @@ const ImageStashBody: React.FC<ImageStashBodyProps> = ({ imageFiles }) => {
 					return (
 						<div className="image-placeholder" key={index.toString()}>
 							<div className="cloudinary-img-placeholder">
-								<Image className="cloudinary-img"
+								<Image
+									className="cloudinary-img"
 									cloudName="dfkw9hdq3"
 									publicId={imageFile.public_id}>
 									<Transformation width="350" fetchFormat="auto" crop="scale" />
 								</Image>
 							</div>
 							<div className="img-name">{imageFile.fileName}</div>
-							<div className="img-desc">{imageFile.format} - {imageFile.bytes}bytes</div>
+							<div className="img-desc">
+								{imageFile.format} - {imageFile.bytes}bytes
+							</div>
 						</div>
 					);
 				})}

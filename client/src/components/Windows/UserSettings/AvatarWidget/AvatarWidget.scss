@@ -1,0 +1,50 @@
+@import '../../../../styles/stash-theme';
+@import '../../../../styles/utils/layout-mixins';
+
+.AvatarWidget__avatar {
+	position: relative;
+	height: 75px;
+	width: 75px;
+	cursor: pointer;
+	background-color: transparent;
+	@include flexy($wrap: wrap, $just: center);
+}
+.AvatarWidget__avatar--image {
+	@include roundy(70px, 2px solid black);
+	// background-image: url('./tmp/kasu.png');
+	background-size: 70px 70px;
+	cursor: pointer;
+	// &:hover {
+	// 	// border-radius: 0px;
+	// 	background-color: rgb(46, 43, 43, 0.3);
+	// 	opacity: 0.3;
+	// }
+}
+.AvatarWidget__avatar--hover {
+	z-index: 1;
+	@include roundy(70px, 2px solid black);
+	@include flexy($wrap: wrap, $just: center);
+	position: absolute;
+	background-size: 70px 70px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 900;
+	background-color: rgb(46, 43, 43, 0.7);
+}
+.AvatarWidget__avatar--hover--text {
+	text-align: center;
+}
+.AvatarWidget__avatar--changeIcon {
+	z-index: 2;
+	top: 0px;
+	right: 0px;
+	@include roundy(25px, null);
+	@include flexy($wrap: wrap, $just: center);
+	// background-color: rgb(190, 182, 182);
+	background-color: rgb(155, 148, 148);
+	position: absolute;
+	cursor: pointer;
+}
+.AvatarWidget__avatar--file {
+	display: none;
+}

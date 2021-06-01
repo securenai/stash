@@ -9,6 +9,7 @@ export interface DashSideProps {
 		expiresAt: number;
 		userInfo: {
 			name: string;
+			avatarUrl: string;
 		};
 		isAuthenticated: boolean;
 	};
@@ -17,7 +18,7 @@ export interface DashSideProps {
 const DashSide: React.FC<DashSideProps> = ({ user }) => {
 	return (
 		<div className="dashside-body">
-			<DashSideTop userName={user.userInfo.name} />
+			<DashSideTop userName={user.userInfo.name} avatarUrl={user.userInfo.avatarUrl}/>
 			<StashListContainer />
 		</div>
 	);

@@ -9,6 +9,7 @@ export interface DashBoardProps {
 		expiresAt: number;
 		userInfo: {
 			name: string;
+			avatarUrl: string;
 		};
 		isAuthenticated: boolean;
 	};
@@ -18,9 +19,13 @@ export interface DashBoardProps {
 	};
 }
 
-const DashBoard: React.FC<DashBoardProps> = ({ user, currentStash }) => {
+const DashBoard: React.FC<DashBoardProps> = ({
+	user,
+	currentStash,
+}) => {
 	return (
 		<div className="dashboard-container">
+			{/* <img src={avatar} /> */}
 			<DashSide user={user} />
 			<DashMain currentStash={currentStash} />
 		</div>
