@@ -10,3 +10,11 @@
 .code-stash-header-upload {
 	background-color: antiquewhite;
 } */
+.code-stash-item-add-icon{
+	font-size: 40px;
+	color: white;
+	cursor: pointer;
+}
+.code-stash-item-add-icon:hover{
+	color:rgb(159, 211, 125)
+}

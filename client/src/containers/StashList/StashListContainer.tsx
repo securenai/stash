@@ -1,52 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from '../../slices/userSlice';
+import {
+	selectUser,
+	selectUserStashList,
+	setUserStashList
+} from '../../slices/userSlice';
 import { selectCurrentStash } from '../../slices/appSlice';
-import { StashItem } from '../../components/DashSide/StashItem/StashItem';
 import { setAppInfo } from '../../slices/appSlice';
 import StashListHeader from '../../components/DashSide/StashListHeader/StashListHeader';
 import StashList from '../../components/DashSide/StashList/StashList';
 import StashCreateModal from '../../components/DashSide/StashCreateModal/StashCreateModal';
+import { fetchApi } from '../../api/fetchApi/fetchApi';
+import moment from 'moment';
 export interface StashListProps {}
 
 const StashListContainer: React.FC<StashListProps> = () => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
+	const userStashList = useSelector(selectUserStashList);
 	const currentStash = useSelector(selectCurrentStash);
-	const [stashItems, setStashItems] = useState([]);
+	// const [stashItems, setStashItems] = useState([]);
 	const [openStashCreateWindow, setOpenStashCreateWindow] = useState(false);
 
 	useEffect(() => {
-		const uid = user.userInfo._id;
-		console.log(uid);
-		const data = { uid };
-		// console.log(JSON.stringify(data));
-		const options = {
-			method: 'POST',
-			body: JSON.stringify(data), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
-		};
-		fetch('http://localhost:5000/api/userInventory/query', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((arr) => {
-				if (arr.length !== 0) setStashItems(arr.stashes);
-			});
-	}, [currentStash]);
-
-	const checkStatus = (response) => {
-		console.log('chk');
-		if (response.ok) {
-			return Promise.resolve(response);
-		} else {
-			return Promise.reject(new Error(response.statusText));
+		const data = { uid: user.userInfo._id };
+		async function fetchData() {
+			const result = await fetchApi(data, 'userInventory/query');
+			console.log(result);
+			if (result.stashes) {
+				dispatch(setUserStashList(result.stashes));
+				// setStashItems(result.stashes)
+			}
 		}
-	};
+		fetchData();
+	}, [currentStash]);
 
 	const handleItemClick = (id: string, type: string, name: string) => {
 		localStorage.setItem('currentStash', JSON.stringify({ id, type, name }));
@@ -65,48 +52,31 @@ const StashListContainer: React.FC<StashListProps> = () => {
 		setOpenStashCreateWindow(true);
 	};
 
-	// const setToCurrentStash = () => {
-	// 	dispatch(
-	// 		setAppInfo({
-	// 			currentStash: { id:, type, name }
-	// 		})
-	// 	);
-	// };
-
-	const handleCreateStash = (
+	const handleCreateStash = async (
 		stashName: string,
-		stashType: string,
-		stashId: string
+		stashType: string
+		// stashId: string
 	) => {
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({
-				name: stashName,
-				type: stashType,
-				owner: user.userInfo._id,
-				stashId: stashId
-			}), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
+		const data = {
+			name: stashName,
+			type: stashType,
+			owner: user.userInfo._id
+			// stashId: user.userInfo._id + moment().format('YYYYMMDDhhmmss')
 		};
-		fetch('http://localhost:5000/api/userInventory/create', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((newStash) => {
-				dispatch(
-					setAppInfo({
-						currentStash: {
-							id: newStash._id,
-							name: newStash.name,
-							type: newStash.type
-						}
-					})
-				);
-			});
+		const result: any = await fetchApi(data, 'userInventory/create');
+		console.log(result);
+		console.log(result.name);
+		if (result.name) {
+			dispatch(
+				setAppInfo({
+					currentStash: {
+						id: result._id,
+						name: result.name,
+						type: result.type
+					}
+				})
+			);
+		}
 	};
 
 	return (
@@ -114,7 +84,7 @@ const StashListContainer: React.FC<StashListProps> = () => {
 			<div>
 				<StashListHeader createStash={handleCreateStashWindow} />
 				<StashList
-					stashItems={stashItems}
+					stashItems={userStashList}
 					currentStash={currentStash}
 					itemClick={handleItemClick}
 				/>

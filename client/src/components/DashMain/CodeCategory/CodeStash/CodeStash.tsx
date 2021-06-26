@@ -19,19 +19,25 @@ const CodeStash: React.FC<CodeStashProps> = ({
 	codeList,
 	saveCode,
 	deleteCode
-}) => (
-	<div className="codeStash">
-		{codeList === []
-			? null
-			: codeList.map((code, index) => (
-					<CodeEditor
-						key={index.toString()}
-						codeStash={code}
-						saveCode={saveCode}
-						deleteCode={deleteCode}
-					/>
-			  ))}
-	</div>
-);
+}) => {
+	console.log(codeList);
+	return (
+		<div className="codeStash">
+			{codeList === []
+				? null
+				: codeList.map((code, index) => {
+						// console.log(code);
+						return (
+							<CodeEditor
+								key={code._id.toString()}
+								codeStash={code}
+								saveCode={saveCode}
+								deleteCode={deleteCode}
+							/>
+						);
+				  })}
+		</div>
+	);
+};
 
 export default CodeStash;

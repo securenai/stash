@@ -3,7 +3,7 @@ import ImageStash from '../../components/DashMain/ImageCategory/ImageStash/Image
 import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { selectUser } from '../../slices/userSlice';
-import fetchProgress from 'fetch-progress';
+// import fetchProgress from 'fetch-progress';
 import Processing from '../../components/Processing/Processing';
 
 export interface ImageStashContainerProps {}
@@ -35,14 +35,14 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		};
 		fetch('http://localhost:5000/api/stashImages/upload', options)
 			.then(checkStatus)
-			.then(
-				fetchProgress({
-					// implement onProgress method
-					onProgress(progress) {
-						console.log({ progress });
-					}
-				})
-			)
+			// .then(
+			// 	fetchProgress({
+			// 		// implement onProgress method
+			// 		onProgress(progress) {
+			// 			console.log({ progress });
+			// 		}
+			// 	})
+			// )
 			.then((res) => {
 				return res.json();
 			})
@@ -51,6 +51,7 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 				if (result.msg === 'file uploaded') {
 					setUploadComplete(true);
 					setStartUpload(false);
+					queryFiles();
 					setTimeout(() => {
 						queryFiles();
 					}, 1000);

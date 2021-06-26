@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import CodeStash from '../../components/DashMain/CodeCategory/CodeStash/CodeStash';
 import DashMainHeader from '../../components/DashMain/DashMainHeader/DashMainHeader';
+import { fetchApi } from '../../api/fetchApi/fetchApi';
 
 export interface CodeStashContainerProps {}
 
@@ -13,15 +14,18 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 	const [codeList, setCodeList] = useState([]);
 
 	useEffect(() => {
+		console.log(currStash);
 		queryCodeList();
-	}, []);
+	}, [currStash]);
 
 	const queryCodeList = () => {
 		console.log('loadddddd');
-		const owner = user.userInfo._id;
+		// const owner = user.userInfo._id;
+		const stashId = currStash.id;
+		console.log('pppppppppppppppppp', stashId);
 		const options = {
 			method: 'POST',
-			body: JSON.stringify({ owner }), // data can be `string` or {object}!
+			body: JSON.stringify({ stashId }), // data can be `string` or {object}!
 			headers: new Headers({
 				'Content-Type': 'application/json'
 			})
@@ -34,8 +38,13 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 			})
 			.then((result) => {
 				console.log(result);
-				console.log('settt');
-				setCodeList(result.codeStashList);
+				if (result.codeStashList) {
+					console.log(result);
+					console.log('settt');
+					setCodeList(result.codeStashList);
+				} else {
+					setCodeList([]);
+				}
 			});
 	};
 
@@ -65,7 +74,7 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 				console.log(result);
 				console.log('settt');
 				// setCodeList(result);
-				// queryCodeList();
+				queryCodeList();
 			});
 	};
 
@@ -93,6 +102,35 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 			});
 	};
 
+	const handleAddCode = () => {
+		const options = {
+			method: 'POST',
+			body: JSON.stringify({
+				owner: user.userInfo._id,
+				topic: 'New Code',
+				content: '// type code here',
+				createDate: '2021-04-14',
+				modifiedDate: '2021-04-14',
+				stashId: currStash.id
+			}), // data can be `string` or {object}!
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		};
+		fetch('http://localhost:5000/api/codeStash/create', options)
+			.then(checkStatus)
+			.then((res) => {
+				// console.log(res.json());
+				return res.json();
+			})
+			.then((result) => {
+				console.log(result);
+				console.log('settt');
+				setCodeList([result, ...codeList]);
+				queryCodeList();
+			});
+	};
+
 	const checkStatus = (response) => {
 		if (response.ok) {
 			return Promise.resolve(response);
@@ -103,7 +141,11 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 
 	return (
 		<div>
-			<DashMainHeader stashType={currStash.type} stashName={currStash.name} />
+			<DashMainHeader
+				stashType={currStash.type}
+				stashName={currStash.name}
+				addCodeStashItem={handleAddCode}
+			/>
 			<CodeStash
 				codeList={codeList}
 				saveCode={handleSaveCode}

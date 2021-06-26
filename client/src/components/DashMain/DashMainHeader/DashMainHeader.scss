@@ -8,3 +8,17 @@
 	border-bottom: $stash-theme-border-color-primary;
 	padding: 20px 20px 0px 20px;
 }
+.dash-main-header-title {
+	align-items: center;
+    height: 40px;
+    display: flex;
+    font-size: 20px;
+    color: white;
+}
+.dash-main-header-icon {
+	padding: 10px 10px 5px 10px;
+	font-size: 40px;
+}
+.dash-main-header-name {
+	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}

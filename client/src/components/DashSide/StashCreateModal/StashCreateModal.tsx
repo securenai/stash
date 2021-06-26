@@ -4,7 +4,7 @@ import './StashCreateModal.scss';
 
 export interface StashCreateModalProps {
 	closeCreate: () => void;
-	createStash: (stashName: string, stashType: string, stashId: string) => void;
+	createStash: (stashName: string, stashType: string) => void;
 }
 
 const StashCreateModal: React.FC<StashCreateModalProps> = ({
@@ -17,8 +17,8 @@ const StashCreateModal: React.FC<StashCreateModalProps> = ({
 	const handleCreateStash = () => {
 		if (stashName !== '') {
 			closeCreate();
-			const stashId = stashName + new Date().toLocaleString();
-			createStash(stashName, stashType, stashId);
+			// const stashId = stashName + new Date().toLocaleString();
+			createStash(stashName, stashType);
 		}
 	};
 

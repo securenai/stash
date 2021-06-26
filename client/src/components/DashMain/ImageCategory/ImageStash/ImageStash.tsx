@@ -22,7 +22,7 @@ export interface ImageStashProps {
 const ImageStash: React.FC<ImageStashProps> = ({
 	currentStash,
 	uploadImage,
-	imageFiles
+	imageFiles,
 }) => {
 	return (
 		<div className="image-stash-wrapper">

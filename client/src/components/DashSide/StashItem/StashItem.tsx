@@ -21,13 +21,13 @@ export const StashItem: React.FC<StashItemProps> = ({
 }) => {
 	const renderStashIcon = () => {
 		if (itemType === 'text') {
-		  return <BsFonts />;
+			return <BsFonts />;
 		} else if (itemType === 'image') {
-		  return <TiImage />;
+			return <TiImage />;
 		} else if (itemType === 'code') {
-		  return <TiCode />;
+			return <TiCode />;
 		}
-	  };
+	};
 
 	return (
 		<li
