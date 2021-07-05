@@ -17,14 +17,25 @@
 	display: flex;
 	align-items: center;
 }
+.curr-item-box {
+	display: flex;
+	align-items: center;
+}
 .item-icon {
 	margin-right: 10px;
-	margin-left:  5px;
+	margin-left: 5px;
 	width: 15px;
 }
-.item-wrapper{
+.item-wrapper {
+	flex-grow: 1;
 	padding-bottom: 5px;
 }
 .curr-item {
 	background-color: rgb(138, 28, 61);
+}
+.stash-item .item-box .item-edit-icon {
+	display: none;
+}
+.stash-item:hover .item-box .item-edit-icon {
+	display: block;
 }

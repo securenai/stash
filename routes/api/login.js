@@ -13,6 +13,7 @@ router.post('/', (req, res) => {
 			const decodedToken = jwtDecode(token);
 			const expiresAt = decodedToken.exp;
 			res.json({
+				success: true,
 				message: 'Authentication successful!',
 				token,
 				userInfo: data[0],

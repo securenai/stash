@@ -7,11 +7,13 @@ import {
 } from '../../slices/userSlice';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { setAppInfo } from '../../slices/appSlice';
-import StashListHeader from '../../components/DashSide/StashListHeader/StashListHeader';
-import StashList from '../../components/DashSide/StashList/StashList';
-import StashCreateModal from '../../components/DashSide/StashCreateModal/StashCreateModal';
+import StashListHeader from '../../components/DashSide/DashSideMiddle/StashListHeader/StashListHeader';
+import StashList from '../../components/DashSide/DashSideMiddle/StashList/StashList';
+import StashCreateModal from '../../components/DashSide/DashSideMiddle/StashCreateModal/StashCreateModal';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
 import moment from 'moment';
+import _ from 'lodash';
+
 export interface StashListProps {}
 
 const StashListContainer: React.FC<StashListProps> = () => {
@@ -21,6 +23,7 @@ const StashListContainer: React.FC<StashListProps> = () => {
 	const currentStash = useSelector(selectCurrentStash);
 	// const [stashItems, setStashItems] = useState([]);
 	const [openStashCreateWindow, setOpenStashCreateWindow] = useState(false);
+	const [filteredStashList, setFilteredStashList] = useState([]);
 
 	useEffect(() => {
 		const data = { uid: user.userInfo._id };
@@ -29,11 +32,11 @@ const StashListContainer: React.FC<StashListProps> = () => {
 			console.log(result);
 			if (result.stashes) {
 				dispatch(setUserStashList(result.stashes));
-				// setStashItems(result.stashes)
+				setFilteredStashList(result.stashes);
 			}
 		}
 		fetchData();
-	}, [currentStash]);
+	}, []);
 
 	const handleItemClick = (id: string, type: string, name: string) => {
 		localStorage.setItem('currentStash', JSON.stringify({ id, type, name }));
@@ -63,10 +66,12 @@ const StashListContainer: React.FC<StashListProps> = () => {
 			owner: user.userInfo._id
 			// stashId: user.userInfo._id + moment().format('YYYYMMDDhhmmss')
 		};
-		const result: any = await fetchApi(data, 'userInventory/create');
+		const result = await fetchApi(data, 'userInventory/create');
 		console.log(result);
 		console.log(result.name);
 		if (result.name) {
+			setFilteredStashList([...filteredStashList, result]);
+			dispatch(setUserStashList([...userStashList, result]));
 			dispatch(
 				setAppInfo({
 					currentStash: {
@@ -79,12 +84,22 @@ const StashListContainer: React.FC<StashListProps> = () => {
 		}
 	};
 
+	const handleOnInputChange = (val: string) => {
+		const filterList = _.filter(userStashList, (item) => {
+			return _.startsWith(item.name, val);
+		});
+		setFilteredStashList(filterList);
+	};
+
 	return (
 		<div className="stashList-container">
 			<div>
-				<StashListHeader createStash={handleCreateStashWindow} />
+				<StashListHeader
+					createStash={handleCreateStashWindow}
+					onInputChange={handleOnInputChange}
+				/>
 				<StashList
-					stashItems={userStashList}
+					stashItems={filteredStashList}
 					currentStash={currentStash}
 					itemClick={handleItemClick}
 				/>

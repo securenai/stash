@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './UserInfo.scss';
 import styled from 'styled-components';
-import UserSettings from '../../../components/Windows/UserSettings/UserSettings';
+import UserSettings from '../../../Windows/UserSettings/UserSettings';
 
 export interface UserInfoProps {
 	userName: string;

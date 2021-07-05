@@ -3,7 +3,6 @@ export const fetchApi = (
 	route: string
 ): Promise<any> => {
 	return new Promise(function (resolve, reject) {
-		console.log('hellooooo');
 		const options = {
 			method: 'POST',
 			body: JSON.stringify(data), // data can be `string` or {object}!
@@ -24,7 +23,6 @@ export const fetchApi = (
 };
 
 const checkStatus = (response) => {
-	console.log('chk');
 	if (response.ok) {
 		return Promise.resolve(response);
 	} else {

@@ -1,20 +1,6 @@
-/* .code-stash-header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	height: 60px;
-	background-color: rgb(36, 36, 46);
-	border-bottom: 1px solid rgb(110, 105, 94);
-	padding: 20px 20px 0px 20px;
-}
-.code-stash-header-upload {
-	background-color: antiquewhite;
-} */
-.code-stash-item-add-icon{
+.code-stash-add-icon{
 	font-size: 40px;
-	color: white;
-	cursor: pointer;
 }
-.code-stash-item-add-icon:hover{
+.code-stash-add-icon:hover{
 	color:rgb(159, 211, 125)
 }

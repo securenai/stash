@@ -8,7 +8,7 @@
 }
 .avatar {
 	@include roundy(70px, 2px solid black);
-	background-image: url('');
+	// background-image: url('');
 	background-size: 70px 70px;
 	cursor: pointer;
 }

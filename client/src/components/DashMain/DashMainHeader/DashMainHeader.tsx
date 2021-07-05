@@ -25,7 +25,7 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 		} else if (stashType === 'image') {
 			return <ImageStashHeader uploadImage={uploadImage} />;
 		} else if (stashType === 'code') {
-			return <CodeStashHeader addCodeStashItem={addCodeStashItem}/>;
+			return <CodeStashHeader />;
 		}
 	};
 	const stashTypeIcon = () => {
@@ -44,7 +44,10 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 				<div className="dash-main-header-icon">{stashTypeIcon()}</div>
 				<div className="dash-main-header-name">{stashName}</div>
 			</div>
-			{renderStashHeaderTemplate()}
+			<div className="dash-main-header-content"></div>
+			<div className="dash-main-header-add-icon" onClick={addCodeStashItem}>
+				{renderStashHeaderTemplate()}
+			</div>
 		</div>
 	);
 };

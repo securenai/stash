@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import { Button } from '../../Button/Button';
-// import './ImageStashHeader.css';
+import { VscFileMedia } from "react-icons/vsc";
+import './ImageStashHeader.scss';
 
 export interface ImageStashHeaderProps {
 	uploadImage: (data: File, name: string) => void;
@@ -32,7 +32,10 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({ uploadImage }) => {
 
 	return (
 		<div>
-			<input type="file" name="image" onChange={handleFileSelected} />
+			<input type="file" name="image" id="actual-btn" onChange={handleFileSelected} hidden/>
+			<label className="image-upload-btn" htmlFor="actual-btn">
+				<VscFileMedia />
+			</label>	
 			{showUplaodBtn === true ? (
 				<button onClick={handleSubmitFile}>upload</button>
 			) : null}

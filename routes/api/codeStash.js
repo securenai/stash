@@ -4,9 +4,11 @@ const CodeStash = require('../../db/models/codeStash.js');
 
 router.post('/query', (req, res) => {
 	console.log('kkk');
-	const owner = req.body.owner;
-	console.log(owner);
-	CodeStash.find({ owner }).then((data) => {
+	// const owner = req.body.owner;
+	const stashId = req.body.stashId;
+	console.log(stashId);
+	CodeStash.find({ stashId }).then((data) => {
+		console.log(data);
 		if (data.length > 0) {
 			res.json({
 				codeStashList: data

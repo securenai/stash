@@ -3,17 +3,8 @@ import { AiFillPlusSquare } from 'react-icons/ai';
 import './CodeStashHeader.css';
 
 export interface CodeStashHeaderProps {
-	addCodeStashItem: () => void;
 }
 
-const CodeStashHeader: React.FC<CodeStashHeaderProps> = ({
-	addCodeStashItem
-}) => {
-	return (
-		<div className="code-stash-item-add-icon" onClick={addCodeStashItem}>
-			<AiFillPlusSquare />
-		</div>
-	);
-};
+const CodeStashHeader: React.FC<CodeStashHeaderProps> = () => <div className="code-stash-add-icon"><AiFillPlusSquare /></div>
 
 export default CodeStashHeader;

@@ -3,6 +3,9 @@ mongoose.pluralize(null);
 mongoose.set('useFindAndModify', false);
 
 const CodeStashSchema = new mongoose.Schema({
+	// _id: {
+	// 	type: mongoose.ObjectId
+	// },
 	owner: {
 		type: String
 	},
@@ -16,6 +19,9 @@ const CodeStashSchema = new mongoose.Schema({
 		type: String
 	},
 	content: {
+		type: String
+	},
+	stashId: {
 		type: String
 	}
 });

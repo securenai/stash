@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from './assets/stash_logo.png';
 import ErrorDisplay from '../../components/ErrorDisplay/ErrorDisplay';
+
 export interface LoginProps {
-	setUserName: (name) => void;
-	setUserPassword: (password) => void;
-	login: (loginInfo) => void;
+	setUserName: (name: string) => void;
+	setUserPassword: (password: string) => void;
+	login: (e) => void;
 	errMsg: string;
 }
 

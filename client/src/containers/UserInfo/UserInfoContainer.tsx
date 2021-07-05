@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { UserInfo } from '../../components/DashSide/UserInfo/UserInfo';
+import { UserInfo } from '../../components/DashSide/DashSideTop/UserInfo/UserInfo';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../slices/userSlice';
 

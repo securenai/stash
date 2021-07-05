@@ -3,6 +3,7 @@ import './StashItem.css';
 import { TiCode } from 'react-icons/ti';
 import { TiImage } from 'react-icons/ti';
 import { BsFonts } from 'react-icons/bs';
+import IconButtonEdit from '../../../../Widgets/Button/IconButtons/IconButtonEdit';
 
 export interface StashItemProps {
 	itemId: string;
@@ -35,9 +36,17 @@ export const StashItem: React.FC<StashItemProps> = ({
 			onClick={() => {
 				onItemClick(itemId, itemType, itemName);
 			}}>
-			<div className="item-box">
+			<div className={isCurr === true ? 'curr-item-box' : 'item-box'}>
 				<div className="item-icon">{renderStashIcon()}</div>
 				<div className="item-wrapper">{itemName}</div>
+				<div className="item-edit-icon">
+					<IconButtonEdit
+						onClick={(e) => {
+							e.stopPropagation();
+							console.log('lll');
+						}}
+					/>
+				</div>
 			</div>
 		</li>
 	);

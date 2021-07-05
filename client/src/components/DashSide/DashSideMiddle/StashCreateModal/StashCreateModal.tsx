@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { CrudButton } from '../../Widgets/Button/CrudButtons/CrudButton';
+import { CrudButton } from '../../../Widgets/Button/CrudButtons/CrudButton';
 import './StashCreateModal.scss';
 
 export interface StashCreateModalProps {
@@ -39,7 +39,7 @@ const StashCreateModal: React.FC<StashCreateModalProps> = ({
 	};
 
 	return (
-		<div id="myModal" className="modal" ref={modalOuter}>
+		<div id="createStashModal" className="modal" ref={modalOuter}>
 			<div className="modal-content">
 				<span className="close" onClick={closeCreate}>
 					&times;

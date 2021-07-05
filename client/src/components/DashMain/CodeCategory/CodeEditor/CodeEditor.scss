@@ -27,16 +27,6 @@
 	width: 100%;
 	color: rgb(253, 60, 53);
 }
-.codeEditor__editIcon {
-	align-self: center;
-	margin-right: 5px;
-	cursor: pointer;
-	padding: 3px;
-	border-radius: 3px;
-	&:hover {
-		background-color: #494545;
-	}
-}
 .codeEditor__codeBlock {
 	min-width: 500px;
 	max-height: 500px;

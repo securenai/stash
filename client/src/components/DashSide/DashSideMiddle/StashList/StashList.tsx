@@ -1,5 +1,5 @@
 import React from 'react';
-import { StashItem } from '../StashItem/StashItem';
+import { StashItem } from './StashItem/StashItem';
 import './StashList.css';
 
 export interface StashListProps {
@@ -25,12 +25,12 @@ const StashList: React.FC<StashListProps> = ({
 							itemType={item.type}
 							onItemClick={itemClick}
 							isCurr={isCurr}
-							key={item.name}
+							key={item._id}
 						/>
 					);
 				})
 			) : (
-				<div>your stash is currently empty</div>
+				<div>no stash found</div>
 			)}
 		</ul>
 	);

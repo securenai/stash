@@ -5,8 +5,8 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css'; //Example style, you can use another
 import './CodeEditor.scss';
-import { TiPencil } from 'react-icons/ti';
 import { CrudButton } from '../../../Widgets/Button/CrudButtons/CrudButton';
+import IconButtonEdit from '../../../Widgets/Button/IconButtons/IconButtonEdit';
 
 export interface CodeEditorProps {
 	codeStash: {
@@ -52,11 +52,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 						<span className="codeEditor__title--text">{topic}</span>
 					)}
 				</span>
-				<span
-					className="codeEditor__editIcon"
-					onClick={() => setEnableTopicEdit(!enableTopicEdit)}>
-					<TiPencil />
-				</span>
+				<IconButtonEdit onClick={() => setEnableTopicEdit(!enableTopicEdit)} />
 			</div>
 			<div className="codeEditor__codeBlock">
 				<Editor

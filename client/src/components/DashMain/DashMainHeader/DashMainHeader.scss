@@ -1,12 +1,12 @@
 @import '../../../styles/stash-theme';
+@import '../../../styles/utils/layout-mixins';
 
 .dash-main-header {
-	display: flex;
-	justify-content: space-between;
-	height: 60px;
+	@include flexy($just: space-between);
+	height: 40px;
 	background-color: $stash-theme-color-secondary;
 	border-bottom: $stash-theme-border-color-primary;
-	padding: 20px 20px 0px 20px;
+	padding: 20px 20px 20px 20px;
 }
 .dash-main-header-title {
 	align-items: center;
@@ -14,11 +14,22 @@
     display: flex;
     font-size: 20px;
     color: white;
+	width: 50%;
+}
+.dash-main-header-content{
+	width: 40%;
 }
 .dash-main-header-icon {
 	padding: 10px 10px 5px 10px;
-	font-size: 40px;
 }
 .dash-main-header-name {
 	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
+.dash-main-header-add-icon{
+	width: 10%;
+	color: white;
+	cursor: pointer;
+}
+// .dash-main-header-add-icon:hover{
+// 	color:rgb(159, 211, 125)
+// }
