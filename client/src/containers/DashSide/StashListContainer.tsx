@@ -104,14 +104,14 @@ const StashListContainer: React.FC<StashListProps> = () => {
 					itemClick={handleItemClick}
 				/>
 			</div>
-			<div>
+			<>
 				{openStashCreateWindow === true ? (
 					<StashCreateModal
 						closeCreate={handleCloseCreateStashWindow}
 						createStash={handleCreateStash}
 					/>
 				) : null}
-			</div>
+			</>
 		</div>
 	);
 };

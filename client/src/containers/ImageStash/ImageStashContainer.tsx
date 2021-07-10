@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { selectUser } from '../../slices/userSlice';
 // import fetchProgress from 'fetch-progress';
-import Processing from '../../components/Processing/Processing';
+import Processing from '../../components/Widgets/Processing/Processing';
 
 export interface ImageStashContainerProps {}
 

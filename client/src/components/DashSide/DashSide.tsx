@@ -1,24 +1,14 @@
 import React from 'react';
-import StashListContainer from '../../containers/StashList/StashListContainer';
+import StashListContainer from '../../containers/DashSide/StashListContainer';
+import UserProfileContainer from '../../containers/DashSide/UserProfileContainer';
 import './DashSide.css';
-import { DashSideTop } from './DashSideTop/DashSideTop';
 
-export interface DashSideProps {
-	user: {
-		token: string;
-		expiresAt: number;
-		userInfo: {
-			name: string;
-			avatarUrl: string;
-		};
-		isAuthenticated: boolean;
-	};
-}
+export interface DashSideProps {}
 
-const DashSide: React.FC<DashSideProps> = ({ user }) => {
+const DashSide: React.FC<DashSideProps> = () => {
 	return (
 		<div className="dashside-body">
-			<DashSideTop userName={user.userInfo.name} avatarUrl={user.userInfo.avatarUrl}/>
+			<UserProfileContainer />
 			<StashListContainer />
 		</div>
 	);

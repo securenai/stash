@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import styled from 'styled-components';
 
@@ -14,6 +14,7 @@ const SearchWidget = styled.div`
 	border-radius: 5px;
 	padding: 3px;
 	background: #202225;
+	border ${props => props.inputOnFocus.hasFocus ? "2px solid" : "none"};
 	& > .MuiSvgIcon-root {
 		font-size: 20px;
 	}
@@ -28,6 +29,8 @@ const SearchWidget = styled.div`
 `;
 
 const Search: React.FC<SearchProps> = ({ placeholder, onInputChange }) => {
+	// const ref = useRef();
+  	const [hasFocus, setFocus] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 
 	const handleOnChange = (val: string) => {
@@ -36,11 +39,13 @@ const Search: React.FC<SearchProps> = ({ placeholder, onInputChange }) => {
 	};
 
 	return (
-		<SearchWidget>
+		<SearchWidget inputOnFocus={{ hasFocus }}>
 			<input
 				placeholder={placeholder}
 				value={inputValue}
 				onChange={(e) => handleOnChange(e.target.value)}
+				onFocus={() => setFocus(true)}
+      			onBlur={() => setFocus(false)}
 			/>
 			<SearchRoundedIcon />
 		</SearchWidget>

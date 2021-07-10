@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../slices/userSlice';
 import { login, logout } from '../../slices/userSlice';
-import AvatarWidget from '../../components/Windows/UserSettings/AvatarWidget/AvatarWidget';
+import AvatarWidget from '../../components/Widgets/AvatarChanger/AvatarWidget';
 
 export interface AvatarWidgetContainerProps {}
 
