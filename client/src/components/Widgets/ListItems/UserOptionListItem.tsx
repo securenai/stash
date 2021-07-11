@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { RiSettings3Fill, RiLogoutBoxRLine } from 'react-icons/ri';
 
 export interface UserOptionListItemProps {
-	doTask: (task: () => void) => void;
+	doTask: (task: any) => void;
 	iconType: String;
 }
 

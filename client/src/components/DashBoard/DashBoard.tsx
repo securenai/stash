@@ -1,7 +1,14 @@
 import React from 'react';
 import DashMain from '../DashMain/DashMain';
 import DashSide from '../DashSide/DashSide';
-import './DashBoard.css';
+import styled from 'styled-components';
+
+const DashBoardContainer = styled.div`
+	background-color: rgb(49, 50, 56);
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+`;
 
 export interface DashBoardProps {
 	user: {
@@ -21,11 +28,10 @@ export interface DashBoardProps {
 
 const DashBoard: React.FC<DashBoardProps> = ({ user, currentStash }) => {
 	return (
-		<div className="dashboard-container">
-			{/* <img src={avatar} /> */}
+		<DashBoardContainer>
 			<DashSide />
 			<DashMain currentStash={currentStash} />
-		</div>
+		</DashBoardContainer>
 	);
 };
 
