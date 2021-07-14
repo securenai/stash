@@ -1,0 +1,101 @@
+@import '../../../../../styles/stash-theme';
+
+.modal {
+	display: flex; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+}
+
+/* Modal Content */
+// #createStashModal .modal-content {
+// 	background-color: rgb(55, 56, 51);
+// 	margin: auto;
+// 	padding: 20px;
+// 	border: 1px solid rgb(49, 44, 44);
+// 	border-radius: 5px;
+// 	width: 30%;
+// 	height: 30%;
+// 	min-height: 180px;
+// 	min-width: 350px;
+// 	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+// }
+
+.modal-info {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.modal-info h5 {
+	color: rgb(142, 146, 151);
+	margin-bottom: 8px;
+	font-size: 12px;
+	// line-height: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.modal-title {
+	color: white;
+	font-size: 20px;
+	font-weight: 900;
+	// text-align: center;
+}
+
+.stash-name-wrapper {
+	display: flex;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 40px;
+	font-size: 16px;
+	width: 90%;
+	border-radius: 3px;
+	color: rgb(220, 221, 222);
+	outline: 0px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	transition: border-color 0.2s ease-in-out 0s;
+}
+
+.stash-name-input {
+	background: transparent;
+	outline-width: 0px;
+	color: white;
+	border: none;
+	font-size: 16px;
+	width: 100%;
+}
+
+.stash-type {
+	align-self: center;
+	font-size: 24px;
+	padding-right: 5px;
+}
+
+.stash-buttons {
+	margin-top: 15px;
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}

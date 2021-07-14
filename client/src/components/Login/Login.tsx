@@ -3,7 +3,7 @@ import './Login.css';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from './assets/stash_logo.png';
-import ErrorDisplay from '../../components/ErrorDisplay/ErrorDisplay';
+import ErrorDisplay from './ErrorDisplay/ErrorDisplay';
 
 export interface LoginProps {
 	setUserName: (name: string) => void;

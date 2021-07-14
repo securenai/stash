@@ -67,20 +67,20 @@ const AvatarWidgetContainer: React.FC<AvatarWidgetContainerProps> = () => {
 			})
 			.then((result) => {
 				console.log(result.url);
-				if (result.url!=null) {
+				if (result.url != null) {
 					// setUploadComplete(true);
 					// setStartUpload(false);
 					// dispatch
 					const user2 = JSON.parse(JSON.stringify(user));
-					console.log(user2)
-					user2.userInfo.avatarUrl = result.url
-					console.log(user2)
+					console.log(user2);
+					user2.userInfo.avatarUrl = result.url;
+					console.log(user2);
 					dispatch(
 						login({
-							token:user2.token,
-							expiresAt:user2.expiresAt,
-							userInfo:user2.userInfo,
-							isAuthenticated:user2.isAuthenticated
+							token: user2.token,
+							expiresAt: user2.expiresAt,
+							userInfo: user2.userInfo,
+							isAuthenticated: user2.isAuthenticated
 						})
 					);
 					setTimeout(() => {
@@ -100,7 +100,12 @@ const AvatarWidgetContainer: React.FC<AvatarWidgetContainerProps> = () => {
 		}
 	};
 
-	return <AvatarWidget changeAvatar={handleOnAvatarChange} avatarUrl={user.userInfo.avatarUrl}/>;
+	return (
+		<AvatarWidget
+			changeAvatar={handleOnAvatarChange}
+			avatarUrl={user.userInfo.avatarUrl}
+		/>
+	);
 };
 
 export default AvatarWidgetContainer;

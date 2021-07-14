@@ -7,12 +7,12 @@ import {
 } from '../../slices/userSlice';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { setAppInfo } from '../../slices/appSlice';
-import StashListHeader from '../../components/DashSide/DashSideMiddle/StashListHeader/StashListHeader';
-import StashList from '../../components/DashSide/DashSideMiddle/StashList/StashList';
-import StashCreateModal from '../../components/DashSide/DashSideMiddle/StashCreateModal/StashCreateModal';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
 import moment from 'moment';
 import _ from 'lodash';
+import StashListHeader from '../../components/DashBoard/DashSide/DashSideMiddle/StashListHeader/StashListHeader';
+import StashList from '../../components/DashBoard/DashSide/DashSideMiddle/StashList/StashList';
+import StashCreateModal from '../../components/DashBoard/DashSide/DashSideMiddle/StashCreateModal/StashCreateModal';
 
 export interface StashListProps {}
 

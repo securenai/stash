@@ -5,16 +5,20 @@ import Home from '../Home/Home';
 import DashBoardContainer from '../DashBoard/DashBoardContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../slices/userSlice';
-import NotFound from '../../components/NotFound/NotFound';
-import './App.scss';
+import { selectCurrentTheme } from '../../slices/appSlice';
+import NotFound from '../../components/Windows/ErrorHandling/NotFound/NotFound';
+import { ThemeProvider } from 'styled-components';
+import { darkMode , lightMode} from '../../styles/Theme/Themes'
 
 export interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
 	const user = useSelector(selectUser);
+	const mode = selectCurrentTheme ? lightMode : darkMode // is Light?
 
 	return (
-		<div className="App">
+		<ThemeProvider theme={mode}>
+		<div>
 			<BrowserRouter>
 				<Switch>
 					<Route exact path="/" render={() => <Home />} />
@@ -24,6 +28,7 @@ const App: React.FC<AppProps> = () => {
 				</Switch>
 			</BrowserRouter>
 		</div>
+		</ThemeProvider>
 	);
 };
 

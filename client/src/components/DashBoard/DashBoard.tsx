@@ -1,6 +1,6 @@
 import React from 'react';
-import DashMain from '../DashMain/DashMain';
-import DashSide from '../DashSide/DashSide';
+import DashMain from './DashMain/DashMain';
+import DashSide from './DashSide/DashSide';
 import styled from 'styled-components';
 
 const DashBoardContainer = styled.div`

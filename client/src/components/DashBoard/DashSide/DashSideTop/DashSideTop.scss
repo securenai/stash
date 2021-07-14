@@ -1,0 +1,32 @@
+@import '../../../../styles/utils/layout-mixins';
+
+.dashsidetop-container {
+	@include flexy($dir: column, $just: center, $ali: center);
+	padding: 20px;
+	background-color: rgb(49, 50, 56);
+	color: antiquewhite;
+}
+.avatar {
+	@include roundy(70px, 2px solid black);
+	// background-image: url('');
+	background-size: 70px 70px;
+	cursor: pointer;
+	&:hover {
+		opacity: 0.7;
+	}
+}
+// .avatar-mask {
+// 	z-index: 1;
+// 	@include roundy(70px, 2px solid black);
+// 	@include flexy($wrap: wrap, $just: center);
+// 	position: absolute;
+// 	background-size: 70px 70px;
+// 	cursor: pointer;
+// 	font-size: 12px;
+// 	font-weight: 900;
+// 	background-color: rgb(46, 43, 43, 0.7);
+// }
+.userName {
+	margin-top: 10px;
+	font-weight: 600;
+}

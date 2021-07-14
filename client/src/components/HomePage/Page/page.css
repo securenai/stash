@@ -1,0 +1,11 @@
+.page {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	background-image: url('../../../containers/Home/assets/stash_main_3.jpg');
+	background-repeat: no-repeat;
+	/* background-size: 1020px 722px; */
+	/* background-size: cover;
+	height: 100%;
+	overflow: hidden; */
+}

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { DashSideTop } from '../../../src/components/DashSide/DashSideTop/DashSideTop';
+import { DashSideTop } from '../../../src/components/DashBoard/DashSide/DashSideTop/DashSideTop';
 import { selectUser, logout } from '../../slices/userSlice';
 import { useDispatch } from 'react-redux';
-import { UserOptionsModal } from '../../components/DashSide/DashSideTop/UserOptionsModal/UserOptionsModal';
+import { UserOptionsModal } from '../../components/DashBoard/DashSide/DashSideTop/UserOptionsModal/UserOptionsModal';
 import UserSettings from '../../components/Windows/UserSettings/UserSettings';
+import UserSettingsContainer from '../UserSettings/UserSettingsContainer';
 
 export interface UserProfileContainerProps {}
 
@@ -62,7 +63,7 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 				/>
 			) : null}
 			{openUserSettings === true ? (
-				<UserSettings close={handleCloseUserSettings} />
+				<UserSettingsContainer close={handleCloseUserSettings} />
 			) : null}
 		</>
 	);

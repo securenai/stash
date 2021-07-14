@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { selectUser } from '../../slices/userSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
-import CodeStash from '../../components/DashMain/CodeCategory/CodeStash/CodeStash';
-import DashMainHeader from '../../components/DashMain/DashMainHeader/DashMainHeader';
+import CodeStash from '../../components/DashBoard/DashMain/CodeCategory/CodeStash/CodeStash';
+import DashMainHeader from '../../components/DashBoard/DashMain/DashMainHeader/DashMainHeader';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
 
 export interface CodeStashContainerProps {}

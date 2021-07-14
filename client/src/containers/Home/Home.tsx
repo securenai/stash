@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page } from '../../components/Page/Page';
+import { Page } from '../../components/HomePage/Page/Page';
 
 export interface HomeProps {}
 

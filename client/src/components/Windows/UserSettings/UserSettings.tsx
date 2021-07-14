@@ -1,16 +1,24 @@
 import React from 'react';
 import AvatarWidgetContainer from '../../../containers/UserInfo/AvatarWidgetContainer';
+import Switch from '../../Widgets/Switch/Switch';
 // import AvatarWidget from './AvatarWidget/AvatarWidget';
 import './UserSettings.scss';
 
 export interface UserSettingsProps {
+	setThemeMode: (mode: boolean) => void;
 	close: () => void;
 }
 
-const UserSettings: React.FC<UserSettingsProps> = ({ close }) => {
+const UserSettings: React.FC<UserSettingsProps> = ({ close, setThemeMode }) => {
 	return (
 		<div className="userSettings">
-			<div className="userSettings__left">left</div>
+			<div className="userSettings__left">left
+				<div className="label1">
+					<div className="label1-title">Light Mode </div>
+					<Switch label="Switch One" onToggle={setThemeMode}/>
+				</div>
+				
+			</div>
 			<div className="userSettings__right">
 				<div className="userSettings__right__main">
 					<div>
