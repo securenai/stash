@@ -2,15 +2,26 @@ import React from 'react';
 import CodeStashHeader from '../CodeCategory/CodeStashHeader/CodeStashHeader';
 import ImageStashHeader from '../ImageCategory/ImageStashHeader/ImageStashHeader';
 import './DashMainHeader.scss';
+import styled from 'styled-components';
 import { TiCode } from 'react-icons/ti';
 import { TiImage } from 'react-icons/ti';
 import { BsFonts } from 'react-icons/bs';
+
+const DashHeaderMain = styled.div`
+	height: 40px;
+	display: flex;
+	justify-content: space-between;
+	background-color: ${({ theme }) => theme.colors.secondary};
+	color: ${({ theme }) => theme.fontColors.primary};
+	border-bottom: ${({ theme }) => theme.borders.primary};
+	padding: 20px 20px 20px 20px;
+`;
 
 export interface DashMainHeaderProps {
 	stashType: string;
 	stashName: string;
 	uploadImage?: (data: File, name: string) => void;
-	addCodeStashItem?: () => void
+	addCodeStashItem?: () => void;
 }
 
 const DashMainHeader: React.FC<DashMainHeaderProps> = ({
@@ -36,10 +47,10 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 		} else if (stashType === 'code') {
 			return <TiCode />;
 		}
-	}
+	};
 
 	return (
-		<div className="dash-main-header">
+		<DashHeaderMain>
 			<div className="dash-main-header-title">
 				<div className="dash-main-header-icon">{stashTypeIcon()}</div>
 				<div className="dash-main-header-name">{stashName}</div>
@@ -48,7 +59,7 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 			<div className="dash-main-header-add-icon" onClick={addCodeStashItem}>
 				{renderStashHeaderTemplate()}
 			</div>
-		</div>
+		</DashHeaderMain>
 	);
 };
 

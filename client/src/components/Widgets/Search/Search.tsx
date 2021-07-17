@@ -13,7 +13,8 @@ const SearchWidget = styled.div`
 	color: gray;
 	border-radius: 5px;
 	padding: 3px;
-	background: #202225;
+	/* background: #202225; */
+	background-color: ${({ theme }) => theme.colors.primary};
 	border: ${(props) => (props.inputOnFocus.hasFocus ? '2px solid' : 'none')};
 	& > .MuiSvgIcon-root {
 		font-size: 20px;
@@ -23,8 +24,9 @@ const SearchWidget = styled.div`
 		width: 100%;
 		background: transparent;
 		outline-width: 0;
-		color: white;
+		color: ${({ theme }) => theme.fontColors.primary};
 		border: none;
+		/* font-weight: 700; */
 	}
 `;
 

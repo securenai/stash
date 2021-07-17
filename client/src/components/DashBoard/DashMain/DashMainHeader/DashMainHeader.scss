@@ -1,19 +1,19 @@
 @import '../../../../styles/stash-theme';
 @import '../../../../styles/utils/layout-mixins';
 
-.dash-main-header {
-	@include flexy($just: space-between);
-	height: 40px;
-	background-color: $stash-theme-color-secondary;
-	border-bottom: $stash-theme-border-color-primary;
-	padding: 20px 20px 20px 20px;
-}
+// .dash-main-header {
+// 	@include flexy($just: space-between);
+// 	height: 40px;
+// 	background-color: $stash-theme-color-secondary;
+// 	border-bottom: $stash-theme-border-color-primary;
+// 	padding: 20px 20px 20px 20px;
+// }
 .dash-main-header-title {
 	align-items: center;
 	height: 40px;
 	display: flex;
 	font-size: 20px;
-	color: white;
+	// color: white;
 	width: 50%;
 }
 .dash-main-header-content {
@@ -30,6 +30,3 @@
 	color: white;
 	cursor: pointer;
 }
-// .dash-main-header-add-icon:hover{
-// 	color:rgb(159, 211, 125)
-// }

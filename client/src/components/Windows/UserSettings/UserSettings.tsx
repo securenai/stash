@@ -1,48 +1,64 @@
 import React from 'react';
 import AvatarWidgetContainer from '../../../containers/UserInfo/AvatarWidgetContainer';
 import Switch from '../../Widgets/Switch/Switch';
-// import AvatarWidget from './AvatarWidget/AvatarWidget';
+import styled from 'styled-components';
 import './UserSettings.scss';
+import CloseButton from '../../Widgets/Button/CloseButtons/CloseButton';
 
 export interface UserSettingsProps {
+	currentTheme: string;
 	setThemeMode: (mode: boolean) => void;
 	close: () => void;
 }
 
-const UserSettings: React.FC<UserSettingsProps> = ({ close, setThemeMode }) => {
+const UserSettingsMain = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	z-index: 1;
+	color: ${({ theme }) => theme.fontColors.primary};
+`;
+const UserSettingsLeft = styled.div`
+	height: 100%;
+	width: 30%;
+	background-color: ${({ theme }) => theme.colors.secondary};
+`;
+const UserSettingsRight = styled.div`
+	flex-grow: 3;
+	height: 100%;
+	background-color: ${({ theme }) => theme.colors.primary};
+	display: flex;
+	padding: 2%;
+`;
+
+const UserSettings: React.FC<UserSettingsProps> = ({
+	close,
+	setThemeMode,
+	currentTheme
+}) => {
 	return (
-		<div className="userSettings">
-			<div className="userSettings__left">left
+		<UserSettingsMain>
+			<UserSettingsLeft>
+				left
 				<div className="label1">
-					<div className="label1-title">Light Mode </div>
-					<Switch label="Switch One" onToggle={setThemeMode}/>
+					<div className="label1-title">Dark Mode </div>
+					<Switch
+						label="Switch One"
+						onToggle={setThemeMode}
+						isToggled={currentTheme === 'DARK'}
+					/>
 				</div>
-				
-			</div>
-			<div className="userSettings__right">
+			</UserSettingsLeft>
+			<UserSettingsRight>
 				<div className="userSettings__right__main">
-					<div>
-						{/* <AvatarWidget /> */}
-						<AvatarWidgetContainer />
-					</div>
+					<AvatarWidgetContainer />
 				</div>
-				<div className="userSettings__right__close">
-					<div className="userSettings__right__close--button" onClick={close}>
-						<svg
-							className="userSettings__right__close--close_svg"
-							aria-hidden="true"
-							width="18"
-							height="18"
-							viewBox="0 0 24 24">
-							<path
-								fill="#dcddde"
-								d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6
-                                   20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"></path>
-						</svg>
-					</div>
-				</div>
-			</div>
-		</div>
+				<CloseButton onButtonClick={close} />
+			</UserSettingsRight>
+		</UserSettingsMain>
 	);
 };
 

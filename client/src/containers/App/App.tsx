@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Login from '../Login/Login';
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
 import Home from '../Home/Home';
@@ -13,8 +13,14 @@ import { darkMode , lightMode} from '../../styles/Theme/Themes'
 export interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
+	
 	const user = useSelector(selectUser);
-	const mode = selectCurrentTheme ? lightMode : darkMode // is Light?
+	const currentTheme = useSelector(selectCurrentTheme) ;
+	let mode = currentTheme === 'DARK' ? darkMode : lightMode
+
+	useEffect(() => {
+		mode = currentTheme === 'DARK' ? darkMode : lightMode
+	}, [currentTheme])
 
 	return (
 		<ThemeProvider theme={mode}>

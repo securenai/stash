@@ -1,4 +1,5 @@
 import React from 'react';
+import IconButtonEdit from '../../../../Widgets/Button/IconButtons/IconButtonEdit';
 import Search from '../../../../Widgets/Search/Search';
 import './StashListHeader.scss';
 
@@ -15,9 +16,10 @@ const StashListHeader: React.FC<StashListHeaderProps> = ({
 		<div className="stashList-header">
 			<div className="stashList-header-title">
 				<div className="stashList-header-title-name">My Stash</div>
-				<div className="add-stash-icon" onClick={createStash}>
+				{/* <div className="add-stash-icon" onClick={createStash}>
 					+
-				</div>
+				</div> */}
+				<IconButtonEdit onClick={createStash} />
 			</div>
 			<Search placeholder="search" onInputChange={onInputChange} />
 		</div>

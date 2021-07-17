@@ -7,7 +7,8 @@ const DashMainBody = styled.div`
 	height: 100vh;
 	width: 100%;
 	min-width: 600px;
-	background-color: rgb(49, 50, 56);
+	color: ${({theme}) => theme.fontColors.primary};
+	background-color: ${({theme}) => theme.colors.primary};
 `;
 
 export interface DashMainProps {

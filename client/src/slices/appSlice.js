@@ -4,7 +4,7 @@ export const appSlice = createSlice({
 	name: 'app',
 	initialState: {
 		currentStash: JSON.parse(localStorage.getItem('currentStash')) || {},
-		currentTheme: JSON.parse(localStorage.getItem('currentTheme')) || false,
+		currentTheme: localStorage.getItem('currentTheme') || "DARK",
 	},
 	reducers: {
 		setAppInfo: (state, action) => {

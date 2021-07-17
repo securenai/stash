@@ -1,7 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './UserOptionsModal.scss';
 import styled from 'styled-components';
 import UserOptionListItem from '../../../../Widgets/ListItems/UserOptionListItem';
+
+const Modal = styled.div`
+	display: flex; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+`;
+const UserOptionsModalContainer = styled.div`
+	border-radius: 5px;
+	background-color: #fff;
+	position: absolute;
+	top: 100px;
+	left: 35px;
+	padding: 0px 0px 25px 0px;
+	width: 180px;
+	border: ${({ theme }) => theme.borders.primary};
+	border-width: 2px;
+`;
+const UserName = styled.h4`
+	text-align: center;
+	color: black;
+	/* color: ${({ theme }) => theme.fontColors.primary}; */
+`;
 
 export interface UserOptionsModalProps {
 	userName: string;
@@ -28,8 +54,7 @@ export const UserOptionsModal: React.FC<UserOptionsModalProps> = ({
 	};
 
 	const onClickOutside = (e: any) => {
-		console.log('close');
-		if (e.target.className === 'modal2') {
+		if (e.target.classList.contains('userOptionsModal')) {
 			e.preventDefault();
 			e.stopPropagation();
 			closeModal();
@@ -38,9 +63,9 @@ export const UserOptionsModal: React.FC<UserOptionsModalProps> = ({
 	};
 
 	return (
-		<div id="userOptionsModal" className="modal2" ref={modalOuter}>
-			<div className="userOptions-container">
-				<h4 className="userOptions-name">{userName}</h4>
+		<Modal className="userOptionsModal" ref={modalOuter}>
+			<UserOptionsModalContainer>
+				<UserName>{userName}</UserName>
 				<UserOptionListItem
 					doTask={() => onClickOption(openUserSettings)}
 					iconType={'Settings'}
@@ -49,7 +74,7 @@ export const UserOptionsModal: React.FC<UserOptionsModalProps> = ({
 					doTask={() => onClickOption(onLogout)}
 					iconType={'Log Out'}
 				/>
-			</div>
-		</div>
+			</UserOptionsModalContainer>
+		</Modal>
 	);
 };
