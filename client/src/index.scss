@@ -7,11 +7,19 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+ @font-face {
+   font-family: 'Helvetica-Neue-LT-W01-55-Roman';
+   src: url('./assets/fonts/Helvetica-Neue-LT-W01-55-Roman.woff2') format('woff2'),
+     url('./assets/fonts/Helvetica-Neue-LT-W01-55-Roman.woff') format('woff');
+   font-weight: 600;
+   font-style: normal;
+ }
 
 html {
 	line-height: 1.15; /* 1 */
 	-webkit-text-size-adjust: 100%; /* 2 */
 	// overflow: hidden;
+   font-family: 'Helvetica-Neue-LT-W01-55-Roman';
 }
 
 /* Sections

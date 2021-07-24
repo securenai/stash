@@ -13,7 +13,7 @@ const Item = styled.li`
 	padding: 5px;
 	font-weight: 600;
 	width: 90%;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	/* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
 	background-color: ${({ isCurr, theme }) =>
 		isCurr ? 'rgb(138, 28, 61)' : theme.colors.primary};
 	color: ${({ isCurr, theme }) =>

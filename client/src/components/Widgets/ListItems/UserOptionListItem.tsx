@@ -28,7 +28,7 @@ const Icon = styled.div`
 const ItemName = styled.div`
 	color: #000;
 	font-weight: 900;
-	font-family: Consolas;
+	/* font-family: Consolas; */
 `;
 
 const UserOptionListItem: React.FC<UserOptionListItemProps> = ({

@@ -5,6 +5,7 @@ const User = require('../../db/models/user.js');
 const { createToken, hashPassword, verifyPassword } = require('../../util');
 
 router.post('/', (req, res) => {
+	// console.log(req)
 	const name = req.body.userName;
 	const password = req.body.userPassword;
 	User.find({ name, password }).then((data) => {
@@ -22,6 +23,8 @@ router.post('/', (req, res) => {
 		} else {
 			res.send(data);
 		}
+	}).catch((error) => {
+		console.log(error)
 	});
 });
 

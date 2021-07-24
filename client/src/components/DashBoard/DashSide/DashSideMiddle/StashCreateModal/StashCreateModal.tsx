@@ -21,7 +21,7 @@ const Modal = styled.div`
 	height: 30%;
 	min-height: 210px;
 	min-width: 350px;
-	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+	/* font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; */
 `;
 const ModalTitle = styled.div`
     color: ${({theme}) => theme.fontColors.primary};

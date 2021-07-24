@@ -9,7 +9,7 @@ const DashSideBody = styled.div`
 	width: 20%;
 	min-width: 250px;
 	border-right: 1px solid rgb(83, 78, 78);
-	font-family: 'Courier New', Courier, monospace;
+	/* font-family: 'Courier New', Courier, monospace; */
 	color: ${({theme}) => theme.fontColors.primary};
 	background-color: ${({theme}) => theme.colors.secondary};
 `;
