@@ -1,6 +1,7 @@
 import React from 'react';
 import './HomeContent.css';
 import styled from 'styled-components';
+import HomeSvg from '../../Widgets/SvgBackground/HomeSvg'
 
 export interface HomeContentProps {}
 

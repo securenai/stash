@@ -3,102 +3,64 @@ import ImageStash from '../../components/DashBoard/DashMain/ImageCategory/ImageS
 import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import { selectUser } from '../../slices/userSlice';
-// import fetchProgress from 'fetch-progress';
 import Processing from '../../components/Widgets/Processing/Processing';
+import DashMainHeader from '../../components/DashBoard/DashMain/DashMainHeader/DashMainHeader';
+import { fetchApi } from '../../api/fetchApi/fetchApi';
 
 export interface ImageStashContainerProps {}
 
 const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
-	const currStash = useSelector(selectCurrentStash);
 	const user = useSelector(selectUser);
-	// const [fileCount, setFileCount] = useState(0);
+	const currStash = useSelector(selectCurrentStash);
 	const [imageFiles, setImageFiles] = useState([]);
 	const [startUpload, setStartUpload] = useState(false);
 	const [uploadComplete, setUploadComplete] = useState(false);
 
 	useEffect(() => {
-		console.log('load images');
+		console.log('qqq');
 		queryFiles();
 	}, [currStash]);
 
-	const uploadImage = (data: File, fileName: string) => {
+	const uploadImage = async (data: File, fileName: string) => {
 		setStartUpload(true);
 		setUploadComplete(false);
-		console.log('dddlololol');
 		const saveTo = `stash/imageStash/${user.userInfo._id}/${currStash.id}/${fileName}`;
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({ data, saveTo }), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
-		};
-		fetch('http://localhost:5000/api/stashImages/upload', options)
-			.then(checkStatus)
-			// .then(
-			// 	fetchProgress({
-			// 		// implement onProgress method
-			// 		onProgress(progress) {
-			// 			console.log({ progress });
-			// 		}
-			// 	})
-			// )
-			.then((res) => {
-				return res.json();
-			})
-			.then((result) => {
-				console.log(result.msg);
-				if (result.msg === 'file uploaded') {
-					setUploadComplete(true);
-					setStartUpload(false);
-					queryFiles();
-					setTimeout(() => {
-						queryFiles();
-					}, 1000);
-				}
-			});
+		const result = await fetchApi({ data, saveTo }, 'stashImages/upload');
+		if (result.msg === 'file uploaded') {
+			setUploadComplete(true);
+			setStartUpload(false);
+			queryFiles();
+			setTimeout(() => {
+				queryFiles();
+			}, 100);
+		}
 	};
 
-	const queryFiles = () => {
-		console.log('loadddddd');
+	const queryFiles = async () => {
+		setStartUpload(true);
+		setUploadComplete(false);
 		const folderName = `stash/imageStash/${user.userInfo._id}/${currStash.id}`;
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({ folderName }), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
-		};
-		fetch('http://localhost:5000/api/stashImages/query', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((result) => {
-				console.log(result);
-				console.log('settt');
-				setImageFiles(result);
-			});
-	};
-
-	const checkStatus = (response) => {
-		if (response.ok) {
-			return Promise.resolve(response);
-		} else {
-			return Promise.reject(new Error(response.statusText));
+		const result = await fetchApi({ folderName }, 'stashImages/query');
+		if (result) {
+			setUploadComplete(true);
+			setStartUpload(false);
+			setImageFiles(result);
 		}
 	};
 
 	return (
-		<div>
+		<>
+			<DashMainHeader
+				stashType="image"
+				stashName={currStash.name}
+				uploadImage={uploadImage}
+			/>
 			{uploadComplete === false && startUpload === true ? <Processing /> : null}
 			<ImageStash
-				currentStash={currStash}
 				uploadImage={(data, fileName) => uploadImage(data, fileName)}
 				imageFiles={imageFiles}
 			/>
-		</div>
+		</>
 	);
 };
 

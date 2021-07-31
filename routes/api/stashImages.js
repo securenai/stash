@@ -16,7 +16,12 @@ router.post('/query', async (req, res) => {
 			.max_results(50)
 			.execute();
 		const files = resources.map((file) => {
-			return {public_id:file.public_id,bytes:file.bytes,fileName:file.filename,format:file.format};
+			return {
+				public_id: file.public_id,
+				bytes: file.bytes,
+				fileName: file.filename,
+				format: file.format
+			};
 		});
 		res.send(files);
 	} catch (error) {
@@ -26,7 +31,7 @@ router.post('/query', async (req, res) => {
 });
 
 router.post('/upload', async (req, res) => {
-	console.log('ssssssssss');
+	// console.log(req.body);
 	try {
 		const fileStr = req.body.data;
 		const saveTo = req.body.saveTo;

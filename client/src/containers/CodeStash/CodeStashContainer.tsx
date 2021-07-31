@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import { selectCurrentStash } from '../../slices/appSlice';
 import CodeStash from '../../components/DashBoard/DashMain/CodeCategory/CodeStash/CodeStash';
 import DashMainHeader from '../../components/DashBoard/DashMain/DashMainHeader/DashMainHeader';
+import Processing from '../../components/Widgets/Processing/Processing';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
+import moment from 'moment';
 
 export interface CodeStashContainerProps {}
 
@@ -12,146 +14,81 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 	const user = useSelector(selectUser);
 	const currStash = useSelector(selectCurrentStash);
 	const [codeList, setCodeList] = useState([]);
+	const [startUpdate, setStartUpdate] = useState(false);
+	const [updateComplete, setUpdateComplete] = useState(false);
 
 	useEffect(() => {
-		console.log(currStash);
 		queryCodeList();
 	}, [currStash]);
 
-	const queryCodeList = () => {
-		console.log('loadddddd');
-		// const owner = user.userInfo._id;
-		const stashId = currStash.id;
-		console.log('pppppppppppppppppp', stashId);
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({ stashId }), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
-		};
-		fetch('http://localhost:5000/api/codeStash/query', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((result) => {
-				console.log(result);
-				if (result.codeStashList) {
-					console.log(result);
-					console.log('settt');
-					setCodeList(result.codeStashList);
-				} else {
-					setCodeList([]);
-				}
-			});
+	const queryCodeList = async () => {
+		const data = currStash.id;
+		const result = await fetchApi({ data }, 'codeStash/query');
+		if (result.codeStashList) {
+			setCodeList(result.codeStashList);
+		}
 	};
 
-	const handleSaveCode = (id: string, topic: string, code: string) => {
-		console.log(topic);
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({
-				_id: id,
-				owner: user.userInfo._id,
-				topic: topic,
-				content: code,
-				createDate: '2021-04-14',
-				modifiedDate: '2021-04-14'
-			}), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
+	const handleSaveCode = async (id: string, topic: string, code: string) => {
+		setStartUpdate(true);
+		setUpdateComplete(false);
+		const data = {
+			_id: id,
+			owner: user.userInfo._id,
+			topic: topic,
+			content: code,
+			modifiedDate: moment().format('YYYY-MM-DD')
 		};
-		fetch('http://localhost:5000/api/codeStash/update', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((result) => {
-				console.log(result);
-				console.log('settt');
-				// setCodeList(result);
-				queryCodeList();
-			});
+		const result = await fetchApi(data, 'codeStash/update');
+		if (result) {
+			setStartUpdate(false);
+			setUpdateComplete(true);
+			queryCodeList();
+		}
 	};
 
-	const handleDeleteCode = (id: string) => {
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({
-				_id: id
-			}), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
-		};
-		fetch('http://localhost:5000/api/codeStash/delete', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((result) => {
-				console.log(result);
-				console.log('del');
-				// setCodeList(result);
-				queryCodeList();
-			});
+	const handleDeleteCode = async (id: string) => {
+		setStartUpdate(true);
+		setUpdateComplete(false);
+		const data = id;
+		const result = await fetchApi({ data }, 'codeStash/delete');
+		if (result) {
+			setStartUpdate(false);
+			setUpdateComplete(true);
+			queryCodeList();
+		}
 	};
 
-	const handleAddCode = () => {
-		const options = {
-			method: 'POST',
-			body: JSON.stringify({
-				owner: user.userInfo._id,
-				topic: 'New Code',
-				content: '// type code here',
-				createDate: '2021-04-14',
-				modifiedDate: '2021-04-14',
-				stashId: currStash.id
-			}), // data can be `string` or {object}!
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
+	const handleAddCode = async () => {
+		const data = {
+			owner: user.userInfo._id,
+			topic: 'New Code',
+			content: '// type code here',
+			createDate: moment().format('YYYY-MM-DD'),
+			modifiedDate: moment().format('YYYY-MM-DD'),
+			stashId: currStash.id
 		};
-		fetch('http://localhost:5000/api/codeStash/create', options)
-			.then(checkStatus)
-			.then((res) => {
-				// console.log(res.json());
-				return res.json();
-			})
-			.then((result) => {
-				console.log(result);
-				console.log('settt');
-				setCodeList([result, ...codeList]);
-				queryCodeList();
-			});
-	};
-
-	const checkStatus = (response) => {
-		if (response.ok) {
-			return Promise.resolve(response);
-		} else {
-			return Promise.reject(new Error(response.statusText));
+		const result = await fetchApi(data, 'codeStash/create');
+		if (result) {
+			setCodeList([result, ...codeList]);
+			queryCodeList();
 		}
 	};
 
 	return (
-		<div>
+		<>
 			<DashMainHeader
 				stashType={currStash.type}
 				stashName={currStash.name}
 				addCodeStashItem={handleAddCode}
 			/>
+			{updateComplete === false && startUpdate === true ? <Processing /> : null}
 			<CodeStash
 				codeList={codeList}
 				saveCode={handleSaveCode}
 				deleteCode={handleDeleteCode}
 			/>
-		</div>
+		</>
 	);
 };
 

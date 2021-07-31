@@ -5,7 +5,7 @@ const CodeStash = require('../../db/models/codeStash.js');
 router.post('/query', (req, res) => {
 	console.log('kkk');
 	// const owner = req.body.owner;
-	const stashId = req.body.stashId;
+	const stashId = req.body.data;
 	console.log(stashId);
 	CodeStash.find({ stashId }).then((data) => {
 		console.log(data);
@@ -47,7 +47,7 @@ router.post('/update', (req, res) => {
 
 router.post('/delete', (req, res) => {
 	console.log(req.body);
-	CodeStash.deleteOne({ _id: req.body._id }).then((result, err) => {
+	CodeStash.deleteOne({ _id: req.body.data }).then((result, err) => {
 		console.log('12453');
 		if (result) {
 			res.send(result);
