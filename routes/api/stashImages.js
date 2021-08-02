@@ -31,7 +31,6 @@ router.post('/query', async (req, res) => {
 });
 
 router.post('/upload', async (req, res) => {
-	// console.log(req.body);
 	try {
 		const fileStr = req.body.data;
 		const saveTo = req.body.saveTo;
@@ -40,10 +39,8 @@ router.post('/upload', async (req, res) => {
 			fileStr,
 			(options = { public_id: saveTo })
 		);
-		console.log(uploadedResp);
 		res.json({ msg: 'file uploaded' });
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({ err: 'something went wrong' });
 	}
 });

@@ -68,10 +68,21 @@
 	margin-top: 10px;
 }
 .reactEasyCrop_Container {
+	display: flex;
+    justify-content: center;
 	border-radius: 5px;
 	margin-top: 10px;
 	height: 400px;
 	position: relative !important;
+}
+.reactEasyCrop_CropArea {
+	width: 73%;
+    height: 400px;
+}
+.reactEasyCrop_Image {
+	position: initial !important;
+	height: 100%;
+	max-width: fit-content !important;
 }
 .sliderBar {
 	width: 80%;
@@ -97,7 +108,7 @@
 .controls-buttons {
 	display: flex;
 	width: 100%;
-	justify-content: flex-end;
+	justify-content: center;
 }
 .controls-buttons-close {
 	margin: 0px 15px;

@@ -119,7 +119,7 @@ const ImageEdit: React.FC<ImageEditProps> = ({
 								<Button
 									onClick={closeEdit}
 									variant="contained"
-									color="primary"
+									color="secondary"
 									classes={{ root: 'cropButton' }}>
 									Close
 								</Button>
@@ -134,13 +134,13 @@ const ImageEdit: React.FC<ImageEditProps> = ({
 								</Button>
 							</div>
 						</div>
-						<Button
+						{/* <Button
 							onClick={showCroppedImage}
 							variant="contained"
 							color="primary"
 							classes={{ root: 'cropButton' }}>
 							Show Result
-						</Button>
+						</Button> */}
 					</div>
 					<ImgDialog img={croppedImage} onClose={onClose} />
 				</React.Fragment>
