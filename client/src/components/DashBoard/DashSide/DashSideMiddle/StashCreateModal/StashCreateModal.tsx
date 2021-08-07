@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import { CrudButton } from '../../../../Widgets/Button/CrudButtons/CrudButton';
 import styled from 'styled-components';
 import './StashCreateModal.scss';
+import InputWithIcon from '../../../../Widgets/Input/InputWithIcon';
+import Select from '../../../../Widgets/Select/Select';
 
 export interface StashCreateModalProps {
 	closeCreate: () => void;
@@ -9,24 +11,31 @@ export interface StashCreateModalProps {
 }
 
 const Modal = styled.div`
-    background-color: ${({theme}) => {
-		console.log(theme)
-		return theme.colors.primary
+	background-color: ${({ theme }) => {
+		/* console.log(theme); */
+		return theme.colors.primary;
 	}};
 	margin: auto;
 	padding: 20px;
-	border: ${({theme}) => theme.borders.primary};
+	border: ${({ theme }) => theme.borders.primary};
 	border-radius: 5px;
 	width: 30%;
 	height: 30%;
 	min-height: 210px;
-	min-width: 350px;
+	min-width: 430px;
 	/* font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; */
 `;
 const ModalTitle = styled.div`
-    color: ${({theme}) => theme.fontColors.primary};
+	color: ${({ theme }) => theme.fontColors.primary};
 	font-size: 20px;
 	font-weight: 900;
+`;
+const Title = styled.h5`
+	color: ${({ theme }) => theme.fontColors.primary};
+	margin-bottom: 8px;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
 `;
 
 const StashCreateModal: React.FC<StashCreateModalProps> = ({
@@ -69,25 +78,19 @@ const StashCreateModal: React.FC<StashCreateModalProps> = ({
 
 				<ModalTitle>Create Stash</ModalTitle>
 				<div className="modal-info">
-					<h5>stash name</h5>
-					<div className="stash-name-wrapper">
-						<span className="stash-type">#</span>
-						<input
-							className="stash-name-input"
-							type="text"
-							autoFocus
-							value={stashName}
-							onChange={(e) => {
-								setStashName(e.target.value);
-							}}
-						/>
-					</div>
-					<h5>stash type</h5>
-					<select onChange={(e) => setStashType(e.target.value)}>
-						<option>text</option>
-						<option>code</option>
-						<option>image</option>
-					</select>
+					<Title>stash name</Title>
+					<InputWithIcon
+						type={stashType}
+						inputValue={stashName}
+						onChangeValue={(e) => {
+							setStashName(e.target.value);
+						}}
+					/>
+					<Title>stash type</Title>
+					<Select
+						onSelectChange={(e) => setStashType(e.target.value)}
+						options={['text', 'code', 'image']}
+					/>
 					<div className="stash-buttons">
 						<CrudButton
 							size="small"

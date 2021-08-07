@@ -6,6 +6,7 @@ export interface StashListProps {
 	stashItems: { _id: string; name: string; type: string }[];
 	currentStash: { id: string; name: string; type: string };
 	itemClick: (id: string, type: string, name: string) => void;
+	iconClick: (id: string, type: string, name: string) => void;
 }
 
 const StashItemList = styled.ul`
@@ -27,7 +28,8 @@ const StashItemList = styled.ul`
 const StashList: React.FC<StashListProps> = ({
 	stashItems,
 	currentStash,
-	itemClick
+	itemClick,
+	iconClick
 }) => {
 	return (
 		<StashItemList>
@@ -40,6 +42,7 @@ const StashList: React.FC<StashListProps> = ({
 							itemName={item.name}
 							itemType={item.type}
 							onItemClick={itemClick}
+							onIconClick={iconClick}
 							isCurr={isCurr}
 							key={item._id}
 						/>

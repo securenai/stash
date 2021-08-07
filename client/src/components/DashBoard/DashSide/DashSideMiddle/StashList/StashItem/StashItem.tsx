@@ -48,6 +48,7 @@ export interface StashItemProps {
 	itemName: string;
 	itemType: string;
 	onItemClick: (itemId: string, type: string, name: string) => void;
+	onIconClick: (itemId: string, type: string, name: string) => void;
 	isCurr: boolean;
 }
 
@@ -56,6 +57,7 @@ export const StashItem: React.FC<StashItemProps> = ({
 	itemName,
 	itemType,
 	onItemClick,
+	onIconClick,
 	isCurr
 }) => {
 	const renderStashIcon = () => {
@@ -80,6 +82,7 @@ export const StashItem: React.FC<StashItemProps> = ({
 				<ItemEditIcon className="edit">
 					<IconButtonEdit
 						onClick={(e) => {
+							onIconClick(itemId, itemType, itemName);
 							e.stopPropagation();
 						}}
 					/>

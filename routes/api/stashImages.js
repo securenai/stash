@@ -7,7 +7,6 @@ router.post('/', (req, res) => {
 });
 
 router.post('/query', async (req, res) => {
-	console.log('fff');
 	const folder = req.body.folderName;
 	try {
 		const { resources } = await cloudinary.search
