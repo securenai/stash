@@ -38,6 +38,7 @@ const Modal = styled.div`
 	/* font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; */
 `;
 const ModalTitle = styled.div`
+	/* font-family: 'Calamity-Regular'; */
 	color: ${({ theme }) => theme.fontColors.primary};
 	font-size: 20px;
 	font-weight: 900;

@@ -29,10 +29,9 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		if (result.msg === 'file uploaded') {
 			setUploadComplete(true);
 			setStartUpload(false);
-			queryFiles();
 			setTimeout(() => {
 				queryFiles();
-			}, 100);
+			}, 1000);
 		}
 	};
 

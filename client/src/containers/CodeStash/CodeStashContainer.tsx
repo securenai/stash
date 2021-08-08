@@ -22,10 +22,14 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 	}, [currStash]);
 
 	const queryCodeList = async () => {
+		setStartUpdate(true);
+		setUpdateComplete(false);
 		const data = currStash.id;
 		const result = await fetchApi({ data }, 'codeStash/query');
-		console.log(typeof result);
+		// console.log(typeof result);
 		if (result.codeStashList) {
+			setStartUpdate(false);
+			setUpdateComplete(true);
 			setCodeList(result.codeStashList);
 		}
 	};

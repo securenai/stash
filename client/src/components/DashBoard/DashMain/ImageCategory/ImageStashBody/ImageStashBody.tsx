@@ -41,6 +41,11 @@ const ImageStashBody: React.FC<ImageStashBodyProps> = ({ imageFiles }) => {
 	const handleScroll = useCallback(() => {
 		const target = elementRef.current.firstChild;
 		setShow(target.getBoundingClientRect().bottom < target.offsetHeight);
+		// console.log('----------------------------------');
+		// console.log(target.scrollHeight);
+		// console.log(target.getBoundingClientRect().bottom);
+		// console.log(target.getBoundingClientRect().top);
+		// console.log(target.offsetHeight);
 	}, []);
 
 	const handleClick = () => {

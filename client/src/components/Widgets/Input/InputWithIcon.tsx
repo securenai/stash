@@ -71,6 +71,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
 				autoFocus
 				value={inputValue}
 				onChange={onChangeValue}
+				spellCheck="false"
 			/>
 		</InputDiv>
 	);
