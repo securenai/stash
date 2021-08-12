@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { TiCode } from 'react-icons/ti';
 import { TiImage } from 'react-icons/ti';
 import { BsFonts } from 'react-icons/bs';
+import TextStashHeader from '../TextCategory/TextStashHeader/TextStashHeader';
 
 const DashHeaderMain = styled.div`
 	height: 40px;
@@ -32,7 +33,7 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 }) => {
 	const renderStashHeaderTemplate = () => {
 		if (stashType === 'text') {
-			return <div>hello!</div>;
+			return <TextStashHeader />;
 		} else if (stashType === 'image') {
 			return <ImageStashHeader uploadImage={uploadImage} />;
 		} else if (stashType === 'code') {

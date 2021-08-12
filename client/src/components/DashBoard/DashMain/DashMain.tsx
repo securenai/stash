@@ -2,6 +2,7 @@ import React from 'react';
 import CodeStashContainer from '../../../containers/CodeStash/CodeStashContainer';
 import ImageStashContainer from '../../../containers/ImageStash/ImageStashContainer';
 import styled from 'styled-components';
+import TextStashContainer from '../../../containers/TextStash/TextStashContainer';
 
 const DashMainBody = styled.div`
 	height: 100vh;
@@ -21,7 +22,7 @@ export interface DashMainProps {
 const DashMain: React.FC<DashMainProps> = ({ currentStash }) => {
 	const renderStashTemplate = () => {
 		if (currentStash.type === 'text') {
-			return <div>hello!</div>;
+			return <TextStashContainer />;
 		} else if (currentStash.type === 'image') {
 			return <ImageStashContainer />;
 		} else if (currentStash.type === 'code') {

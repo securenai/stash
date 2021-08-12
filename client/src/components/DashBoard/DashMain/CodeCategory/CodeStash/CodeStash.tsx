@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import CodeEditor from '../CodeEditor/CodeEditor';
 import './CodeStash.scss';
 import ScrollTo from '../../../../Widgets/ScrollTo/ScrollTo';
+// import './InfinityBg.scss'
 
 export interface CodeStashProps {
 	codeList: {
@@ -43,7 +44,7 @@ const CodeStash: React.FC<CodeStashProps> = ({
 	}, []);
 
 	return (
-		<div className="codeStash" ref={elementRef}>
+		<div className="codeStash bbb" ref={elementRef}>
 			{codeList.length > 0 &&
 				codeList.map((code, index) => {
 					return (

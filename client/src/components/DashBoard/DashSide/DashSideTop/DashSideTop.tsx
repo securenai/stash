@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DashSideTop.scss';
+// import './InfinityBg.scss';
 import avatar from './assets/avatar.png';
 
 export interface DashSideTopProps {
@@ -21,7 +22,7 @@ export const DashSideTop: React.FC<DashSideTopProps> = ({
 	}, [avatarUrl]);
 
 	return (
-		<div className="dashsidetop-container">
+		<div className="dashsidetop-container aaa">
 			{/* <div className="avatar-mask"></div> */}
 			<div
 				className="avatar"

@@ -8,6 +8,7 @@ import 'prismjs/themes/prism.css'; //Example style, you can use another
 import styled from 'styled-components';
 import { CrudButton } from '../../../../Widgets/Button/CrudButtons/CrudButton';
 import IconButtonEdit from '../../../../Widgets/Button/IconButtons/IconButtonEdit';
+import InputTitleChanger from '../../../../Widgets/Input/InputTitleChanger';
 
 const CodeEditorContainer = styled.div`
 	display: flex;
@@ -22,13 +23,6 @@ const CodeEditorContainer = styled.div`
 	box-shadow: 20px 20px 50px #474545;
 	background-color: ${({ theme }) => theme.colors.secondary};
 	color: ${({ theme }) => theme.fontColors.primary};
-`;
-const CodeEditorHeader = styled.div`
-	width: 98%;
-	color: ${({ theme }) => theme.fontColors.primary};
-	padding: 5px;
-	border-bottom: ${({ theme }) => theme.borders.primary};
-	display: flex;
 `;
 const CodeEditorTitle = styled.span`
 	width: 100%;
@@ -90,58 +84,44 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 	}, []);
 
 	return (
-		<>
-			<CodeEditorContainer>
-				<CodeEditorHeader>
-					<CodeEditorTitle>
-						{enableTopicEdit === true ? (
-							<CodeEditorTitleEditing
-								autoFocus
-								value={topic}
-								onChange={(e) => {
-									setTopic(e.target.value);
-								}}
-							/>
-						) : (
-							<span>{topic}</span>
-						)}
-					</CodeEditorTitle>
-					<IconButtonEdit
-						onClick={() => setEnableTopicEdit(!enableTopicEdit)}
-					/>
-				</CodeEditorHeader>
-				<CodeEditorCodeBlock>
-					<Editor
-						value={code}
-						onValueChange={(code) => setCode(code)}
-						highlight={(code) => highlight(code, languages.js)}
-						padding={10}
-						style={{
-							color: 'black',
-							fontFamily: '"Fira code", "Fira Mono", monospace',
-							fontSize: 13
-						}}
-					/>
-				</CodeEditorCodeBlock>
-				<CodeEditorControls>
-					<CrudButton
-						size="small"
-						label="SAVE"
-						crudType="save"
-						onClick={() => {
-							saveCode(codeStash._id, topic, code);
-							setEnableTopicEdit(false);
-						}}
-					/>
-					<CrudButton
-						size="small"
-						label="DELETE"
-						crudType="delete"
-						onClick={() => deleteCode(codeStash._id)}
-					/>
-				</CodeEditorControls>
-			</CodeEditorContainer>
-		</>
+		<CodeEditorContainer>
+			<InputTitleChanger 
+				enableTitleEdit={enableTopicEdit}
+				title={topic}
+				onChangeValue={(e) => {setTopic(e.target.value)}}
+				onClickEdit={() => setEnableTopicEdit(!enableTopicEdit)}
+			/>
+			<CodeEditorCodeBlock>
+				<Editor
+					value={code}
+					onValueChange={(code) => setCode(code)}
+					highlight={(code) => highlight(code, languages.js)}
+					padding={10}
+					style={{
+						color: 'black',
+						fontFamily: '"Fira code", "Fira Mono", monospace',
+						fontSize: 13
+					}}
+				/>
+			</CodeEditorCodeBlock>
+			<CodeEditorControls>
+				<CrudButton
+					size="small"
+					label="SAVE"
+					crudType="save"
+					onClick={() => {
+						saveCode(codeStash._id, topic, code);
+						setEnableTopicEdit(false);
+					}}
+				/>
+				<CrudButton
+					size="small"
+					label="DELETE"
+					crudType="delete"
+					onClick={() => deleteCode(codeStash._id)}
+				/>
+			</CodeEditorControls>
+		</CodeEditorContainer>
 	);
 };
 
