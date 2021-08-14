@@ -23,21 +23,23 @@ export interface DashMainHeaderProps {
 	stashName: string;
 	uploadImage?: (data: File, name: string) => void;
 	addCodeStashItem?: () => void;
+	addTextStashItem?: () => void;
 }
 
 const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 	stashType,
 	stashName,
 	uploadImage,
-	addCodeStashItem
+	addCodeStashItem,
+	addTextStashItem
 }) => {
 	const renderStashHeaderTemplate = () => {
 		if (stashType === 'text') {
-			return <TextStashHeader />;
+			return <TextStashHeader addItem={addTextStashItem} />;
 		} else if (stashType === 'image') {
 			return <ImageStashHeader uploadImage={uploadImage} />;
 		} else if (stashType === 'code') {
-			return <CodeStashHeader />;
+			return <CodeStashHeader addItem={addCodeStashItem} />;
 		}
 	};
 	const stashTypeIcon = () => {
@@ -57,7 +59,7 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 				<div className="dash-main-header-name">{stashName}</div>
 			</div>
 			<div className="dash-main-header-content"></div>
-			<div className="dash-main-header-add-icon" onClick={addCodeStashItem}>
+			<div className="dash-main-header-add-icon">
 				{renderStashHeaderTemplate()}
 			</div>
 		</DashHeaderMain>

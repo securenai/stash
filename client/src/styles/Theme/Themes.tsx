@@ -4,7 +4,8 @@ export const darkMode = {
 		secondary: '#221f1f'
 	},
 	borders: {
-		primary: '1px solid #6e695e;'
+		primary: '1px solid #6e695e;',
+		secondary: '#dfdbdb'
 	},
 	fontColors: {
 		primary: '#FAFAFA',
@@ -18,7 +19,8 @@ export const lightMode = {
 		secondary: '#dfdbdb'
 	},
 	borders: {
-		primary: '1px solid #6e695e;'
+		primary: '1px solid #6e695e;',
+		secondary: '#221f1f'
 	},
 	fontColors: {
 		primary: '#313238',

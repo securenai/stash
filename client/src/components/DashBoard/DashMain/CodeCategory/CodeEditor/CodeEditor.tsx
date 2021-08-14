@@ -85,10 +85,12 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 
 	return (
 		<CodeEditorContainer>
-			<InputTitleChanger 
-				enableTitleEdit={enableTopicEdit}
+			<InputTitleChanger
+				enableTextEdit={enableTopicEdit}
 				title={topic}
-				onChangeValue={(e) => {setTopic(e.target.value)}}
+				onChangeValue={(e) => {
+					setTopic(e.target.value);
+				}}
 				onClickEdit={() => setEnableTopicEdit(!enableTopicEdit)}
 			/>
 			<CodeEditorCodeBlock>

@@ -16,36 +16,40 @@ const Title = styled.span`
 `;
 const TitleEditing = styled.input`
 	width: 100%;
-	color: rgb(253, 60, 53);
+	/* color: rgb(253, 60, 53); */
+	background-color: indianred;
 `;
 
 export interface InputTitleChangerProps {
-    enableTitleEdit: boolean
-    title: string;
-    onChangeValue: (e) => void;
-    onClickEdit: () => void;
+	enableTextEdit: boolean;
+	title: string;
+	onChangeValue: (e) => void;
+	onClickEdit: () => void;
 }
- 
-const InputTitleChanger: React.FC<InputTitleChangerProps> = ({enableTitleEdit, title, onChangeValue, onClickEdit}) => {
-    return ( 
-        <TitleContainer>
-            <Title>
-                {enableTitleEdit === true ? (
-                    <TitleEditing
-                        autoFocus
-                        value={title}
-                        onChange={onChangeValue}
-                        spellCheck="false"
-                    />
-                ) : (
-                    <span>{title}</span>
-                )}
-            </Title>
-            <IconButtonEdit
-                onClick={onClickEdit}
-            />
-        </TitleContainer>
-    );
-}
- 
+
+const InputTitleChanger: React.FC<InputTitleChangerProps> = ({
+	enableTextEdit,
+	title,
+	onChangeValue,
+	onClickEdit
+}) => {
+	return (
+		<TitleContainer>
+			<Title>
+				{enableTextEdit === true ? (
+					<TitleEditing
+						autoFocus
+						value={title}
+						onChange={onChangeValue}
+						spellCheck="false"
+					/>
+				) : (
+					<span>{title}</span>
+				)}
+			</Title>
+			<IconButtonEdit onClick={onClickEdit} />
+		</TitleContainer>
+	);
+};
+
 export default InputTitleChanger;

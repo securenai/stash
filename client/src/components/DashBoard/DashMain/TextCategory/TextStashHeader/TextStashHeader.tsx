@@ -1,11 +1,22 @@
 import React from 'react';
-// import './TextStashHeader.css';
+import { AiFillPlusSquare } from 'react-icons/ai';
+import styled from 'styled-components';
 
-export interface TextStashHeaderProps {}
+const AddIcon = styled.div`
+	font-size: 40px;
+	&:hover {
+		color: rgb(159, 211, 125);
+	}
+`;
 
-const TextStashHeader: React.FC<TextStashHeaderProps> = () => (
-	<div className="text-stash-add-icon">
-	</div>
+export interface TextStashHeaderProps {
+	addItem: () => void;
+}
+
+const TextStashHeader: React.FC<TextStashHeaderProps> = ({ addItem }) => (
+	<AddIcon onClick={addItem}>
+		<AiFillPlusSquare />
+	</AddIcon>
 );
 
 export default TextStashHeader;
