@@ -6,10 +6,12 @@ import { setLocalStorage } from '../../api/utils/localStorageUtils';
 
 export interface UserSettingsContainerProps {
 	close: () => void;
+	isOpen: boolean;
 }
 
 const UserSettingsContainer: React.FC<UserSettingsContainerProps> = ({
-	close
+	close,
+	isOpen
 }) => {
 	const dispatch = useDispatch();
 	const currentTheme = useSelector(selectCurrentTheme);
@@ -27,6 +29,7 @@ const UserSettingsContainer: React.FC<UserSettingsContainerProps> = ({
 	return (
 		<UserSettings
 			close={close}
+			isOpen={isOpen}
 			setThemeMode={handleSetThemeMode}
 			currentTheme={currentTheme}
 		/>

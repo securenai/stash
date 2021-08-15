@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Input from '../../../../../Widgets/Input/Input';
 import InputTitleChanger from '../../../../../Widgets/Input/InputTitleChanger';
 import styled from 'styled-components';
-import Iframe from 'react-iframe';
 import IframeCard from '../../../../../Widgets/Iframe/Cards/IframeCard';
 import IframeMediaPlayer from '../../../../../Widgets/Iframe/Cards/IframeMediaPlayer';
 import { CrudButton } from '../../../../../Widgets/Button/CrudButtons/CrudButton';
+import { useSpring, animated } from 'react-spring';
 
-const TextItemContainer = styled.div`
+/** styles **/
+const A_TextItemContainer = styled(animated.div)`
 	width: 380px;
 	margin: 10px;
 	border: 1px solid ${({ theme }) => theme.borders.secondary};
@@ -31,6 +31,13 @@ const TextItem: React.FC<TextItemProps> = ({ content, fetchIframe }) => {
 	const [enableLinkEdit, setEnableLinkEdit] = React.useState(false);
 	const [embeded, setEmbeded] = useState('');
 	const [iframe, setIframe] = useState(<div></div>);
+
+	/** effects **/
+	const fade = useSpring({
+		to: { opacity: 1 },
+		from: { opacity: 0 },
+		delay: 100
+	});
 
 	useEffect(() => {
 		setTitle(content.title);
@@ -58,7 +65,7 @@ const TextItem: React.FC<TextItemProps> = ({ content, fetchIframe }) => {
 	};
 
 	return (
-		<TextItemContainer>
+		<A_TextItemContainer style={fade}>
 			<InputTitleChanger
 				enableTextEdit={enableTitleEdit}
 				title={title}
@@ -99,7 +106,7 @@ const TextItem: React.FC<TextItemProps> = ({ content, fetchIframe }) => {
 					// onClick={() => deleteCode(textStash._id)}
 				/>
 			</CodeEditorControls>
-		</TextItemContainer>
+		</A_TextItemContainer>
 	);
 };
 

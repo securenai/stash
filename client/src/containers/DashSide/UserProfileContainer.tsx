@@ -16,7 +16,6 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 	const [openUserSettings, setOpenUserSettings] = useState(false);
 
 	const handleLogout = () => {
-		console.log('ppp');
 		dispatch(
 			logout({
 				token: null,
@@ -63,7 +62,10 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 				/>
 			) : null}
 			{openUserSettings === true ? (
-				<UserSettingsContainer close={handleCloseUserSettings} />
+				<UserSettingsContainer
+					close={handleCloseUserSettings}
+					isOpen={openUserSettings}
+				/>
 			) : null}
 		</>
 	);

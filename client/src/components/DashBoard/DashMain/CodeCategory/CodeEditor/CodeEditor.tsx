@@ -4,13 +4,12 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css'; //Example style, you can use another
-// import './CodeEditor.scss';
 import styled from 'styled-components';
 import { CrudButton } from '../../../../Widgets/Button/CrudButtons/CrudButton';
-import IconButtonEdit from '../../../../Widgets/Button/IconButtons/IconButtonEdit';
 import InputTitleChanger from '../../../../Widgets/Input/InputTitleChanger';
+import { useSpring, animated } from 'react-spring';
 
-const CodeEditorContainer = styled.div`
+const A_CodeEditorContainer = styled(animated.div)`
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -23,15 +22,6 @@ const CodeEditorContainer = styled.div`
 	box-shadow: 20px 20px 50px #474545;
 	background-color: ${({ theme }) => theme.colors.secondary};
 	color: ${({ theme }) => theme.fontColors.primary};
-`;
-const CodeEditorTitle = styled.span`
-	width: 100%;
-	padding: 5px;
-	flex-grow: 1;
-`;
-const CodeEditorTitleEditing = styled.input`
-	width: 100%;
-	color: rgb(253, 60, 53);
 `;
 const CodeEditorCodeBlock = styled.div`
 	min-width: 500px;
@@ -83,8 +73,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 		setCode(codeStash.content);
 	}, []);
 
+	const fade = useSpring({
+		to: { opacity: 1 },
+		from: { opacity: 0 },
+		delay: 100
+	});
+
 	return (
-		<CodeEditorContainer>
+		<A_CodeEditorContainer style={fade}>
 			<InputTitleChanger
 				enableTextEdit={enableTopicEdit}
 				title={topic}
@@ -123,7 +119,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 					onClick={() => deleteCode(codeStash._id)}
 				/>
 			</CodeEditorControls>
-		</CodeEditorContainer>
+		</A_CodeEditorContainer>
 	);
 };
 

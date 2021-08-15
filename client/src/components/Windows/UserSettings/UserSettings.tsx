@@ -4,14 +4,16 @@ import Switch from '../../Widgets/Switch/Switch';
 import styled from 'styled-components';
 import './UserSettings.scss';
 import CloseButton from '../../Widgets/Button/CloseButtons/CloseButton';
+import { useTransition, animated } from 'react-spring';
 
 export interface UserSettingsProps {
 	currentTheme: string;
 	setThemeMode: (mode: boolean) => void;
 	close: () => void;
+	isOpen: boolean;
 }
 
-const UserSettingsMain = styled.div`
+const A_UserSettingsMain = styled(animated.div)`
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -36,29 +38,40 @@ const UserSettingsRight = styled.div`
 
 const UserSettings: React.FC<UserSettingsProps> = ({
 	close,
+	isOpen,
 	setThemeMode,
 	currentTheme
 }) => {
-	return (
-		<UserSettingsMain>
-			<UserSettingsLeft>
-				left
-				<div className="label1">
-					<div className="label1-title">Dark Mode </div>
-					<Switch
-						label="Switch One"
-						onToggle={setThemeMode}
-						isToggled={currentTheme === 'DARK'}
-					/>
-				</div>
-			</UserSettingsLeft>
-			<UserSettingsRight>
-				<div className="userSettings__right__main">
-					<AvatarWidgetContainer />
-				</div>
-				<CloseButton onButtonClick={close} />
-			</UserSettingsRight>
-		</UserSettingsMain>
+	const transition = useTransition(isOpen, {
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0 },
+		delay: 100
+	});
+
+	return transition(
+		(styles, item) =>
+			item && (
+				<A_UserSettingsMain style={styles}>
+					<UserSettingsLeft>
+						left
+						<div className="label1">
+							<div className="label1-title">Dark Mode </div>
+							<Switch
+								label="Switch One"
+								onToggle={setThemeMode}
+								isToggled={currentTheme === 'DARK'}
+							/>
+						</div>
+					</UserSettingsLeft>
+					<UserSettingsRight>
+						<div className="userSettings__right__main">
+							<AvatarWidgetContainer />
+						</div>
+						<CloseButton onButtonClick={close} />
+					</UserSettingsRight>
+				</A_UserSettingsMain>
+			)
 	);
 };
 

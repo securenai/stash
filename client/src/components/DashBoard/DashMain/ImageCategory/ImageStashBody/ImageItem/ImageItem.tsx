@@ -1,9 +1,18 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Image, Transformation } from 'cloudinary-react';
-import './ImageItem.scss';
 import styled from 'styled-components';
+import { useSpring, animated } from 'react-spring';
 
-const ImagePlaceholder = styled.div`
+const useStyles = makeStyles(() => ({
+	cloudinaryImg: {
+		maxWidth: '100%',
+		maxHeight: '100%',
+		alignSelf: 'center'
+	}
+}));
+
+const A_ImagePlaceholder = styled(animated.div)`
 	margin: 10px;
 	width: 235px;
 	height: 195px;
@@ -53,11 +62,19 @@ export interface ImageItemProps {
 }
 
 const ImageItem: React.FC<ImageItemProps> = ({ imageFile }) => {
+	const classes = useStyles();
+	/** effects **/
+	const fade = useSpring({
+		to: { opacity: 1 },
+		from: { opacity: 0 },
+		delay: 100
+	});
+
 	return (
-		<ImagePlaceholder>
+		<A_ImagePlaceholder style={fade}>
 			<CloudinaryImagePlaceholder>
 				<Image
-					className="cloudinary-img"
+					className={classes.cloudinaryImg}
 					cloudName="dfkw9hdq3"
 					publicId={imageFile.public_id}>
 					<Transformation width="350" fetchFormat="auto" crop="scale" />
@@ -71,7 +88,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ imageFile }) => {
 			<ImageDesc>
 				{imageFile.format} - {imageFile.bytes}bytes
 			</ImageDesc>
-		</ImagePlaceholder>
+		</A_ImagePlaceholder>
 	);
 };
 

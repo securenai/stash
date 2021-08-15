@@ -9,14 +9,16 @@ export const darkMode = {
 	},
 	fontColors: {
 		primary: '#FAFAFA',
-		secondary: '#dfdbdb'
+		secondary: '#dfdbdb',
+		tertiary: '#333030'
 	}
 };
 
 export const lightMode = {
 	colors: {
 		primary: '#FAFAFA',
-		secondary: '#dfdbdb'
+		secondary: '#dfdbdb',
+		tertiary: '#CFCAC2'
 	},
 	borders: {
 		primary: '1px solid #6e695e;',
