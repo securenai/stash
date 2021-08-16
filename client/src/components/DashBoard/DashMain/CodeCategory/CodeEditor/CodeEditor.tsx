@@ -10,13 +10,14 @@ import InputTitleChanger from '../../../../Widgets/Input/InputTitleChanger';
 import { useSpring, animated } from 'react-spring';
 
 const A_CodeEditorContainer = styled(animated.div)`
+float: left;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
 	border-radius: 10px;
 	padding: 5px;
 	margin: 20px;
-	min-width: 530px;
+	/* min-width: 530px; */
 	width: 40%;
 	border: 1px solid silver;
 	box-shadow: 20px 20px 50px #474545;
@@ -24,7 +25,7 @@ const A_CodeEditorContainer = styled(animated.div)`
 	color: ${({ theme }) => theme.fontColors.primary};
 `;
 const CodeEditorCodeBlock = styled.div`
-	min-width: 500px;
+	/* min-width: 500px; */
 	max-height: 500px;
 	background-color: #fafafa;
 	margin: 10px;

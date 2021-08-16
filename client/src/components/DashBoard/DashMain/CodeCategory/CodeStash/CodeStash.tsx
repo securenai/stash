@@ -1,8 +1,30 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import CodeEditor from '../CodeEditor/CodeEditor';
-import './CodeStash.scss';
 import ScrollTo from '../../../../Widgets/ScrollTo/ScrollTo';
+import styled from 'styled-components';
 // import './InfinityBg.scss'
+
+const CodeStashContainer = styled.div`
+	/* display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap; */
+	height: 600px;
+	padding: 20px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	&::-webkit-scrollbar {
+		width: 8px;
+		background-color: ${({ theme }) => theme.colors.primary};
+		border-radius: 10px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: ${({ theme }) => theme.fontColors.primary};
+		border-radius: 10px;
+	}
+`;
 
 export interface CodeStashProps {
 	codeList: {
@@ -44,7 +66,7 @@ const CodeStash: React.FC<CodeStashProps> = ({
 	}, []);
 
 	return (
-		<div className="codeStash bbb" ref={elementRef}>
+		<CodeStashContainer ref={elementRef}>
 			{codeList.length > 0 &&
 				codeList.map((code, index) => {
 					return (
@@ -57,7 +79,7 @@ const CodeStash: React.FC<CodeStashProps> = ({
 					);
 				})}
 			{show && <ScrollTo click={handleClick} />}
-		</div>
+		</CodeStashContainer>
 	);
 };
 
