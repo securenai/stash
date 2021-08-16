@@ -2,11 +2,11 @@
 	"name": "stash",
 	"version": "1.0.0",
 	"description": "asset manager app",
-	"main": "server.js",
+	"main": "dist/server.js",
 	"scripts": {
 		"client-install": "cd ../client/ && npm install",
-		"start": "node server.js",
-		"server": "nodemon server.js",
+		"start": "ts-node server.ts",
+		"server": "nodemon server.ts",
 		"client": "cd ../client/ && npm run start",
 		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
@@ -31,6 +31,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"jwt-decode": "^3.1.2",
 		"mongodb": "^3.6.4",
-		"mongoose": "^5.11.18"
+		"mongoose": "^5.11.18",
+		"ts-node": "^10.2.0"
 	}
 }

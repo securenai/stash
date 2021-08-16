@@ -1,13 +1,12 @@
 const express = require('express');
+import mongoose from 'mongoose';
 require('dotenv').config();
 const app = express();
-cors = require('cors');
+const cors = require('cors');
 app.use(cors());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
-const mongoose = require('mongoose');
-
-const cloudinary = require('./cloudinary/cloudinary');
+// const mongoose = require('mongoose');
 
 try {
 	// Connect to the MongoDB cluster
@@ -35,3 +34,4 @@ app.use('/api/stashImages', require('./routes/api/stashImages'));
 app.use('/api/textStash', require('./routes/api/textStash'));
 app.use('/api/codeStash', require('./routes/api/codeStash'));
 app.use('/api/avatar', require('./routes/api/avatar'));
+
