@@ -1,8 +1,12 @@
-const express = require('express');
+
+import express from 'express';
 import mongoose from 'mongoose';
-require('dotenv').config();
+import 'dotenv/config';
+import login from './routes/api/login';
+// require('dotenv').config();
+
 const app = express();
-const cors = require('cors');
+import cors from 'cors';
 app.use(cors());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
@@ -15,7 +19,7 @@ try {
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		() => {
 			console.log(' Mongoose is connected');
-			app.listen('5000', function () {
+			app.listen('5000', () => {
 				console.log(`the app is now listening on 5000 port`);
 			});
 		}

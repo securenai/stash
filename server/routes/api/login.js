@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwtDecode = require('jwt-decode');
-const User = require('../../db/models/user.js');
+const User = require('../../db/models/user');
 const { createToken, hashPassword, verifyPassword } = require('../../util');
 
 router.post('/', (req, res) => {

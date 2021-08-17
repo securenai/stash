@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const TextStash = require('../../db/models/textStash.js');
+const TextStash = require('../../db/models/textStash');
 
 router.post('/query', (req, res) => {
 	const stashId = req.body.data;

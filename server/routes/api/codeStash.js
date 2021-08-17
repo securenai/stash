@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CodeStash = require('../../db/models/codeStash.js');
+const CodeStash = require('../../db/models/codeStash');
 
 router.post('/query', (req, res) => {
 	const stashId = req.body.data;

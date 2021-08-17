@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../../db/models/user.js');
-const { cloudinary } = require('../../cloudinary/cloudinary.js');
+const User = require('../../db/models/user');
+const { cloudinary } = require('../../cloudinary/cloudinary');
 
 router.post('/query', async (req, res) => {
 	console.log('avaq');

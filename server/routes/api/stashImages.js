@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { cloudinary } = require('../../cloudinary/cloudinary.js');
+const { cloudinary } = require('../../cloudinary/cloudinary');
 
 router.post('/', (req, res) => {
 	console.log('srrrr');

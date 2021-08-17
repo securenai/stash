@@ -1,36 +1,37 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const https = require('https');
-require('dotenv').config();
+import bcrypt from 'bcryptjs';
+import 'dotenv/config';
+import https from 'https';
+import jwt from 'jsonwebtoken';
+// require('dotenv').config();
 
-const createToken = (userId) => {
+const createToken = (userId: string) => {
 	// Sign the JWT
 	// if (!user.role) {
 	// 	throw new Error('No user role specified');
 	// }
 	return jwt.sign(
 		{
-			sub: userId,
 			// email: user.email,
 			// role: user.role,
+			aud: 'api.stash',
 			iss: 'api.stash',
-			aud: 'api.stash'
+			sub: userId,
 		},
 		process.env.JWT_SECRET,
-		{ algorithm: 'HS256', expiresIn: '1h' }
+		{ algorithm: 'HS256', expiresIn: '1h' },
 	);
 };
 
-const hashPassword = (password) => {
+const hashPassword = (password: string) => {
 	return new Promise((resolve, reject) => {
 		// Generate a salt at level 12 strength
 		bcrypt.genSalt(12, (err, salt) => {
 			if (err) {
 				reject(err);
 			}
-			bcrypt.hash(password, salt, (err, hash) => {
-				if (err) {
-					reject(err);
+			bcrypt.hash(password, salt, (err2, hash) => {
+				if (err2) {
+					reject(err2);
 				}
 				resolve(hash);
 			});
@@ -45,7 +46,7 @@ const verifyPassword = (passwordAttempt, hashedPassword) => {
 const requireAdmin = (req, res, next) => {
 	if (!req.user) {
 		return res.status(401).json({
-			message: 'There was a problem authorizing the request'
+			message: 'There was a problem authorizing the request',
 		});
 	}
 	if (req.user.role !== 'admin') {
@@ -56,12 +57,12 @@ const requireAdmin = (req, res, next) => {
 
 const createSirvToken = () => {
 	const options = {
-		method: 'POST',
-		hostname: 'api.sirv.com',
-		path: '/v2/token',
 		headers: {
-			'content-type': 'application/json'
-		}
+			'content-type': 'application/json',
+		},
+		hostname: 'api.sirv.com',
+		method: 'POST',
+		path: '/v2/token',
 	};
 	return new Promise((resolve, reject) => {
 		const req = https.request(options, (res) => {
@@ -86,17 +87,17 @@ const createSirvToken = () => {
 		req.write(
 			JSON.stringify({
 				clientId,
-				clientSecret
-			})
+				clientSecret,
+			}),
 		);
 		req.end();
 	});
 };
 
 module.exports = {
+	createSirvToken,
 	createToken,
 	hashPassword,
-	verifyPassword,
 	requireAdmin,
-	createSirvToken
+	verifyPassword,
 };

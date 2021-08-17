@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const UserInventory = require('../../db/models/userInventory.js');
+const UserInventory = require('../../db/models/userInventory');
 
 router.post('/query', (req, res) => {
 	const owner = req.body.uid;
