@@ -15,6 +15,7 @@ import StashList from '../../components/DashBoard/DashSide/DashSideMiddle/StashL
 import StashCreateModal from '../../components/DashBoard/DashSide/DashSideMiddle/StashCreateModal/StashCreateModal';
 import StashEditModal from '../../components/DashBoard/DashSide/DashSideMiddle/StashEditModal/StashEditModal';
 import { setLocalStorage } from '../../api/utils/localStorageUtils';
+import Modal from '../../components/Widgets/Modal/Modal';
 
 export interface StashListProps {}
 
@@ -23,8 +24,8 @@ const StashListContainer: React.FC<StashListProps> = () => {
 	const user = useSelector(selectUser);
 	const userStashList = useSelector(selectUserStashList);
 	const currentStash = useSelector(selectCurrentStash);
-	const [openStashCreateWindow, setOpenStashCreateWindow] = useState(false);
-	const [openStashEditWindow, setOpenStashEditWindow] = useState(false);
+	const [showStashCreateModal, setShowStashCreateModal] = useState(false);
+	const [showStashEditModal, setShowStashEditModal] = useState(false);
 	const [filteredStashList, setFilteredStashList] = useState([]);
 	interface StashData {
 		id: string;
@@ -62,12 +63,12 @@ const StashListContainer: React.FC<StashListProps> = () => {
 	};
 
 	const handleCloseEditStashWindow = () => {
-		setOpenStashEditWindow(false);
+		setShowStashEditModal(false);
 	};
 
 	const handleIconClick = (id: string, type: string, name: string) => {
 		setEditingData({ id, type, name });
-		setOpenStashEditWindow(true);
+		setShowStashEditModal(true);
 	};
 
 	const handleSavedChanges = async (
@@ -127,18 +128,12 @@ const StashListContainer: React.FC<StashListProps> = () => {
 			}
 			// result && queryStashList();
 		} else if (options[2]) {
-			console.log('lll');
 			// delete
 			const data = {
 				id: editInfo.id,
 				type: editInfo.type,
 				name: editInfo.name
 			};
-			// const deleteItems = await fetchApi(
-			// 	{ id: editInfo.id },
-			// 	`${data.type}Stash/deleteByStashId`
-			// );
-			// if (deleteItems) {
 			const result = await fetchApi({ data }, 'userInventory/delete');
 			if (result) {
 				queryStashList();
@@ -159,16 +154,15 @@ const StashListContainer: React.FC<StashListProps> = () => {
 					}
 				});
 			}
-			// }
 		}
 	};
 
 	const handleCloseCreateStashWindow = () => {
-		setOpenStashCreateWindow(false);
+		setShowStashCreateModal(false);
 	};
 
 	const handleCreateStashWindow = () => {
-		setOpenStashCreateWindow(true);
+		setShowStashCreateModal(true);
 	};
 
 	const handleCreateStash = async (
@@ -213,35 +207,39 @@ const StashListContainer: React.FC<StashListProps> = () => {
 	};
 
 	return (
-		<div className="stashList-container">
-			<div>
-				<StashListHeader
-					createStash={handleCreateStashWindow}
-					onInputChange={handleOnInputChange}
-				/>
-				<StashList
-					stashItems={filteredStashList}
-					currentStash={currentStash}
-					itemClick={handleItemClick}
-					iconClick={handleIconClick}
-				/>
-			</div>
-			<>
-				{openStashCreateWindow === true ? (
+		<>
+			<StashListHeader
+				createStash={handleCreateStashWindow}
+				onInputChange={handleOnInputChange}
+			/>
+			<StashList
+				stashItems={filteredStashList}
+				currentStash={currentStash}
+				itemClick={handleItemClick}
+				iconClick={handleIconClick}
+			/>
+			<Modal
+				showModal={showStashCreateModal}
+				closeModal={handleCloseCreateStashWindow}
+				children={
 					<StashCreateModal
-						closeCreate={handleCloseCreateStashWindow}
 						createStash={handleCreateStash}
+						closeCreate={handleCloseCreateStashWindow}
 					/>
-				) : null}
-				{openStashEditWindow === true ? (
+				}
+			/>
+			<Modal
+				showModal={showStashEditModal}
+				closeModal={handleCloseEditStashWindow}
+				children={
 					<StashEditModal
 						closeEdit={handleCloseEditStashWindow}
 						saveChanges={handleSavedChanges}
 						editingData={editingData}
 					/>
-				) : null}
-			</>
-		</div>
+				}
+			/>
+		</>
 	);
 };
 

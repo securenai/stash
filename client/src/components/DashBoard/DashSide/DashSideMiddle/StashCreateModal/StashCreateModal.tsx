@@ -1,7 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CrudButton } from '../../../../Widgets/Button/CrudButtons/CrudButton';
 import styled from 'styled-components';
-import './StashCreateModal.scss';
 import InputWithIcon from '../../../../Widgets/Input/InputWithIcon';
 import Select from '../../../../Widgets/Select/Select';
 
@@ -10,7 +9,7 @@ export interface StashCreateModalProps {
 	createStash: (stashName: string, stashType: string) => void;
 }
 
-const Modal = styled.div`
+const CreateStashModal = styled.div`
 	background-color: ${({ theme }) => {
 		/* console.log(theme); */
 		return theme.colors.primary;
@@ -23,19 +22,39 @@ const Modal = styled.div`
 	height: 30%;
 	min-height: 210px;
 	min-width: 430px;
-	/* font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; */
 `;
-const ModalTitle = styled.div`
+const CloseButton = styled.span`
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	&:hover {
+		color: ${({ theme }) => theme.fontColors.primary};
+		text-decoration: none;
+		cursor: pointer;
+	}
+`;
+const ModalInfo = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+`;
+const Title = styled.div`
 	color: ${({ theme }) => theme.fontColors.primary};
 	font-size: 20px;
 	font-weight: 900;
 `;
-const Title = styled.h5`
+const Label = styled.h5`
 	color: ${({ theme }) => theme.fontColors.primary};
 	margin-bottom: 8px;
 	font-size: 12px;
 	font-weight: 600;
 	text-transform: uppercase;
+`;
+const ButtonSection = styled.div`
+	margin-top: 15px;
+	display: flex;
+	flex-direction: row-reverse;
 `;
 
 const StashCreateModal: React.FC<StashCreateModalProps> = ({
@@ -53,55 +72,34 @@ const StashCreateModal: React.FC<StashCreateModalProps> = ({
 		}
 	};
 
-	useEffect(() => {
-		document.body.addEventListener('click', onClickOutside);
-	}, []);
-
-	const modalOuter = useRef(null);
-
-	const onClickOutside = (e: any) => {
-		console.log('close');
-		if (e.target.className === 'modal') {
-			e.preventDefault();
-			e.stopPropagation();
-			closeCreate();
-			document.body.removeEventListener('click', onClickOutside);
-		}
-	};
-
 	return (
-		<div id="createStashModal" className="modal" ref={modalOuter}>
-			<Modal>
-				<span className="close" onClick={closeCreate}>
-					&times;
-				</span>
-
-				<ModalTitle>Create Stash</ModalTitle>
-				<div className="modal-info">
-					<Title>stash name</Title>
-					<InputWithIcon
-						type={stashType}
-						inputValue={stashName}
-						onChangeValue={(e) => {
-							setStashName(e.target.value);
-						}}
+		<CreateStashModal>
+			<CloseButton onClick={closeCreate}>&times;</CloseButton>
+			<Title>Create Stash</Title>
+			<ModalInfo>
+				<Label>stash name</Label>
+				<InputWithIcon
+					type={stashType}
+					inputValue={stashName}
+					onChangeValue={(e) => {
+						setStashName(e.target.value);
+					}}
+				/>
+				<Label>stash type</Label>
+				<Select
+					onSelectChange={(e) => setStashType(e.target.value)}
+					options={['text', 'code', 'image']}
+				/>
+				<ButtonSection>
+					<CrudButton
+						size="small"
+						label="SAVE"
+						crudType="save"
+						onClick={handleCreateStash}
 					/>
-					<Title>stash type</Title>
-					<Select
-						onSelectChange={(e) => setStashType(e.target.value)}
-						options={['text', 'code', 'image']}
-					/>
-					<div className="stash-buttons">
-						<CrudButton
-							size="small"
-							label="SAVE"
-							crudType="save"
-							onClick={handleCreateStash}
-						/>
-					</div>
-				</div>
-			</Modal>
-		</div>
+				</ButtonSection>
+			</ModalInfo>
+		</CreateStashModal>
 	);
 };
 

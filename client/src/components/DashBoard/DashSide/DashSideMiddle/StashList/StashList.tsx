@@ -33,24 +33,18 @@ const StashList: React.FC<StashListProps> = ({
 }) => {
 	return (
 		<StashItemList>
-			{stashItems.length ? (
-				stashItems.map((item) => {
-					const isCurr = item._id === currentStash.id;
-					return (
-						<StashItem
-							itemId={item._id}
-							itemName={item.name}
-							itemType={item.type}
-							onItemClick={itemClick}
-							onIconClick={iconClick}
-							isCurr={isCurr}
-							key={item._id}
-						/>
-					);
-				})
-			) : (
-				<div></div>
-			)}
+			{stashItems.length &&
+				stashItems.map((item) => (
+					<StashItem
+						itemId={item._id}
+						itemName={item.name}
+						itemType={item.type}
+						onItemClick={itemClick}
+						onIconClick={iconClick}
+						isCurr={item._id === currentStash.id}
+						key={item._id}
+					/>
+				))}
 		</StashItemList>
 	);
 };
