@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export default function Processing() {
+export default function Processing({}) {
 	const classes = useStyles();
 
 	return (
