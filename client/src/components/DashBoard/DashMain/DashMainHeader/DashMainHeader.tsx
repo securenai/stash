@@ -1,12 +1,10 @@
 import React from 'react';
 import CodeStashHeader from '../CodeCategory/CodeStashHeader/CodeStashHeader';
 import ImageStashHeader from '../ImageCategory/ImageStashHeader/ImageStashHeader';
-import './DashMainHeader.scss';
-import styled from 'styled-components';
-import { TiCode } from 'react-icons/ti';
-import { TiImage } from 'react-icons/ti';
-import { BsFonts } from 'react-icons/bs';
 import TextStashHeader from '../TextCategory/TextStashHeader/TextStashHeader';
+import styled from 'styled-components';
+import { TiCode, TiImage } from 'react-icons/ti';
+import { BsFonts } from 'react-icons/bs';
 
 const DashHeaderMain = styled.div`
 	height: 40px;
@@ -17,8 +15,18 @@ const DashHeaderMain = styled.div`
 	border-bottom: ${({ theme }) => theme.borders.primary};
 	padding: 20px 20px 20px 20px;
 `;
-
+const DashHeaderTitle = styled.div`
+	align-items: center;
+	height: 40px;
+	display: flex;
+	font-size: 20px;
+	width: 35%;
+`;
+const TitleIcon = styled.div`
+	padding: 10px 10px 5px 10px;
+`;
 export interface DashMainHeaderProps {
+	stashId: string;
 	stashType: string;
 	stashName: string;
 	uploadImage?: (data: File, name: string) => void;
@@ -27,6 +35,7 @@ export interface DashMainHeaderProps {
 }
 
 const DashMainHeader: React.FC<DashMainHeaderProps> = ({
+	stashId,
 	stashType,
 	stashName,
 	uploadImage,
@@ -35,11 +44,11 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 }) => {
 	const renderStashHeaderTemplate = () => {
 		if (stashType === 'text') {
-			return <TextStashHeader addItem={addTextStashItem} />;
+			return <TextStashHeader stashId={stashId} addItem={addTextStashItem} />;
 		} else if (stashType === 'image') {
-			return <ImageStashHeader uploadImage={uploadImage} />;
+			return <ImageStashHeader stashId={stashId} uploadImage={uploadImage} />;
 		} else if (stashType === 'code') {
-			return <CodeStashHeader addItem={addCodeStashItem} />;
+			return <CodeStashHeader stashId={stashId} addItem={addCodeStashItem} />;
 		}
 	};
 	const stashTypeIcon = () => {
@@ -54,14 +63,11 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 
 	return (
 		<DashHeaderMain>
-			<div className="dash-main-header-title">
-				<div className="dash-main-header-icon">{stashTypeIcon()}</div>
-				<div className="dash-main-header-name">{stashName}</div>
-			</div>
-			<div className="dash-main-header-content"></div>
-			<div className="dash-main-header-add-icon">
-				{renderStashHeaderTemplate()}
-			</div>
+			<DashHeaderTitle>
+				<TitleIcon>{stashTypeIcon()}</TitleIcon>
+				<div>{stashName}</div>
+			</DashHeaderTitle>
+			{renderStashHeaderTemplate()}
 		</DashHeaderMain>
 	);
 };

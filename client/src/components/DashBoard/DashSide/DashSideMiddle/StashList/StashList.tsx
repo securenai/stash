@@ -33,7 +33,7 @@ const StashList: React.FC<StashListProps> = ({
 }) => {
 	return (
 		<StashItemList>
-			{stashItems.length &&
+			{stashItems.length > 0 &&
 				stashItems.map((item) => (
 					<StashItem
 						itemId={item._id}

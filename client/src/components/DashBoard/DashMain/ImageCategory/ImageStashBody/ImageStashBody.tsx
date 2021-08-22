@@ -31,9 +31,15 @@ export interface ImageStashBodyProps {
 		fileName: string;
 		format: string;
 	}[];
+	imageClicked: (src: string) => void;
+	deleteImage: (src: string) => void;
 }
 
-const ImageStashBody: React.FC<ImageStashBodyProps> = ({ imageFiles }) => {
+const ImageStashBody: React.FC<ImageStashBodyProps> = ({
+	imageFiles,
+	imageClicked,
+	deleteImage
+}) => {
 	const [images, setImages] = useState([]);
 	const elementRef = useRef(null);
 	const [show, setShow] = useState(false);
@@ -66,7 +72,12 @@ const ImageStashBody: React.FC<ImageStashBodyProps> = ({ imageFiles }) => {
 		<ImageStashBodyContainer ref={elementRef}>
 			{images &&
 				images.map((imageFile) => (
-					<ImageItem imageFile={imageFile} key={imageFile.public_id} />
+					<ImageItem
+						imageFile={imageFile}
+						key={imageFile.public_id}
+						imageClicked={imageClicked}
+						deleteImage={deleteImage}
+					/>
 				))}
 			{show && <ScrollTo click={handleClick} />}
 		</ImageStashBodyContainer>

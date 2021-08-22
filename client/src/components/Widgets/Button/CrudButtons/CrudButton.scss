@@ -27,17 +27,23 @@
 		background-color: rgb(240, 93, 112);
 	}
 }
+.crud-button--upload {
+	background-color: rgb(46, 127, 165);
+	&:hover {
+		background-color: rgb(94, 180, 197);
+	}
+}
 .crud-button--small {
 	font-size: 12px;
-	padding: 5px 16px;
+	padding: 5px 12px;
 }
 .crud-button--medium {
 	font-size: 14px;
-	padding: 6px 20px;
+	padding: 6px 16px;
 }
 .crud-button--large {
 	font-size: 16px;
-	padding: 7px 24px;
+	padding: 7px 20px;
 }
 .crud-icon {
 	margin-left: 5px;

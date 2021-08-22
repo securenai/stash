@@ -22,10 +22,23 @@ const CodeEditorControls = styled.div`
 
 export interface TextItemProps {
 	content: any;
+	deleteText: (id: string) => void;
+	saveText: (
+		id: string,
+		textStash: {
+			title: string;
+			link: string;
+		}
+	) => void;
 	fetchIframe: (url: string) => any;
 }
 
-const TextItem: React.FC<TextItemProps> = ({ content, fetchIframe }) => {
+const TextItem: React.FC<TextItemProps> = ({
+	content,
+	saveText,
+	fetchIframe,
+	deleteText
+}) => {
 	const [title, setTitle] = React.useState('Title');
 	const [enableTitleEdit, setEnableTitleEdit] = React.useState(false);
 	const [enableLinkEdit, setEnableLinkEdit] = React.useState(false);
@@ -40,6 +53,7 @@ const TextItem: React.FC<TextItemProps> = ({ content, fetchIframe }) => {
 	});
 
 	useEffect(() => {
+		// console.log(content);
 		setTitle(content.title);
 		setEmbeded(content.link);
 		renderIframe(content.link);
@@ -95,15 +109,16 @@ const TextItem: React.FC<TextItemProps> = ({ content, fetchIframe }) => {
 					label="SAVE"
 					crudType="save"
 					onClick={() => {
-						// saveCode(codeStash._id, topic, code);
-						// setEnableTitleEdit(false);
+						saveText(content._id, { title: title, link: embeded });
+						setEnableTitleEdit(false);
+						setEnableLinkEdit(false);
 					}}
 				/>
 				<CrudButton
 					size="small"
 					label="DELETE"
 					crudType="delete"
-					// onClick={() => deleteCode(textStash._id)}
+					onClick={() => deleteText(content._id)}
 				/>
 			</CodeEditorControls>
 		</A_TextItemContainer>

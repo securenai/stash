@@ -8,23 +8,21 @@ import { selectUser } from '../../slices/userSlice';
 import { selectCurrentTheme } from '../../slices/appSlice';
 import NotFound from '../../components/Windows/ErrorHandling/NotFound/NotFound';
 import { ThemeProvider } from 'styled-components';
-import { darkMode , lightMode} from '../../styles/Theme/Themes'
+import { darkMode, lightMode } from '../../styles/Theme/Themes';
 
 export interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
-	
 	const user = useSelector(selectUser);
-	const currentTheme = useSelector(selectCurrentTheme) ;
-	let mode = currentTheme === 'DARK' ? darkMode : lightMode
+	const currentTheme = useSelector(selectCurrentTheme);
+	let mode = currentTheme === 'DARK' ? darkMode : lightMode;
 
 	useEffect(() => {
-		mode = currentTheme === 'DARK' ? darkMode : lightMode
-	}, [currentTheme])
+		mode;
+	}, [currentTheme]);
 
 	return (
 		<ThemeProvider theme={mode}>
-		<div>
 			<BrowserRouter>
 				<Switch>
 					<Route exact path="/" render={() => <Home />} />
@@ -33,7 +31,6 @@ const App: React.FC<AppProps> = () => {
 					<Route component={NotFound} />
 				</Switch>
 			</BrowserRouter>
-		</div>
 		</ThemeProvider>
 	);
 };

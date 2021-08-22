@@ -2,8 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { cloudinary } = require('../../cloudinary/cloudinary');
 
-router.post('/', (req, res) => {
-	console.log('srrrr');
+router.post('/deleteById', async (req, res) => {
+	const id = req.body.id;
+	try {
+		const result = await cloudinary.api.delete_resources([id]);
+		if (result.deleted[id] === 'deleted') {
+			console.log('tetss');
+			res.json({ msg: 'file deleted' });
+		}
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ err: 'del : something went wrong' });
+	}
 });
 
 router.post('/query', async (req, res) => {

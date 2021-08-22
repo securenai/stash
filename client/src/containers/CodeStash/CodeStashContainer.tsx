@@ -85,6 +85,7 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 			<DashMainHeader
 				stashType={currStash.type}
 				stashName={currStash.name}
+				stashId={currStash.id}
 				addCodeStashItem={handleAddCode}
 			/>
 			{updateComplete === false && startUpdate === true ? <Processing /> : null}

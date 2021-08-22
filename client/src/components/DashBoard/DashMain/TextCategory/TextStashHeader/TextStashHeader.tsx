@@ -10,6 +10,7 @@ const AddIcon = styled.div`
 `;
 
 export interface TextStashHeaderProps {
+	stashId: string;
 	addItem: () => void;
 }
 

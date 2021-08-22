@@ -26,6 +26,14 @@ const TextStashContainer = styled.div`
 
 export interface TextStashProps {
 	fetchIframe: (url: string) => any;
+	deleteText: (id: string) => void;
+	saveText: (
+		id: string,
+		textStash: {
+			title: string;
+			link: string;
+		}
+	) => void;
 	textList: {
 		_id: string;
 		owner: string;
@@ -37,7 +45,12 @@ export interface TextStashProps {
 	}[];
 }
 
-const TextStash: React.FC<TextStashProps> = ({ fetchIframe, textList }) => {
+const TextStash: React.FC<TextStashProps> = ({
+	fetchIframe,
+	textList,
+	deleteText,
+	saveText
+}) => {
 	return (
 		<TextStashContainer>
 			{textList.length > 0 &&
@@ -47,6 +60,8 @@ const TextStash: React.FC<TextStashProps> = ({ fetchIframe, textList }) => {
 							key={textItem._id.toString()}
 							content={textItem}
 							fetchIframe={fetchIframe}
+							deleteText={deleteText}
+							saveText={saveText}
 						/>
 					);
 				})}

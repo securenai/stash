@@ -3,6 +3,7 @@ import { AiFillPlusSquare } from 'react-icons/ai';
 import './CodeStashHeader.css';
 
 export interface CodeStashHeaderProps {
+	stashId: string;
 	addItem: () => void;
 }
 

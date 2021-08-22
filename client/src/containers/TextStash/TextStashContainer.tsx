@@ -67,6 +67,42 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 		});
 	};
 
+	const handleDeleteText = async (id: string) => {
+		setStartUpdate(true);
+		setUpdateComplete(false);
+		const data = id;
+		const result = await fetchApi({ data }, 'textStash/delete');
+		if (result) {
+			setStartUpdate(false);
+			setUpdateComplete(true);
+			queryTextStashList();
+		}
+	};
+
+	const handleSaveText = async (
+		id: string,
+		textStash: {
+			title: string;
+			link: string;
+		}
+	) => {
+		setStartUpdate(true);
+		setUpdateComplete(false);
+		const data = {
+			_id: id,
+			owner: user.userInfo._id,
+			title: textStash.title,
+			link: textStash.link,
+			modifiedDate: moment().format('YYYY-MM-DD')
+		};
+		const result = await fetchApi(data, 'textStash/update');
+		if (result) {
+			setStartUpdate(false);
+			setUpdateComplete(true);
+			queryTextStashList();
+		}
+	};
+
 	const checkStatus = (response) => {
 		if (response.ok) {
 			return Promise.resolve(response);
@@ -78,12 +114,18 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 	return (
 		<>
 			<DashMainHeader
+				stashId={currStash.id}
 				stashType={currStash.type}
 				stashName={currStash.name}
 				addTextStashItem={handleAddText}
 			/>
 			{updateComplete === false && startUpdate === true ? <Processing /> : null}
-			<TextStash fetchIframe={handleFetchIframe} textList={textList} />
+			<TextStash
+				fetchIframe={handleFetchIframe}
+				textList={textList}
+				deleteText={handleDeleteText}
+				saveText={handleSaveText}
+			/>
 		</>
 	);
 };
