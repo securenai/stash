@@ -5,7 +5,7 @@ import { TiImage } from 'react-icons/ti';
 import { BsFonts } from 'react-icons/bs';
 import IconButtonEdit from '../../../../../Widgets/Button/IconButtons/IconButtonEdit';
 
-const Item = styled.li`
+const Item = styled.li<{isCurr: boolean}>`
 	list-style: none;
 	border-radius: 3px;
 	cursor: pointer;

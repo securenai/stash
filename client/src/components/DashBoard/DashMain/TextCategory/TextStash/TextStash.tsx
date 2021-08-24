@@ -12,7 +12,6 @@ const TextStashContainer = styled.div`
 	flex-wrap: wrap;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	height: 600px;
 	&::-webkit-scrollbar {
 		width: 8px;
 		background-color: ${({ theme }) => theme.colors.primary};

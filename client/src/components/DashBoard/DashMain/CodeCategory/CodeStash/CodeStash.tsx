@@ -11,7 +11,7 @@ const CodeStashContainer = styled.div`
 	align-content: flex-start;
 	align-items: flex-start;
 	flex-wrap: wrap; */
-	height: 600px;
+	height: 100vh;
 	padding: 20px;
 	overflow-y: scroll;
 	overflow-x: hidden;

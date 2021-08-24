@@ -4,10 +4,8 @@ import DashSide from './DashSide/DashSide';
 import styled from 'styled-components';
 
 const DashBoardContainer = styled.div`
-	background-color: rgb(49, 50, 56);
+	background-color: ${({ theme }) => theme.fontColors.primary};
 	display: flex;
-	flex-direction: row;
-	overflow: hidden;
 `;
 
 export interface DashBoardProps {

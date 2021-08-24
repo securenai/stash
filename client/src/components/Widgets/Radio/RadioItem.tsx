@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const RadioContainer = styled.div`
+const RadioContainer = styled.div<{selected: boolean}>`
 	background-color: ${(props) =>
 		props.selected === true
 			? props.theme.colors.secondary

@@ -201,7 +201,7 @@ const StashListContainer: React.FC<StashListProps> = () => {
 
 	const handleOnInputChange = (val: string) => {
 		const filterList = _.filter(userStashList, (item) => {
-			return _.startsWith(item.name, val);
+			return _.startsWith(item.name.toLowerCase(), val.toLowerCase());
 		});
 		setFilteredStashList(filterList);
 	};

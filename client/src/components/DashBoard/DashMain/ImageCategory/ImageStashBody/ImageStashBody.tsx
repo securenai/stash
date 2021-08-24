@@ -5,14 +5,8 @@ import ScrollTo from '../../../../Widgets/ScrollTo/ScrollTo';
 
 const ImageStashBodyContainer = styled.div`
 	padding: 20px;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-content: flex-start;
-	flex-wrap: wrap;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	height: 600px;
 	&::-webkit-scrollbar {
 		width: 8px;
 		background-color: ${({ theme }) => theme.colors.primary};
@@ -22,6 +16,13 @@ const ImageStashBodyContainer = styled.div`
 		background-color: ${({ theme }) => theme.fontColors.primary};
 		border-radius: 10px;
 	}
+`;
+const ImageItemWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: flex-start;
+	flex-wrap: wrap;
 `;
 
 export interface ImageStashBodyProps {
@@ -70,6 +71,7 @@ const ImageStashBody: React.FC<ImageStashBodyProps> = ({
 
 	return (
 		<ImageStashBodyContainer ref={elementRef}>
+			<ImageItemWrapper>
 			{images &&
 				images.map((imageFile) => (
 					<ImageItem
@@ -79,6 +81,7 @@ const ImageStashBody: React.FC<ImageStashBodyProps> = ({
 						deleteImage={deleteImage}
 					/>
 				))}
+				</ImageItemWrapper>
 			{show && <ScrollTo click={handleClick} />}
 		</ImageStashBodyContainer>
 	);

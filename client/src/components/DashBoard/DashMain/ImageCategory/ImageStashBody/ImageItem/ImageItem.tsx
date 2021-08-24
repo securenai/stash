@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 
 const A_ImagePlaceholder = styled(animated.div)`
 	margin: 10px;
-	width: 235px;
+	width: 224px;
 	height: 195px;
 	border: 1px solid black;
 	object-fit: fill;
@@ -38,7 +38,7 @@ const ImageName = styled.div`
 	background-color: ${({ theme }) => theme.colors.secondary};
 	color: ${({ theme }) => theme.fontColors.secondary};
 	border-bottom: ${({ theme }) => theme.borders.primary};
-	width: 229px;
+	width: 218px;
 	font-weight: 600;
 	padding: 3px;
 	font-size: 10px;
@@ -47,7 +47,7 @@ const ImageName = styled.div`
 const ImageDesc = styled.div`
 	background-color: ${({ theme }) => theme.colors.secondary};
 	color: ${({ theme }) => theme.fontColors.secondary};
-	width: 229px;
+	width: 218px;
 	font-weight: 600;
 	padding: 3px;
 	font-size: 10px;

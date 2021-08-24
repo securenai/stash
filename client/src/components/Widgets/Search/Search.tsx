@@ -7,7 +7,7 @@ export interface SearchProps {
 	onInputChange: (inputValue: string) => void;
 }
 
-const SearchWidget = styled.div`
+const SearchWidget = styled.div<{inputOnFocus:any}>`
 	display: flex;
 	align-items: center;
 	color: gray;

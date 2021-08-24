@@ -32,6 +32,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 				visible={visible}
 				onClose={() => {
 					setVisible(false);
+					closeViewer();
 				}}
 				changeable={false}
 				showTotal={false}

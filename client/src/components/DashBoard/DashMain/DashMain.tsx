@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import TextStashContainer from '../../../containers/TextStash/TextStashContainer';
 
 const DashMainBody = styled.div`
+	display:flex;
+	flex-direction: column;
 	height: 100vh;
 	width: 100%;
 	min-width: 600px;
