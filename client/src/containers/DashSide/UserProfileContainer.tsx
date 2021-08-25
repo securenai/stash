@@ -4,8 +4,8 @@ import { DashSideTop } from '../../../src/components/DashBoard/DashSide/DashSide
 import { selectUser, logout } from '../../slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { UserOptionsModal } from '../../components/DashBoard/DashSide/DashSideTop/UserOptionsModal/UserOptionsModal';
-import UserSettings from '../../components/Windows/UserSettings/UserSettings';
-import UserSettingsContainer from '../UserSettings/UserSettingsContainer';
+import Settings from '../../components/Windows/Settings/Settings';
+import SettingsContainer from '../Settings/SettingsContainer';
 
 export interface UserProfileContainerProps {}
 
@@ -13,7 +13,7 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
 	const [openUserOptionsModal, setOpenUserOptionsModal] = useState(false);
-	const [openUserSettings, setOpenUserSettings] = useState(false);
+	const [openSettings, setOpenSettings] = useState(false);
 
 	const handleLogout = () => {
 		dispatch(
@@ -38,12 +38,12 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 		setOpenUserOptionsModal(true);
 	};
 
-	const handleOpenUserSettings = () => {
-		setOpenUserSettings(true);
+	const handleOpenSettings = () => {
+		setOpenSettings(true);
 	};
 
-	const handleCloseUserSettings = () => {
-		setOpenUserSettings(false);
+	const handleCloseSettings = () => {
+		setOpenSettings(false);
 	};
 
 	return (
@@ -57,14 +57,14 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 				<UserOptionsModal
 					userName={user.userInfo.name}
 					onLogout={handleLogout}
-					openUserSettings={handleOpenUserSettings}
+					openSettings={handleOpenSettings}
 					closeModal={handleCloseModal}
 				/>
 			) : null}
-			{openUserSettings === true ? (
-				<UserSettingsContainer
-					close={handleCloseUserSettings}
-					isOpen={openUserSettings}
+			{openSettings === true ? (
+				<SettingsContainer
+					close={handleCloseSettings}
+					isOpen={openSettings}
 				/>
 			) : null}
 		</>

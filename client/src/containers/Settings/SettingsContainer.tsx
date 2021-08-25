@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import UserSettings from '../../components/Windows/UserSettings/UserSettings';
+import Settings from '../../components/Windows/Settings/Settings';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAppTheme, selectCurrentTheme } from '../../slices/appSlice';
 import { setLocalStorage } from '../../api/utils/localStorageUtils';
 
-export interface UserSettingsContainerProps {
+export interface SettingsContainerProps {
 	close: () => void;
 	isOpen: boolean;
 }
 
-const UserSettingsContainer: React.FC<UserSettingsContainerProps> = ({
+const SettingsContainer: React.FC<SettingsContainerProps> = ({
 	close,
 	isOpen
 }) => {
@@ -27,7 +27,7 @@ const UserSettingsContainer: React.FC<UserSettingsContainerProps> = ({
 	};
 
 	return (
-		<UserSettings
+		<Settings
 			close={close}
 			isOpen={isOpen}
 			setThemeMode={handleSetThemeMode}
@@ -36,4 +36,4 @@ const UserSettingsContainer: React.FC<UserSettingsContainerProps> = ({
 	);
 };
 
-export default UserSettingsContainer;
+export default SettingsContainer;

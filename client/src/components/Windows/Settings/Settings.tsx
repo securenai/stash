@@ -2,41 +2,43 @@ import React from 'react';
 import AvatarWidgetContainer from '../../../containers/UserInfo/AvatarWidgetContainer';
 import Switch from '../../Widgets/Switch/Switch';
 import styled from 'styled-components';
-import './UserSettings.scss';
+import './Settings.scss';
 import CloseButton from '../../Widgets/Button/CloseButtons/CloseButton';
 import { useTransition, animated } from 'react-spring';
+import UserSettings from './SettingsRight/UserSettings';
 
-export interface UserSettingsProps {
+export interface SettingsProps {
 	currentTheme: string;
 	setThemeMode: (mode: boolean) => void;
 	close: () => void;
 	isOpen: boolean;
 }
 
-const A_UserSettingsMain = styled(animated.div)`
+const A_SettingsMain = styled(animated.div)`
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	display: flex;
-	z-index: 1;
+	z-index: 2;
 	color: ${({ theme }) => theme.fontColors.primary};
 `;
-const UserSettingsLeft = styled.div`
+const SettingsLeft = styled.div`
 	height: 100%;
-	width: 30%;
+	min-width: 250px;
+	width: 20%;
 	background-color: ${({ theme }) => theme.colors.secondary};
 `;
-const UserSettingsRight = styled.div`
+const SettingsRight = styled.div`
 	flex-grow: 3;
 	height: 100%;
 	background-color: ${({ theme }) => theme.colors.primary};
 	display: flex;
-	padding: 2%;
+	padding: 15px;
 `;
 
-const UserSettings: React.FC<UserSettingsProps> = ({
+const Settings: React.FC<SettingsProps> = ({
 	close,
 	isOpen,
 	setThemeMode,
@@ -52,27 +54,18 @@ const UserSettings: React.FC<UserSettingsProps> = ({
 	return transition(
 		(styles, item) =>
 			item && (
-				<A_UserSettingsMain style={styles}>
-					<UserSettingsLeft>
-						left
-						<div className="label1">
-							<div className="label1-title">Dark Mode </div>
-							<Switch
-								label="Switch One"
-								onToggle={setThemeMode}
-								isToggled={currentTheme === 'DARK'}
-							/>
-						</div>
-					</UserSettingsLeft>
-					<UserSettingsRight>
-						<div className="userSettings__right__main">
-							<AvatarWidgetContainer />
-						</div>
+				<A_SettingsMain style={styles}>
+					<SettingsLeft>left</SettingsLeft>
+					<SettingsRight>
+						<UserSettings
+							setThemeMode={setThemeMode}
+							currentTheme={currentTheme}
+						/>
 						<CloseButton onButtonClick={close} />
-					</UserSettingsRight>
-				</A_UserSettingsMain>
+					</SettingsRight>
+				</A_SettingsMain>
 			)
 	);
 };
 
-export default UserSettings;
+export default Settings;

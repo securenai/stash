@@ -32,14 +32,14 @@ const UserName = styled.h4`
 export interface UserOptionsModalProps {
 	userName: string;
 	closeModal: () => void;
-	openUserSettings: () => void;
+	openSettings: () => void;
 	onLogout: () => void;
 }
 
 export const UserOptionsModal: React.FC<UserOptionsModalProps> = ({
 	userName,
 	closeModal,
-	openUserSettings,
+	openSettings,
 	onLogout
 }) => {
 	useEffect(() => {
@@ -67,7 +67,7 @@ export const UserOptionsModal: React.FC<UserOptionsModalProps> = ({
 			<UserOptionsModalContainer>
 				<UserName>{userName}</UserName>
 				<UserOptionListItem
-					doTask={() => onClickOption(openUserSettings)}
+					doTask={() => onClickOption(openSettings)}
 					iconType={'Settings'}
 				/>
 				<UserOptionListItem

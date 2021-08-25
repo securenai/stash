@@ -1,6 +1,9 @@
 @import '../../../styles/stash-theme';
 @import '../../../styles/utils/layout-mixins';
 
+.AvatarWidget {
+	width: 75px;
+}
 .AvatarWidget__avatar {
 	position: relative;
 	height: 75px;
@@ -11,14 +14,8 @@
 }
 .AvatarWidget__avatar--image {
 	@include roundy(70px, 2px solid black);
-	// background-image: url('./tmp/kasu.png');
 	background-size: 70px 70px;
 	cursor: pointer;
-	// &:hover {
-	// 	// border-radius: 0px;
-	// 	background-color: rgb(46, 43, 43, 0.3);
-	// 	opacity: 0.3;
-	// }
 }
 .AvatarWidget__avatar--hover {
 	z-index: 1;
@@ -26,12 +23,13 @@
 	@include flexy($wrap: wrap, $just: center);
 	position: absolute;
 	background-size: 70px 70px;
-	cursor: pointer;
-	font-size: 12px;
-	font-weight: 900;
 	background-color: rgb(46, 43, 43, 0.7);
 }
 .AvatarWidget__avatar--hover--text {
+	font-size: 10px;
+	font-weight: 900;
+	color: white;
+	font-family: 'Courier New', Courier, monospace;
 	text-align: center;
 }
 .AvatarWidget__avatar--changeIcon {
@@ -41,7 +39,7 @@
 	@include roundy(25px, null);
 	@include flexy($wrap: wrap, $just: center);
 	// background-color: rgb(190, 182, 182);
-	background-color: rgb(155, 148, 148);
+	background-color: #dcddde;
 	position: absolute;
 	cursor: pointer;
 }

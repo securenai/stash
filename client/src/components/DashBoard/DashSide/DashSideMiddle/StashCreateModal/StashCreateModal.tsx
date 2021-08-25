@@ -20,7 +20,7 @@ const CreateStashModal = styled.div`
 	border-radius: 5px;
 	width: 30%;
 	height: 30%;
-	min-height: 210px;
+	min-height: 235px;
 	min-width: 430px;
 `;
 const CloseButton = styled.span`
@@ -40,6 +40,9 @@ const ModalInfo = styled.div`
 	flex-wrap: wrap;
 `;
 const Title = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	color: ${({ theme }) => theme.fontColors.primary};
 	font-size: 20px;
 	font-weight: 900;
@@ -74,8 +77,9 @@ const StashCreateModal: React.FC<StashCreateModalProps> = ({
 
 	return (
 		<CreateStashModal>
-			<CloseButton onClick={closeCreate}>&times;</CloseButton>
-			<Title>Create Stash</Title>
+			<Title>Create Stash
+				<CloseButton onClick={closeCreate}>&times;</CloseButton>
+			</Title>
 			<ModalInfo>
 				<Label>stash name</Label>
 				<InputWithIcon

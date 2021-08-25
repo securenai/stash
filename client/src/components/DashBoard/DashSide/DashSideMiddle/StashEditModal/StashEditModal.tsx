@@ -43,6 +43,9 @@ const CloseButton = styled.span`
 	}
 `;
 const Title = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	color: ${({ theme }) => theme.fontColors.primary};
 	font-size: 20px;
 	font-weight: 900;
@@ -50,6 +53,7 @@ const Title = styled.div`
 const RadioSet = styled.div`
 	display: flex;
 	justify-content: space-between;
+	height: 30px;
 	padding: 15px 10px 0px 10px;
 `;
 const ModalInfo = styled.div`
@@ -94,8 +98,9 @@ const StashEditModal: React.FC<StashEditModalProps> = ({
 
 	return (
 		<EditStashModal>
-			<CloseButton onClick={closeEdit}>&times;</CloseButton>
-			<Title>Manage Stash</Title>
+			<Title>Manage Stash
+				<CloseButton onClick={closeEdit}>&times;</CloseButton>
+			</Title>
 			<RadioSet>
 				<RadioItem
 					selected={radioOptions[0]}

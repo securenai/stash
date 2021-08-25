@@ -61,7 +61,7 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 			setStartUpload(false);
 			setTimeout(() => {
 				queryFiles();
-			}, 500);
+			}, 1000);
 		}
 	};
 

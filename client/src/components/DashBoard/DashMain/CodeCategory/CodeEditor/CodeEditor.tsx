@@ -19,13 +19,13 @@ float: left;
 	margin: 20px;
 	/* min-width: 530px; */
 	width: 40%;
-	border: 1px solid silver;
+	border: 1px solid #7a7777c9;
 	box-shadow: 20px 20px 50px #474545;
 	background-color: ${({ theme }) => theme.colors.secondary};
 	color: ${({ theme }) => theme.fontColors.primary};
 `;
 const CodeEditorCodeBlock = styled.div`
-	/* min-width: 500px; */
+	border-radius: 5px;
 	max-height: 500px;
 	background-color: #fafafa;
 	margin: 10px;

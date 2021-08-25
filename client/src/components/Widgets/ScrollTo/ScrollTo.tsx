@@ -9,7 +9,7 @@ export interface ScrollToProps {
 
 const useStyles = makeStyles((theme) => ({
 	toTop: {
-		zIndex: 2,
+		zIndex: 1,
 		position: 'fixed',
 		bottom: '2vh',
 		backgroundColor: '#DCDCDC',
