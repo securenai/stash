@@ -4,8 +4,8 @@ export const appSlice = createSlice({
 	name: 'app',
 	initialState: {
 		currentStash: JSON.parse(localStorage.getItem('currentStash')) || {},
-		currentTheme: localStorage.getItem('currentTheme') || 'DARK'
-		// currentImage: { src: '', viewerOn: false }
+		currentTheme: localStorage.getItem('currentTheme') || 'DARK',
+		bannerColor: JSON.parse(localStorage.getItem('bannerColor'))
 	},
 	reducers: {
 		setAppInfo: (state, action) => {
@@ -13,17 +13,17 @@ export const appSlice = createSlice({
 		},
 		setAppTheme: (state, action) => {
 			state.currentTheme = action.payload.currentTheme;
+		},
+		setBannerColor: (state, action) => {
+			state.bannerColor = action.payload.bannerColor;
 		}
-		// setImageViewer: (state, action) => {
-		// 	state.currentImage = action.payload.currentImage;
-		// }
 	}
 });
 
-export const { setAppInfo, setAppTheme, setImageViewer } = appSlice.actions;
+export const { setAppInfo, setAppTheme, setBannerColor } = appSlice.actions;
 
 export const selectCurrentStash = (state) => state.app.currentStash;
 export const selectCurrentTheme = (state) => state.app.currentTheme;
-// export const selectCurrentImage = (state) => state.app.currentImage;
+export const selectBannerColor = (state) => state.app.bannerColor;
 
 export default appSlice.reducer;

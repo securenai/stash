@@ -12,7 +12,7 @@ export const userSlice = createSlice({
 					? new Date().getTime() / 1000 < localStorage.getItem('expiresAt')
 					: false
 		},
-		userStashList : []
+		userStashList: []
 	},
 	reducers: {
 		login: (state, action) => {
@@ -27,16 +27,25 @@ export const userSlice = createSlice({
 		},
 		setUserStashList: (state, action) => {
 			state.userStashList = action.payload;
+		},
+		setUserInfo: (state, action) => {
+			state.user.userInfo = action.payload;
 		}
 	}
 });
 
-export const { login, logout, setUserStashList } = userSlice.actions;
+export const {
+	login,
+	logout,
+	setUserStashList,
+	setUserInfo
+} = userSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.user.value)`
 export const selectUser = (state) => state.user.user;
+export const selectUserInfo = (state) => state.user.userInfo;
 export const selectUserStashList = (state) => state.user.userStashList;
 
 export default userSlice.reducer;

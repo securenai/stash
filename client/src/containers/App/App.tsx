@@ -13,7 +13,7 @@ import { darkMode, lightMode } from '../../styles/Theme/Themes';
 export interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
-	const user = useSelector(selectUser);
+	// const user = useSelector(selectUser);
 	const currentTheme = useSelector(selectCurrentTheme);
 	let mode = currentTheme === 'DARK' ? darkMode : lightMode;
 

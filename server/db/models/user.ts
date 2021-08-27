@@ -13,7 +13,14 @@ const UserSchema = new mongoose.Schema({
 	avatarUrl: {
 		type: String,
 		required: true
-	}
+	},
+	createDate: {
+		type: String,
+		required: true
+	},
+	themeColor: {
+		type: Object
+	},
 });
 // hash password b4 saving to database
 // LoginSchema.pre('save',(next)=>{

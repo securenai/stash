@@ -1,6 +1,4 @@
 import React from 'react';
-import AvatarWidgetContainer from '../../../containers/UserInfo/AvatarWidgetContainer';
-import Switch from '../../Widgets/Switch/Switch';
 import styled from 'styled-components';
 import './Settings.scss';
 import CloseButton from '../../Widgets/Button/CloseButtons/CloseButton';
@@ -9,9 +7,15 @@ import UserSettings from './SettingsRight/UserSettings';
 
 export interface SettingsProps {
 	currentTheme: string;
+	bannerColor: { r: number; g: number; b: number; a: number };
 	setThemeMode: (mode: boolean) => void;
+	changeColor: (rgba: { r: number; g: number; b: number; a: number }) => void;
 	close: () => void;
 	isOpen: boolean;
+	user: {
+		name: string;
+		createDate: string;
+	};
 }
 
 const A_SettingsMain = styled(animated.div)`
@@ -42,8 +46,12 @@ const Settings: React.FC<SettingsProps> = ({
 	close,
 	isOpen,
 	setThemeMode,
-	currentTheme
+	bannerColor,
+	changeColor,
+	currentTheme,
+	user
 }) => {
+	// console.log(user);
 	const transition = useTransition(isOpen, {
 		from: { opacity: 0 },
 		enter: { opacity: 1 },
@@ -58,8 +66,11 @@ const Settings: React.FC<SettingsProps> = ({
 					<SettingsLeft>left</SettingsLeft>
 					<SettingsRight>
 						<UserSettings
+							user={user}
 							setThemeMode={setThemeMode}
+							changeColor={changeColor}
 							currentTheme={currentTheme}
+							bannerColor={bannerColor}
 						/>
 						<CloseButton onButtonClick={close} />
 					</SettingsRight>

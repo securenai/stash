@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { DashSideTop } from '../../../src/components/DashBoard/DashSide/DashSideTop/DashSideTop';
 import { selectUser, logout } from '../../slices/userSlice';
+import { selectBannerColor } from '../../slices/appSlice';
 import { useDispatch } from 'react-redux';
 import { UserOptionsModal } from '../../components/DashBoard/DashSide/DashSideTop/UserOptionsModal/UserOptionsModal';
 import Settings from '../../components/Windows/Settings/Settings';
@@ -11,6 +12,7 @@ export interface UserProfileContainerProps {}
 
 const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 	const user = useSelector(selectUser);
+	const bannerColor = useSelector(selectBannerColor);
 	const dispatch = useDispatch();
 	const [openUserOptionsModal, setOpenUserOptionsModal] = useState(false);
 	const [openSettings, setOpenSettings] = useState(false);
@@ -50,6 +52,7 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 		<>
 			<DashSideTop
 				userName={user.userInfo.name}
+				bannerColor={bannerColor}
 				avatarUrl={user.userInfo.avatarUrl}
 				openUserOptions={handleOpenModal}
 			/>
@@ -62,10 +65,7 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 				/>
 			) : null}
 			{openSettings === true ? (
-				<SettingsContainer
-					close={handleCloseSettings}
-					isOpen={openSettings}
-				/>
+				<SettingsContainer close={handleCloseSettings} isOpen={openSettings} />
 			) : null}
 		</>
 	);

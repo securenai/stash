@@ -13,13 +13,13 @@
 	@include flexy($wrap: wrap, $just: center);
 }
 .AvatarWidget__avatar--image {
-	@include roundy(70px, 2px solid black);
+	@include roundy(70px, 2px solid rgb(102, 95, 95));
 	background-size: 70px 70px;
 	cursor: pointer;
 }
 .AvatarWidget__avatar--hover {
 	z-index: 1;
-	@include roundy(70px, 2px solid black);
+	@include roundy(70px, 2px solid rgb(102, 95, 95));
 	@include flexy($wrap: wrap, $just: center);
 	position: absolute;
 	background-size: 70px 70px;
