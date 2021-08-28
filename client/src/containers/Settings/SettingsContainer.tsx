@@ -23,6 +23,7 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
 	const currentTheme = useSelector(selectCurrentTheme);
 	const bannerColor = useSelector(selectBannerColor);
 	const user = useSelector(selectUser);
+	const [tabNo, setTabNo] = useState(1);
 
 	const handleSetThemeMode = (mode: boolean) => {
 		console.log(mode);
@@ -49,8 +50,14 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
 		setLocalStorage({ bannerColor: rgba });
 	};
 
+	const handleSetTabNo = (tabNo: number) => {
+		setTabNo(tabNo);
+	};
+
 	return (
 		<Settings
+			tabNo={tabNo}
+			setTabNo={handleSetTabNo}
 			close={close}
 			isOpen={isOpen}
 			setThemeMode={handleSetThemeMode}

@@ -4,6 +4,7 @@ import './Settings.scss';
 import CloseButton from '../../Widgets/Button/CloseButtons/CloseButton';
 import { useTransition, animated } from 'react-spring';
 import UserSettings from './SettingsRight/UserSettings';
+import SettingsNav from './SettingsLeft/SettingsNav';
 
 export interface SettingsProps {
 	currentTheme: string;
@@ -16,6 +17,8 @@ export interface SettingsProps {
 		name: string;
 		createDate: string;
 	};
+	tabNo: number;
+	setTabNo: (tabNo: number) => void;
 }
 
 const A_SettingsMain = styled(animated.div)`
@@ -49,7 +52,9 @@ const Settings: React.FC<SettingsProps> = ({
 	bannerColor,
 	changeColor,
 	currentTheme,
-	user
+	user,
+	tabNo,
+	setTabNo
 }) => {
 	// console.log(user);
 	const transition = useTransition(isOpen, {
@@ -63,9 +68,12 @@ const Settings: React.FC<SettingsProps> = ({
 		(styles, item) =>
 			item && (
 				<A_SettingsMain style={styles}>
-					<SettingsLeft>left</SettingsLeft>
+					<SettingsLeft>
+						<SettingsNav tabNo={tabNo} setTabNo={setTabNo} />
+					</SettingsLeft>
 					<SettingsRight>
 						<UserSettings
+							tabNo={tabNo}
 							user={user}
 							setThemeMode={setThemeMode}
 							changeColor={changeColor}
