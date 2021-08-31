@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import AvatarWidgetContainer from '../../../../containers/UserInfo/AvatarWidgetContainer';
 import TitleFadeIn from '../../../Widgets/Animated/TitleFadeIn';
 import ColorPicker from '../../../Widgets/ColorPicker/ColorPicker';
+import Planner from '../../../Widgets/Planner/Planner';
 import Switch from '../../../Widgets/Switch/Switch';
 
 const Profile = styled.div`
@@ -123,6 +124,7 @@ const ProfilePreference: React.FC<ProfileProps> = ({
 				</ProfileBody>
 			</Profile>
 			<Title>Your Schedule Planner</Title>
+			<Planner />
 		</div>
 	);
 };
