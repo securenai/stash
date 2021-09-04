@@ -3,7 +3,7 @@ export const today = () => {
 	const year = date.getFullYear();
 	const month = date.getMonth() + 1;
 	const day = date.getDate();
-	console.log(year);
+	// console.log(year);
 	return { year, month, day };
 };
 
@@ -32,7 +32,17 @@ export const getDayArrayForMonthOfYear = (year) => {
 		const days = new Date(year, i + 1, 0).getDate();
 		let index = dateOfFirstDayOfMonth.getDay();
 		for (let j = 1; j <= days; j++) {
-			calender.splice(index, 1, j);
+			calender.splice(index, 1, [
+				j,
+				{
+					plans: [
+						'basball practice' + j,
+						'cooking class' + j,
+						'meeting with Jim,' + j,
+						'return library book' + j
+					]
+				}
+			]);
 			index++;
 		}
 		arr.push(calender);
