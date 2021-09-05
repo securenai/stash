@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { setLocalStorage } from '../../../api/utils/localStorageUtils';
+import { selectUserPlanner, setUserPlanner } from '../../../slices/userSlice';
+import { useSelector } from 'react-redux';
+import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import {
 	today,
@@ -122,11 +127,15 @@ const Task = styled.div`
 const TaskName = styled.div`
 	width: 100%;
 `;
+const TaskInput = styled.input`
+	color: ${({ theme }) => theme.fontColors.primary};
+`;
 
 export interface PlannerProps {}
 
 const Planner: React.FC<PlannerProps> = () => {
-	// console.log(today().month);
+	const dispatch = useDispatch();
+	const userPlanner = useSelector(selectUserPlanner);
 	const [calenderData, setCalenderData] = useState([]);
 	const [data, setData] = useState([]);
 	const [year, setYear] = useState(today().year);
@@ -145,21 +154,13 @@ const Planner: React.FC<PlannerProps> = () => {
 	const [currentTaskIndex, setCurrentTaskIndex] = useState(null);
 
 	useEffect(() => {
-		// setCurrentDate({year:today().year, month:today().month ,day:today().day});
-		const plannerData = getDayArrayForMonthOfYear(new Date().getFullYear());
-		console.log(plannerData);
-		// const plannerData =
-		// 	localStorage.getItem('plannerData') === null
-		// 		? getPlannerData()
-		// 		: JSON.parse(localStorage.getItem('plannerData'));
+		const plannerData =
+			userPlanner || getDayArrayForMonthOfYear(new Date().getFullYear());
+
 		setCalenderData(plannerData);
 		setData(plannerData[currentDate.month - 1]);
-		// console.log(plannerData[currentDate.month - 1]);
 		plannerData[currentDate.month - 1].forEach((dayItem) => {
-			// console.log(dayItem);
-			// console.log(today().day);
 			if (dayItem !== 0 && dayItem[0] === today().day) {
-				console.log(dayItem[1].plans);
 				setSelectedDayTasks(dayItem[1].plans);
 			}
 		});
@@ -170,7 +171,6 @@ const Planner: React.FC<PlannerProps> = () => {
 		if (calenderData.length > 0) {
 			calenderData[currentDate.month - 1].forEach((dayItem) => {
 				if (dayItem !== 0 && dayItem[0] === currentDate.day) {
-					console.log(dayItem[1].plans);
 					setSelectedDayTasks(dayItem[1].plans);
 				}
 			});
@@ -178,8 +178,13 @@ const Planner: React.FC<PlannerProps> = () => {
 	}, [selectedDay]);
 
 	useEffect(() => {
-		selectedDayTasks.length > 0 && setSelectedDayTasks(selectedDayTasks);
-		console.log(calenderData);
+		if (selectedDayTasks.length > 0) {
+			setSelectedDayTasks(selectedDayTasks);
+			dispatch(setUserPlanner(calenderData));
+			setLocalStorage({
+				userPlanner: calenderData
+			});
+		}
 	}, [selectedDayTasks]);
 
 	const isToday = (year: number, month: number, day: number) => {
@@ -188,7 +193,6 @@ const Planner: React.FC<PlannerProps> = () => {
 			month.toString().padStart(2, '0') +
 			day.toString().padStart(2, '0');
 		const today = moment(new Date()).format('YYYYMMDD');
-		// console.log(date, today);
 		return date === today;
 	};
 
@@ -240,6 +244,18 @@ const Planner: React.FC<PlannerProps> = () => {
 		setCurrentTask(val);
 	};
 
+	const handleSavePlanner = (copy) => {
+		const copyCalenderData = _.cloneDeep(calenderData);
+		if (copyCalenderData[currentDate.month - 1].length > 0) {
+			copyCalenderData[currentDate.month - 1].forEach((dayItem) => {
+				if (dayItem !== 0 && dayItem[0] === currentDate.day) {
+					dayItem[1].plans = copy;
+				}
+			});
+		}
+		setCalenderData(copyCalenderData);
+	};
+
 	return (
 		<PlannerContainer>
 			<CalenderContainer>
@@ -273,9 +289,6 @@ const Planner: React.FC<PlannerProps> = () => {
 				<CalenderBody>
 					{data.map((day, index) => {
 						const d = day === 0 ? [0] : day;
-						// if (d[0] !== 0) {
-						// 	console.log(d[1].plans);
-						// }
 						return (
 							<DayGrid
 								key={index.toString()}
@@ -300,12 +313,7 @@ const Planner: React.FC<PlannerProps> = () => {
 					{selectedDayTasks.length > 0 &&
 						selectedDayTasks.map((task, index) => {
 							return (
-								<Task
-									key={index.toString()}
-									// onClick={() =>
-									// 	setCurrentTask(selectedDayTasks[currentTaskIndex])
-									// }>
-								>
+								<Task key={index.toString()}>
 									<div>
 										{currentTaskIndex === index ? (
 											<div></div>
@@ -321,7 +329,7 @@ const Planner: React.FC<PlannerProps> = () => {
 									<TaskName>
 										{index === currentTaskIndex ? (
 											<div>
-												<input
+												<TaskInput
 													value={currentTask}
 													autoFocus
 													onChange={(e) => {
@@ -343,9 +351,10 @@ const Planner: React.FC<PlannerProps> = () => {
 													onClick={() => {
 														setCurrentTaskIndex(null);
 														setCurrentTask(currentTask);
-														// console.log(currentTask);
-														// console.log(selectedDayTasks);
-														selectedDayTasks[currentTaskIndex] = currentTask;
+														const copy = _.cloneDeep(selectedDayTasks);
+														copy[currentTaskIndex] = currentTask;
+														setSelectedDayTasks(copy);
+														handleSavePlanner(copy);
 													}}
 												/>
 											</div>

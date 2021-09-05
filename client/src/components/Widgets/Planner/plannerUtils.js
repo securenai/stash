@@ -35,12 +35,7 @@ export const getDayArrayForMonthOfYear = (year) => {
 			calender.splice(index, 1, [
 				j,
 				{
-					plans: [
-						'basball practice' + j,
-						'cooking class' + j,
-						'meeting with Jim,' + j,
-						'return library book' + j
-					]
+					plans: []
 				}
 			]);
 			index++;

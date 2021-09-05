@@ -12,7 +12,8 @@ export const userSlice = createSlice({
 					? new Date().getTime() / 1000 < localStorage.getItem('expiresAt')
 					: false
 		},
-		userStashList: []
+		userStashList: [],
+		userPlanner: JSON.parse(localStorage.getItem('userPlanner')) || []
 	},
 	reducers: {
 		login: (state, action) => {
@@ -30,6 +31,9 @@ export const userSlice = createSlice({
 		},
 		setUserInfo: (state, action) => {
 			state.user.userInfo = action.payload;
+		},
+		setUserPlanner: (state, action) => {
+			state.userPlanner = action.payload;
 		}
 	}
 });
@@ -38,7 +42,8 @@ export const {
 	login,
 	logout,
 	setUserStashList,
-	setUserInfo
+	setUserInfo,
+	setUserPlanner
 } = userSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -47,5 +52,6 @@ export const {
 export const selectUser = (state) => state.user.user;
 export const selectUserInfo = (state) => state.user.userInfo;
 export const selectUserStashList = (state) => state.user.userStashList;
+export const selectUserPlanner = (state) => state.user.userPlanner;
 
 export default userSlice.reducer;
