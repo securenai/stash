@@ -10,7 +10,7 @@ import InputTitleChanger from '../../../../Widgets/Input/InputTitleChanger';
 import { useSpring, animated } from 'react-spring';
 
 const A_CodeEditorContainer = styled(animated.div)`
-float: left;
+	float: left;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -36,7 +36,7 @@ const CodeEditorCodeBlock = styled.div`
 		border-radius: 10px;
 	}
 	&::-webkit-scrollbar-thumb {
-		background-color: ${({ theme }) => theme.colors.secondary};
+		background-color: ${({ theme }) => theme.fontColors.secondary};
 		border-radius: 10px;
 	}
 `;

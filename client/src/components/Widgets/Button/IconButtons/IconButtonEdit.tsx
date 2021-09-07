@@ -14,8 +14,8 @@ const EditIconButton = styled.div`
 	border-radius: 3px;
 	/* color: ${({ theme }) => theme.fontColors.primary}; */
 	&:hover {
-		background-color: #494545;
-		/* color: ${({ theme }) => theme.colors.primary}; */
+		/* background-color: #8f8a8a; */
+		background-color: ${({ theme }) => theme.colors.primary};
 	}
 `;
 

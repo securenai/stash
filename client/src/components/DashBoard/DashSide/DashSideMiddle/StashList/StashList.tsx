@@ -20,7 +20,7 @@ const StashItemList = styled.ul`
 		border-radius: 10px;
 	}
 	&::-webkit-scrollbar-thumb {
-		background-color: ${({ theme }) => theme.colors.secondary};
+		background-color: ${({ theme }) => theme.fontColors.secondary};
 		border-radius: 10px;
 	}
 `;

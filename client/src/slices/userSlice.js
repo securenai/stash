@@ -13,7 +13,7 @@ export const userSlice = createSlice({
 					: false
 		},
 		userStashList: [],
-		userPlanner: JSON.parse(localStorage.getItem('userPlanner')) || []
+		userPlanner: JSON.parse(localStorage.getItem('userPlanner')) || null
 	},
 	reducers: {
 		login: (state, action) => {

@@ -15,6 +15,7 @@ import {
 	getDayArrayForMonthOfYear
 } from './plannerUtils';
 import IconButtonEdit from '../Button/IconButtons/IconButtonEdit';
+import IconButtonCancel from '../Button/IconButtons/IconButtonCancel';
 import { CrudButton } from '../Button/CrudButtons/CrudButton';
 
 const CalenderContainer = styled.div`
@@ -59,6 +60,11 @@ const DayGrid = styled.div<DayGridProps>`
 		background-color: #ddbcc2;
 	}
 `;
+const HasTaskIcon = styled.div``;
+const HasTaskSvgWrapper = styled.span`
+	display: inline-block;
+	margin-left: 12px;
+`;
 const DayNumber = styled.div`
 	padding: 5px;
 `;
@@ -76,12 +82,24 @@ const Schedule = styled.div`
 	flex-direction: column;
 	border-radius: 10px;
 	margin: 0px 10px;
-	min-width: 400px;
+	min-width: 420px;
 `;
 const ScheduleHeader = styled.div`
-	text-align: center;
+	display: flex;
+	justify-content: center;
+	/* text-align: center; */
 	border-bottom: 1px solid;
 	padding: 10px;
+`;
+const ScheduleHeaderDate = styled.div`
+	width: 95%;
+	text-align: center;
+`;
+const TaskAdd = styled.div`
+	cursor: pointer;
+	&:hover {
+		background-color: #c4caaf;
+	}
 `;
 const CalenderHeaderCenter = styled.div`
 	display: flex;
@@ -115,12 +133,29 @@ const DayName = styled.span`
 	width: 52px;
 	text-align: center;
 `;
+const TaskContainer = styled.div`
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 390px;
+	&::-webkit-scrollbar {
+		width: 8px;
+		background-color: ${({ theme }) => theme.colors.primary};
+		border-radius: 10px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: ${({ theme }) => theme.fontColors.secondary};
+		border-radius: 10px;
+	}
+`;
 const Task = styled.div`
 	padding: 5px;
 	display: flex;
 	/* justify-content: center; */
+	color: #2c2c2a;
+	/* color: ${({ theme }) => theme.fontColors.primary}; */
 	align-items: center;
 	border-bottom: 1px solid;
+	background-color: lightsteelblue;
 
 	/* background-color: #cacaa0dd; */
 `;
@@ -128,7 +163,17 @@ const TaskName = styled.div`
 	width: 100%;
 `;
 const TaskInput = styled.input`
-	color: ${({ theme }) => theme.fontColors.primary};
+	/* color: ${({ theme }) => theme.fontColors.primary}; */
+	color: #2c2c2a;
+	font-size: 14px;
+`;
+const TaskNameLabel = styled.span`
+	font-size: 14px;
+	display: inline-block;
+	background-color: white;
+	padding: 4px;
+	border-radius: 5px;
+	box-shadow: 5px 5px 8px #888888;
 `;
 
 export interface PlannerProps {}
@@ -154,10 +199,14 @@ const Planner: React.FC<PlannerProps> = () => {
 	const [currentTaskIndex, setCurrentTaskIndex] = useState(null);
 
 	useEffect(() => {
-		const plannerData =
-			userPlanner || getDayArrayForMonthOfYear(new Date().getFullYear());
-
+		let plannerData = userPlanner;
+		// console.log(userPlanner);
+		if (userPlanner === null) {
+			console.log('ppp');
+			plannerData = getDayArrayForMonthOfYear(new Date().getFullYear());
+		}
 		setCalenderData(plannerData);
+		// console.log(userPlanner);
 		setData(plannerData[currentDate.month - 1]);
 		plannerData[currentDate.month - 1].forEach((dayItem) => {
 			if (dayItem !== 0 && dayItem[0] === today().day) {
@@ -169,6 +218,7 @@ const Planner: React.FC<PlannerProps> = () => {
 	useEffect(() => {
 		setCurrentTaskIndex(null);
 		if (calenderData.length > 0) {
+			setData(calenderData[currentDate.month - 1]);
 			calenderData[currentDate.month - 1].forEach((dayItem) => {
 				if (dayItem !== 0 && dayItem[0] === currentDate.day) {
 					setSelectedDayTasks(dayItem[1].plans);
@@ -178,8 +228,9 @@ const Planner: React.FC<PlannerProps> = () => {
 	}, [selectedDay]);
 
 	useEffect(() => {
-		if (selectedDayTasks.length > 0) {
-			setSelectedDayTasks(selectedDayTasks);
+		if (selectedDayTasks.length >= 0) {
+			console.log(selectedDayTasks);
+			// setSelectedDayTasks(selectedDayTasks);
 			dispatch(setUserPlanner(calenderData));
 			setLocalStorage({
 				userPlanner: calenderData
@@ -244,7 +295,40 @@ const Planner: React.FC<PlannerProps> = () => {
 		setCurrentTask(val);
 	};
 
-	const handleSavePlanner = (copy) => {
+	const handleSaveTask = (copy) => {
+		const copyCalenderData = _.cloneDeep(calenderData);
+		// console.log(data);
+		setData(copyCalenderData[currentDate.month - 1]);
+		// console.log(copyCalenderData[currentDate.month - 1]);
+		if (copyCalenderData[currentDate.month - 1].length > 0) {
+			copyCalenderData[currentDate.month - 1].forEach((dayItem) => {
+				if (dayItem !== 0 && dayItem[0] === currentDate.day) {
+					dayItem[1].plans = copy;
+				}
+			});
+		}
+		setCalenderData(copyCalenderData);
+	};
+
+	const handleDeleteTask = (copy) => {
+		const copyCalenderData = _.cloneDeep(calenderData);
+		setData(copyCalenderData[currentDate.month - 1]);
+		if (copyCalenderData[currentDate.month - 1].length > 0) {
+			copyCalenderData[currentDate.month - 1].forEach((dayItem) => {
+				if (dayItem !== 0 && dayItem[0] === currentDate.day) {
+					dayItem[1].plans = copy;
+				}
+			});
+		}
+		// console.log(copyCalenderData);
+		setCalenderData(copyCalenderData);
+		// setSelectedDayTasks(copy);
+	};
+
+	const handleAddTask = () => {
+		const copy = _.cloneDeep(selectedDayTasks);
+		copy.push('New Task');
+		setSelectedDayTasks(copy);
 		const copyCalenderData = _.cloneDeep(calenderData);
 		if (copyCalenderData[currentDate.month - 1].length > 0) {
 			copyCalenderData[currentDate.month - 1].forEach((dayItem) => {
@@ -254,6 +338,9 @@ const Planner: React.FC<PlannerProps> = () => {
 			});
 		}
 		setCalenderData(copyCalenderData);
+		// console.log(copy[copy.length-1]);
+		setCurrentTaskIndex(copy.length - 1);
+		setCurrentTask(selectedDayTasks[copy.length - 1]);
 	};
 
 	return (
@@ -288,6 +375,7 @@ const Planner: React.FC<PlannerProps> = () => {
 				</NameOfDays>
 				<CalenderBody>
 					{data.map((day, index) => {
+						// console.log(data);
 						const d = day === 0 ? [0] : day;
 						return (
 							<DayGrid
@@ -297,7 +385,84 @@ const Planner: React.FC<PlannerProps> = () => {
 								onClick={() => {
 									day !== 0 && setDayToSelected(year, currentDate.month, d[0]);
 								}}>
-								<DayNumber>{day !== 0 && d[0]}</DayNumber>
+								{day !== 0 && (
+									<>
+										<DayNumber>{d[0]}</DayNumber>
+										<HasTaskIcon>
+											<HasTaskSvgWrapper>
+												{day[1].plans.length > 0 && (
+													<svg
+														className="icon line"
+														width="24"
+														height="24"
+														id="list-square"
+														data-name="Layer 1"
+														xmlns="http://www.w3.org/2000/svg"
+														viewBox="0 0 24 24">
+														<title
+															style={{
+																strokeWidth: '1',
+																stroke: 'rgb(0, 0, 0)'
+															}}>
+															list square
+														</title>
+														<line
+															id="primary-upstroke"
+															x1="7.5"
+															y1="8"
+															x2="7.5"
+															y2="8"
+															style={{
+																fill: 'none',
+																stroke: 'rgb(0, 0, 0)',
+																strokeLinecap: 'round',
+																strokeLinejoin: 'round',
+																strokeWidth: 1
+															}}></line>
+														<line
+															id="primary-upstroke-2"
+															data-name="primary-upstroke"
+															x1="7.5"
+															y1="12"
+															x2="7.5"
+															y2="12"
+															style={{
+																fill: 'none',
+																stroke: 'rgb(0, 0, 0)',
+																strokeLinecap: 'round',
+																strokeLinejoin: 'round',
+																strokeWidth: 1
+															}}></line>
+														<line
+															id="primary-upstroke-3"
+															data-name="primary-upstroke"
+															x1="7.5"
+															y1="16"
+															x2="7.5"
+															y2="16"
+															style={{
+																fill: 'none',
+																stroke: 'rgb(0, 0, 0)',
+																strokeLinecap: 'round',
+																strokeLinejoin: 'round',
+																strokeWidth: 1
+															}}></line>
+														<path
+															id="primary"
+															d="M4,3H20a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3Zm8,5h5m-5,4h5m-5,4h5"
+															style={{
+																fill: 'none',
+																stroke: 'rgb(0, 0, 0)',
+																strokeLinecap: 'round',
+																strokeLinejoin: 'round',
+																strokeWidth: 1
+															}}></path>
+													</svg>
+												)}
+											</HasTaskSvgWrapper>
+										</HasTaskIcon>
+									</>
+								)}
 							</DayGrid>
 						);
 					})}
@@ -305,15 +470,25 @@ const Planner: React.FC<PlannerProps> = () => {
 			</CalenderContainer>
 			<Schedule>
 				<ScheduleHeader>
-					{getMonthNameAt(month)} {currentDate.day}, {year}
+					<ScheduleHeaderDate>
+						{getMonthNameAt(month)} {currentDate.day}, {year}
+					</ScheduleHeaderDate>
+					<TaskAdd
+						onClick={() => {
+							handleAddTask();
+						}}>
+						{' '}
+						+{' '}
+					</TaskAdd>
 				</ScheduleHeader>
-				<div>
+				<TaskContainer>
 					{/* <button>add task</button> */}
 					{/* <div>{selectedDayTasks.length}</div> */}
 					{selectedDayTasks.length > 0 &&
 						selectedDayTasks.map((task, index) => {
+							// console.log(task);
 							return (
-								<Task key={index.toString()}>
+								<Task key={index.toString() + task}>
 									<div>
 										{currentTaskIndex === index ? (
 											<div></div>
@@ -338,7 +513,9 @@ const Planner: React.FC<PlannerProps> = () => {
 												/>
 											</div>
 										) : (
-											<div>{task}</div>
+											<div>
+												<TaskNameLabel>{task}</TaskNameLabel>
+											</div>
 										)}
 									</TaskName>
 									{index === currentTaskIndex ? (
@@ -354,7 +531,7 @@ const Planner: React.FC<PlannerProps> = () => {
 														const copy = _.cloneDeep(selectedDayTasks);
 														copy[currentTaskIndex] = currentTask;
 														setSelectedDayTasks(copy);
-														handleSavePlanner(copy);
+														handleSaveTask(copy);
 													}}
 												/>
 											</div>
@@ -363,6 +540,22 @@ const Planner: React.FC<PlannerProps> = () => {
 													crudType="delete"
 													label="Delete"
 													size="small"
+													onClick={() => {
+														setCurrentTaskIndex(null);
+														setCurrentTask(currentTask);
+														const copy = _.cloneDeep(selectedDayTasks);
+														copy.splice(currentTaskIndex, 1);
+														setSelectedDayTasks(copy);
+														handleDeleteTask(copy);
+													}}
+												/>
+											</div>
+											<div>
+												<IconButtonCancel
+													onClick={() => {
+														setCurrentTaskIndex(null);
+														setCurrentTask(currentTask);
+													}}
 												/>
 											</div>
 										</>
@@ -370,7 +563,7 @@ const Planner: React.FC<PlannerProps> = () => {
 								</Task>
 							);
 						})}
-				</div>
+				</TaskContainer>
 			</Schedule>
 		</PlannerContainer>
 	);

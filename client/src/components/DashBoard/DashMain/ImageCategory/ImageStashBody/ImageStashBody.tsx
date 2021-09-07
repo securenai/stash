@@ -13,7 +13,7 @@ const ImageStashBodyContainer = styled.div`
 		border-radius: 10px;
 	}
 	&::-webkit-scrollbar-thumb {
-		background-color: ${({ theme }) => theme.fontColors.primary};
+		background-color: ${({ theme }) => theme.fontColors.secondary};
 		border-radius: 10px;
 	}
 `;
@@ -72,16 +72,16 @@ const ImageStashBody: React.FC<ImageStashBodyProps> = ({
 	return (
 		<ImageStashBodyContainer ref={elementRef}>
 			<ImageItemWrapper>
-			{images &&
-				images.map((imageFile) => (
-					<ImageItem
-						imageFile={imageFile}
-						key={imageFile.public_id}
-						imageClicked={imageClicked}
-						deleteImage={deleteImage}
-					/>
-				))}
-				</ImageItemWrapper>
+				{images &&
+					images.map((imageFile) => (
+						<ImageItem
+							imageFile={imageFile}
+							key={imageFile.public_id}
+							imageClicked={imageClicked}
+							deleteImage={deleteImage}
+						/>
+					))}
+			</ImageItemWrapper>
 			{show && <ScrollTo click={handleClick} />}
 		</ImageStashBodyContainer>
 	);
