@@ -69,15 +69,17 @@
 }
 .reactEasyCrop_Container {
 	display: flex;
-    justify-content: center;
+	justify-content: center;
 	border-radius: 5px;
 	margin-top: 10px;
+	min-height: 300px;
 	height: 400px;
+	max-height: 500px;
 	position: relative !important;
 }
 .reactEasyCrop_CropArea {
 	width: 73%;
-    height: 400px;
+	height: 400px;
 }
 .reactEasyCrop_Image {
 	position: initial !important;

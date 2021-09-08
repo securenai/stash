@@ -22,12 +22,17 @@ export interface DashBoardProps {
 		id: string;
 		type: string;
 	};
+	sideBarClosed: boolean;
 }
 
-const DashBoard: React.FC<DashBoardProps> = ({ user, currentStash }) => {
+const DashBoard: React.FC<DashBoardProps> = ({
+	user,
+	currentStash,
+	sideBarClosed
+}) => {
 	return (
 		<DashBoardContainer>
-			<DashSide />
+			{!sideBarClosed && <DashSide />}
 			<DashMain currentStash={currentStash} />
 		</DashBoardContainer>
 	);

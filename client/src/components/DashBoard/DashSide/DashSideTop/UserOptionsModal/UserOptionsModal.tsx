@@ -33,6 +33,7 @@ export interface UserOptionsModalProps {
 	userName: string;
 	closeModal: () => void;
 	openSettings: () => void;
+	closeSideBar: () => void;
 	onLogout: () => void;
 }
 
@@ -40,6 +41,7 @@ export const UserOptionsModal: React.FC<UserOptionsModalProps> = ({
 	userName,
 	closeModal,
 	openSettings,
+	closeSideBar,
 	onLogout
 }) => {
 	useEffect(() => {
@@ -69,6 +71,10 @@ export const UserOptionsModal: React.FC<UserOptionsModalProps> = ({
 				<UserOptionListItem
 					doTask={() => onClickOption(openSettings)}
 					iconType={'Settings'}
+				/>
+				<UserOptionListItem
+					doTask={() => onClickOption(closeSideBar)}
+					iconType={'Hide SideBar'}
 				/>
 				<UserOptionListItem
 					doTask={() => onClickOption(onLogout)}

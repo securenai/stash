@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { selectUser } from '../../slices/userSlice';
 import { useSelector } from 'react-redux';
-import { selectCurrentStash } from '../../slices/appSlice';
+import {
+	selectCurrentStash,
+	selectSideBarClosed,
+	setSideBarClosed
+} from '../../slices/appSlice';
 import CodeStash from '../../components/DashBoard/DashMain/CodeCategory/CodeStash/CodeStash';
 import DashMainHeader from '../../components/DashBoard/DashMain/DashMainHeader/DashMainHeader';
 import Processing from '../../components/Widgets/Processing/Processing';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 
 export interface CodeStashContainerProps {}
 
 const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
+	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const currStash = useSelector(selectCurrentStash);
+	const sideBarClosed = useSelector(selectSideBarClosed);
 	const [codeList, setCodeList] = useState([]);
 	const [startUpdate, setStartUpdate] = useState(false);
 	const [updateComplete, setUpdateComplete] = useState(false);
@@ -80,6 +87,10 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 		}
 	};
 
+	const handleOpenStashList = () => {
+		dispatch(setSideBarClosed({ sideBarClosed: false }));
+	};
+
 	return (
 		<>
 			<DashMainHeader
@@ -87,6 +98,8 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 				stashName={currStash.name}
 				stashId={currStash.id}
 				addCodeStashItem={handleAddCode}
+				sideBarClosed={sideBarClosed}
+				openStashList={handleOpenStashList}
 			/>
 			{updateComplete === false && startUpdate === true ? <Processing /> : null}
 			<CodeStash

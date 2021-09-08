@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { selectUser } from '../../slices/userSlice';
 import { useSelector } from 'react-redux';
-import { selectCurrentStash } from '../../slices/appSlice';
+import {
+	selectCurrentStash,
+	selectSideBarClosed,
+	setSideBarClosed
+} from '../../slices/appSlice';
 import DashMainHeader from '../../components/DashBoard/DashMain/DashMainHeader/DashMainHeader';
 import TextStash from '../../components/DashBoard/DashMain/TextCategory/TextStash/TextStash';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
 import Processing from '../../components/Widgets/Processing/Processing';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 
 export interface TextStashHeaderProps {}
 
 const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
+	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const currStash = useSelector(selectCurrentStash);
+	const sideBarClosed = useSelector(selectSideBarClosed);
 	const [textList, setTextList] = useState([]);
 	const [startUpdate, setStartUpdate] = useState(false);
 	const [updateComplete, setUpdateComplete] = useState(false);
@@ -111,6 +118,10 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 		}
 	};
 
+	const handleOpenStashList = () => {
+		dispatch(setSideBarClosed({ sideBarClosed: false }));
+	};
+
 	return (
 		<>
 			<DashMainHeader
@@ -118,6 +129,8 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 				stashType={currStash.type}
 				stashName={currStash.name}
 				addTextStashItem={handleAddText}
+				sideBarClosed={sideBarClosed}
+				openStashList={handleOpenStashList}
 			/>
 			{updateComplete === false && startUpdate === true ? <Processing /> : null}
 			<TextStash

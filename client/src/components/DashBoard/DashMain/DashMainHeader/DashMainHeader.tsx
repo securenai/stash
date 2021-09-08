@@ -5,6 +5,7 @@ import TextStashHeader from '../TextCategory/TextStashHeader/TextStashHeader';
 import styled from 'styled-components';
 import { TiCode, TiImage } from 'react-icons/ti';
 import { BsFonts } from 'react-icons/bs';
+import { AiOutlineMenu } from 'react-icons/ai';
 
 const DashHeaderMain = styled.div`
 	height: 40px;
@@ -25,6 +26,9 @@ const DashHeaderTitle = styled.div`
 const TitleIcon = styled.div`
 	padding: 10px 10px 5px 10px;
 `;
+const ShowStashListIcon = styled.div`
+	cursor: pointer;
+`;
 export interface DashMainHeaderProps {
 	stashId: string;
 	stashType: string;
@@ -32,6 +36,8 @@ export interface DashMainHeaderProps {
 	uploadImage?: (data: File, name: string) => void;
 	addCodeStashItem?: () => void;
 	addTextStashItem?: () => void;
+	sideBarClosed: boolean;
+	openStashList: () => void;
 }
 
 const DashMainHeader: React.FC<DashMainHeaderProps> = ({
@@ -40,7 +46,9 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 	stashName,
 	uploadImage,
 	addCodeStashItem,
-	addTextStashItem
+	addTextStashItem,
+	sideBarClosed,
+	openStashList
 }) => {
 	const renderStashHeaderTemplate = () => {
 		if (stashType === 'text') {
@@ -64,6 +72,11 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 	return (
 		<DashHeaderMain>
 			<DashHeaderTitle>
+				{sideBarClosed && (
+					<ShowStashListIcon onClick={openStashList}>
+						<AiOutlineMenu />
+					</ShowStashListIcon>
+				)}
 				<TitleIcon>{stashTypeIcon()}</TitleIcon>
 				<div>{stashName}</div>
 			</DashHeaderTitle>

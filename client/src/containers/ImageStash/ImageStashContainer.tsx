@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import ImageStash from '../../components/DashBoard/DashMain/ImageCategory/ImageStash/ImageStash';
 import { useSelector } from 'react-redux';
-import { selectCurrentStash } from '../../slices/appSlice';
+import {
+	selectCurrentStash,
+	selectSideBarClosed,
+	setSideBarClosed
+} from '../../slices/appSlice';
 import { selectUser } from '../../slices/userSlice';
 import Processing from '../../components/Widgets/Processing/Processing';
 import DashMainHeader from '../../components/DashBoard/DashMain/DashMainHeader/DashMainHeader';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
 import ImageViewer from '../../components/Widgets/Viewer/ImageViewer/ImageViewer';
+import { useDispatch } from 'react-redux';
 
 export interface ImageStashContainerProps {}
 
 const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
+	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const currStash = useSelector(selectCurrentStash);
+	const sideBarClosed = useSelector(selectSideBarClosed);
 	const [imageFiles, setImageFiles] = useState([]);
 	const [startUpload, setStartUpload] = useState(false);
 	const [uploadComplete, setUploadComplete] = useState(false);
@@ -71,6 +78,10 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		setCurrentImageSrc(src);
 	};
 
+	const handleOpenStashList = () => {
+		dispatch(setSideBarClosed({ sideBarClosed: false }));
+	};
+
 	return (
 		<>
 			<DashMainHeader
@@ -78,6 +89,8 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 				stashType="image"
 				stashName={currStash.name}
 				uploadImage={uploadImage}
+				sideBarClosed={sideBarClosed}
+				openStashList={handleOpenStashList}
 			/>
 			{uploadComplete === false && startUpload === true ? <Processing /> : null}
 			<ImageStash

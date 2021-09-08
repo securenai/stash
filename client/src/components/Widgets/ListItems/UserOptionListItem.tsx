@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { RiSettings3Fill, RiLogoutBoxRLine } from 'react-icons/ri';
+import {
+	RiSettings3Fill,
+	RiLogoutBoxRLine,
+	RiEyeOffFill
+} from 'react-icons/ri';
 
 export interface UserOptionListItemProps {
 	doTask: (task: any) => void;
@@ -38,6 +42,8 @@ const UserOptionListItem: React.FC<UserOptionListItemProps> = ({
 	const renderIconType = () => {
 		if (iconType === 'Settings') {
 			return <RiSettings3Fill />;
+		} else if (iconType === 'Hide SideBar') {
+			return <RiEyeOffFill />;
 		} else if (iconType === 'Log Out') {
 			return <RiLogoutBoxRLine />;
 		}
