@@ -5,6 +5,7 @@ import IframeCard from '../../../../../Widgets/Iframe/Cards/IframeCard';
 import IframeMediaPlayer from '../../../../../Widgets/Iframe/Cards/IframeMediaPlayer';
 import { CrudButton } from '../../../../../Widgets/Button/CrudButtons/CrudButton';
 import { useSpring, animated } from 'react-spring';
+import IframeTwitter from '../../../../../Widgets/Iframe/Cards/IframeTwitter';
 
 /** styles **/
 const A_TextItemContainer = styled(animated.div)`
@@ -16,7 +17,6 @@ const A_TextItemContainer = styled(animated.div)`
 const CodeEditorControls = styled.div`
 	display: flex;
 	flex-direction: row-reverse;
-	width: 98%;
 	padding: 5px 10px 5px 0px;
 `;
 
@@ -66,6 +66,9 @@ const TextItem: React.FC<TextItemProps> = ({
 			if (result.status === 404) {
 				setIframe(<div></div>);
 				return;
+			} else if (result.meta.site === 'Twitter') {
+				console.log('istwitter');
+				setIframe(<IframeTwitter iframeData={result} />);
 			} else if (
 				result.rel.includes('summary') ||
 				result.rel.includes('card')

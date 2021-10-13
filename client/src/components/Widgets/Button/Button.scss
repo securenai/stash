@@ -5,14 +5,25 @@
 	cursor: pointer;
 	display: inline-block;
 	line-height: 1;
+	background-color: rgb(255, 255, 255);
+	border-color: rgb(230, 230, 230);
+	transition-duration: 0.15s;
+	margin: 0px 5px;
+	&:hover {
+		background-color: rgb(78, 68, 88);
+		box-shadow: rgb(40 35 45 / 45%) 0px 2px 4px 0px;
+		transform: translateY(-1px);
+		color: rgb(255, 255, 255);
+	}
 }
 .storybook-button--primary {
-	color: white;
-	background-color: #1ea7fd;
+	color: #333;
+	// color: white;
+	// background-color: #1ea7fd;
 }
 .storybook-button--secondary {
 	color: #333;
-	background-color: transparent;
+	// background-color: transparent;
 	box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
 }
 .storybook-button--small {

@@ -8,22 +8,29 @@ export interface ImageStashProps {
 		bytes: number;
 		fileName: string;
 		format: string;
+		selected: boolean;
 	}[];
 	imageClicked: (src: string) => void;
 	deleteImage: (src: string) => void;
+	pickSelectedImages: (image: any) => void;
+	selectedImages: any;
 }
 
 const ImageStash: React.FC<ImageStashProps> = ({
 	// uploadImage,
 	imageFiles,
 	imageClicked,
-	deleteImage
+	deleteImage,
+	pickSelectedImages,
+	selectedImages
 }) => {
 	return (
 		<ImageStashBody
 			imageFiles={imageFiles}
 			imageClicked={imageClicked}
 			deleteImage={deleteImage}
+			pickImage={pickSelectedImages}
+			selectedImages={selectedImages}
 		/>
 	);
 };

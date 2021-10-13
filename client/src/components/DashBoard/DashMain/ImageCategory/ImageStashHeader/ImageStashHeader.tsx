@@ -3,8 +3,13 @@ import { VscFileMedia } from 'react-icons/vsc';
 import { CrudButton } from '../../../../Widgets/Button/CrudButtons/CrudButton';
 import './ImageStashHeader.scss';
 import styled from 'styled-components';
+import ImageMultiSelectToolBar from './ImageMultiSelectToolBar/ImageMultiSelectToolBar';
 
-const Header = styled.div``;
+const Header = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
 
 const UpLoadWrapper = styled.div`
 	padding: 0px 10px;
@@ -42,11 +47,19 @@ const CloseUploadIcon = styled.div`
 export interface ImageStashHeaderProps {
 	stashId: string;
 	uploadImage: (data: File, name: string) => void;
+	selectedImages: any;
+	batchDelete: () => void;
+	batchClear: () => void;
+	batchSelect: () => void;
 }
 
 const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 	uploadImage,
-	stashId
+	stashId,
+	selectedImages,
+	batchDelete,
+	batchClear,
+	batchSelect
 }) => {
 	const [imageSrc, setImageSrc] = useState(null);
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -57,6 +70,7 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 	}, [stashId]);
 
 	const handleFileSelected = (e) => {
+		console.log(e.target.files[0]);
 		const file = e.target.files[0];
 		setSelectedFile(file);
 		const reader = new FileReader();
@@ -65,6 +79,7 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 			setImageSrc(reader.result);
 			setShowUploadBtn(true);
 		};
+		e.target.value = null;
 	};
 
 	const handleSubmitFile = () => {
@@ -75,6 +90,14 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 
 	return (
 		<Header>
+			{selectedImages.length > 0 && (
+				<ImageMultiSelectToolBar
+					selectedImages={selectedImages}
+					batchDelete={batchDelete}
+					batchClear={batchClear}
+					batchSelect={batchSelect}
+				/>
+			)}
 			<input
 				type="file"
 				name="image"
@@ -94,7 +117,11 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 						label="upload"
 						onClick={handleSubmitFile}
 					/>
-					<CloseUpload onClick={() => setShowUploadBtn(false)}>
+					<CloseUpload
+						onClick={() => {
+							setShowUploadBtn(false);
+							setSelectedFile(null);
+						}}>
 						<CloseUploadIcon>x</CloseUploadIcon>
 					</CloseUpload>
 				</UpLoadWrapper>

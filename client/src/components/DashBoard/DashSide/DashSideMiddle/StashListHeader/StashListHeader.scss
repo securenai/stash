@@ -5,7 +5,7 @@
 	text-align: center;
 	height: 80px;
 	padding: 0 5px;
-	margin: 0 10px;
+	margin: 10px;
 }
 .stashList-header-title {
 	@include flexy($dir: row, $just: center, $ali: center);

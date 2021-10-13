@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import ImageItem from './ImageItem/ImageItem';
 import styled from 'styled-components';
 import ScrollTo from '../../../../Widgets/ScrollTo/ScrollTo';
+import _ from 'lodash';
 
 const ImageStashBodyContainer = styled.div`
 	padding: 20px;
@@ -31,15 +32,20 @@ export interface ImageStashBodyProps {
 		bytes: number;
 		fileName: string;
 		format: string;
+		selected: boolean;
 	}[];
 	imageClicked: (src: string) => void;
 	deleteImage: (src: string) => void;
+	pickImage: (image: any) => void;
+	selectedImages: any;
 }
 
 const ImageStashBody: React.FC<ImageStashBodyProps> = ({
 	imageFiles,
 	imageClicked,
-	deleteImage
+	deleteImage,
+	pickImage,
+	selectedImages
 }) => {
 	const [images, setImages] = useState([]);
 	const elementRef = useRef(null);
@@ -79,6 +85,10 @@ const ImageStashBody: React.FC<ImageStashBodyProps> = ({
 							key={imageFile.public_id}
 							imageClicked={imageClicked}
 							deleteImage={deleteImage}
+							pickImage={pickImage}
+							selectedImage={_.filter(selectedImages, (item) => {
+								return item.public_id === imageFile.public_id;
+							})}
 						/>
 					))}
 			</ImageItemWrapper>

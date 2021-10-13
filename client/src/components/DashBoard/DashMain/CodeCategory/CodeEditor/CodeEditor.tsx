@@ -43,7 +43,6 @@ const CodeEditorCodeBlock = styled.div`
 const CodeEditorControls = styled.div`
 	display: flex;
 	flex-direction: row-reverse;
-	width: 98%;
 	padding: 0 10px 5px 0px;
 `;
 

@@ -38,6 +38,10 @@ export interface DashMainHeaderProps {
 	addTextStashItem?: () => void;
 	sideBarClosed: boolean;
 	openStashList: () => void;
+	selectedImages?: any;
+	batchDelete?: () => void;
+	batchClear?: () => void;
+	batchSelect?: () => void;
 }
 
 const DashMainHeader: React.FC<DashMainHeaderProps> = ({
@@ -48,13 +52,26 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 	addCodeStashItem,
 	addTextStashItem,
 	sideBarClosed,
-	openStashList
+	openStashList,
+	selectedImages,
+	batchDelete,
+	batchClear,
+	batchSelect
 }) => {
 	const renderStashHeaderTemplate = () => {
 		if (stashType === 'text') {
 			return <TextStashHeader stashId={stashId} addItem={addTextStashItem} />;
 		} else if (stashType === 'image') {
-			return <ImageStashHeader stashId={stashId} uploadImage={uploadImage} />;
+			return (
+				<ImageStashHeader
+					stashId={stashId}
+					uploadImage={uploadImage}
+					selectedImages={selectedImages}
+					batchDelete={batchDelete}
+					batchClear={batchClear}
+					batchSelect={batchSelect}
+				/>
+			);
 		} else if (stashType === 'code') {
 			return <CodeStashHeader stashId={stashId} addItem={addCodeStashItem} />;
 		}

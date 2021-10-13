@@ -6,7 +6,7 @@ const Card = styled.div`
 	padding: 10px;
 `;
 const CardHeader = styled.div`
-	height: 50px;
+	height: 30px;
 	display: flex;
 	justify-content: space-between;
 `;
@@ -23,11 +23,11 @@ const CardImage = styled.img`
 	max-height: 100%;
 	max-width: 100%;
 `;
-export interface IframeCardProps {
+export interface IframeTwitterProps {
 	iframeData: any;
 }
 
-const IframeCard: React.FC<IframeCardProps> = ({ iframeData }) => {
+const IframeTwitter: React.FC<IframeTwitterProps> = ({ iframeData }) => {
 	const isCard: boolean = iframeData.options;
 	const hasThumb: boolean = iframeData.links.thumbnail[0].href;
 	console.log(isCard);
@@ -43,20 +43,19 @@ const IframeCard: React.FC<IframeCardProps> = ({ iframeData }) => {
 									{iframeData.meta.site}
 								</a>
 							</h5>
-							{!isCard && (
+							{/* {!isCard && (
 								<ThumbnailPlaceholder>
 									<Thumbnail src={iframeData.links.thumbnail[0].href} />
 								</ThumbnailPlaceholder>
-							)}
+							)} */}
 						</CardHeader>
-
 						<h4>
 							<a href={iframeData.url} target="_blank">
 								{iframeData.meta.title}
 							</a>
 						</h4>
 						<h6>{iframeData.meta.description}</h6>
-						{isCard ? (
+						{hasThumb ? (
 							<CardImagePlaceholder>
 								<CardImage src={iframeData.links.thumbnail[0].href} />
 							</CardImagePlaceholder>
@@ -68,4 +67,4 @@ const IframeCard: React.FC<IframeCardProps> = ({ iframeData }) => {
 	);
 };
 
-export default IframeCard;
+export default IframeTwitter;

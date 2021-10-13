@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Image, Transformation } from 'cloudinary-react';
 import styled from 'styled-components';
 import { useSpring, animated } from 'react-spring';
+import _ from 'lodash';
 // import ImageViewer from '../../../../../Widgets/Viewer/ImageViewer/ImageViewer';
 
 const useStyles = makeStyles(() => ({
@@ -58,7 +59,7 @@ const ImageOptions = styled.div`
 	justify-content: space-between;
 	position: absolute;
 	height: 15%;
-	background-color: #02020254;
+	background-color: #0202028b;
 	box-shadow: black;
 	width: 100%;
 `;
@@ -72,9 +73,12 @@ export interface ImageItemProps {
 		bytes: number;
 		fileName: string;
 		format: string;
+		selected: boolean;
 	};
 	imageClicked: (src: string) => void;
 	deleteImage: (src: string) => void;
+	pickImage: (image: any) => void;
+	selectedImage: any;
 }
 
 // const openImageViewer = (imageFile) => {
@@ -84,10 +88,12 @@ export interface ImageItemProps {
 const ImageItem: React.FC<ImageItemProps> = ({
 	imageFile,
 	imageClicked,
-	deleteImage
+	deleteImage,
+	pickImage,
+	selectedImage
 }) => {
 	const [showOptions, setShowOptions] = useState(false);
-	const [imageSelected, setImageSelected] = useState(false);
+	// const [imageSelected, setImageSelected] = useState(selected);
 
 	const classes = useStyles();
 	/** effects **/
@@ -96,6 +102,43 @@ const ImageItem: React.FC<ImageItemProps> = ({
 		from: { opacity: 0 },
 		delay: 100
 	});
+
+	// useEffect(() => {
+	// 	console.log('ppp');
+	// 	setImageSelected(selected);
+	// }, [selected]);
+
+	const aaa = (toggle) => {
+		// if (toggle !== 'on' && toggle !== 'off') {
+		// 	console.log('dddddd');
+		// 	return '1';
+		// }
+		// if ((toggle = 'on' && selectedImages.length === 0)) {
+		// 	setImageSelected(false);
+		// } else if ((toggle = 'on')) {
+		// 	_.forEach(selectedImages, (item) => {
+		// 		// console.log(item);
+		// 		if (item.public_id === imageFile.public_id && item.selected === false) {
+		// 			// console.log('kkk1');
+		// 			return '1';
+		// 		}
+		// 	});
+		// }
+		// if ((toggle = 'off')) {
+		// 	_.forEach(selectedImages, (item) => {
+		// 		// console.log(item);
+		// 		if (item.public_id === imageFile.public_id && item.selected === true) {
+		// 			// console.log('kkk1');
+		// 			console.log(item.selected);
+		// 			return '2';
+		// 		}
+		// 	});
+		// }
+		// return '2';
+		// return '2';
+		// console.log(selectedImages);
+		// console.log(imageFile);
+	};
 
 	return (
 		<A_ImagePlaceholder
@@ -122,9 +165,13 @@ const ImageItem: React.FC<ImageItemProps> = ({
 			{showOptions && (
 				<ImageOptions>
 					<OptionIcon>
-						{!imageSelected && (
+						{!imageFile.selected && (
 							<svg
-								onClick={() => setImageSelected(!imageSelected)}
+								onClick={() => {
+									pickImage(imageFile);
+									// aaa('on')
+									// setImageSelected(!imageSelected);
+								}}
 								className="icon line"
 								width="24"
 								height="24"
@@ -209,9 +256,13 @@ const ImageItem: React.FC<ImageItemProps> = ({
 					</OptionIcon>
 				</ImageOptions>
 			)}
-			{imageSelected && (
+			{imageFile.selected && (
 				<svg
-					onClick={() => setImageSelected(!imageSelected)}
+					onClick={() => {
+						// setImageSelected(!imageSelected);
+						// aaa('off')
+						pickImage(imageFile);
+					}}
 					style={{ position: 'absolute', padding: '2px 5px' }}
 					className="icon multi-color"
 					width="24"

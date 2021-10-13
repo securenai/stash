@@ -5,7 +5,7 @@ import {
 	selectUserStashList,
 	setUserStashList
 } from '../../slices/userSlice';
-import { selectCurrentStash } from '../../slices/appSlice';
+import { selectCurrentStash, setSelectedImages } from '../../slices/appSlice';
 import { setAppInfo } from '../../slices/appSlice';
 import { fetchApi } from '../../api/fetchApi/fetchApi';
 import moment from 'moment';
@@ -58,6 +58,11 @@ const StashListContainer: React.FC<StashListProps> = () => {
 		dispatch(
 			setAppInfo({
 				currentStash: { id, type, name }
+			})
+		);
+		dispatch(
+			setSelectedImages({
+				selectedImages: []
 			})
 		);
 	};

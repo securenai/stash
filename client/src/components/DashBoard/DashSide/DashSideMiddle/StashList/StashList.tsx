@@ -12,8 +12,9 @@ export interface StashListProps {
 const StashItemList = styled.ul`
 	margin: 0;
 	padding: 10px;
-	height: 450px;
-	overflow-y: scroll;
+`;
+const StashItemListWrap = styled.div`
+	overflow: hidden scroll;
 	&::-webkit-scrollbar {
 		width: 8px;
 		background-color: ${({ theme }) => theme.colors.primary};
@@ -32,20 +33,22 @@ const StashList: React.FC<StashListProps> = ({
 	iconClick
 }) => {
 	return (
-		<StashItemList>
-			{stashItems.length > 0 &&
-				stashItems.map((item) => (
-					<StashItem
-						itemId={item._id}
-						itemName={item.name}
-						itemType={item.type}
-						onItemClick={itemClick}
-						onIconClick={iconClick}
-						isCurr={item._id === currentStash.id}
-						key={item._id}
-					/>
-				))}
-		</StashItemList>
+		<StashItemListWrap>
+			<StashItemList>
+				{stashItems.length > 0 &&
+					stashItems.map((item) => (
+						<StashItem
+							itemId={item._id}
+							itemName={item.name}
+							itemType={item.type}
+							onItemClick={itemClick}
+							onIconClick={iconClick}
+							isCurr={item._id === currentStash.id}
+							key={item._id}
+						/>
+					))}
+			</StashItemList>
+		</StashItemListWrap>
 	);
 };
 

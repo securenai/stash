@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import IconButtonEdit from '../Button/IconButtons/IconButtonEdit';
 
 const TitleContainer = styled.div`
-	width: 98%;
 	color: ${({ theme }) => theme.fontColors.primary};
 	padding: 5px;
 	border-bottom: ${({ theme }) => theme.borders.primary};
@@ -44,7 +43,13 @@ const InputTitleChanger: React.FC<InputTitleChangerProps> = ({
 						spellCheck="false"
 					/>
 				) : (
-					<span>{title}</span>
+					<span>
+						{title === undefined
+							? title
+							: title.length > 30
+							? title.substring(0, 30) + '...'
+							: title}
+					</span>
 				)}
 			</Title>
 			<IconButtonEdit onClick={onClickEdit} />

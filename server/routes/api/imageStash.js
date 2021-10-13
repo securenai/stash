@@ -29,7 +29,8 @@ router.post('/query', async (req, res) => {
 				public_id: file.public_id,
 				bytes: file.bytes,
 				fileName: file.filename,
-				format: file.format
+				format: file.format,
+				selected: false
 			};
 		});
 		res.send(files);
@@ -49,6 +50,21 @@ router.post('/upload', async (req, res) => {
 			(options = { public_id: saveTo })
 		);
 		res.json({ msg: 'file uploaded' });
+	} catch (error) {
+		res.status(500).json({ err: 'something went wrong' });
+	}
+});
+
+router.post('/deleteAll', async (req, res) => {
+	try {
+		console.log('olololololololololol');
+		const toBeDeleted = req.body.selectedImages;
+		console.log(toBeDeleted);
+		toBeDeleted.forEach(async (img) => {
+			const id = img.public_id;
+			const result = await cloudinary.api.delete_resources([id]);
+		});
+		res.json({ msg: 'files deleted' });
 	} catch (error) {
 		res.status(500).json({ err: 'something went wrong' });
 	}
