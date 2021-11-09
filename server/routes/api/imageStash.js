@@ -7,11 +7,9 @@ router.post('/deleteById', async (req, res) => {
 	try {
 		const result = await cloudinary.api.delete_resources([id]);
 		if (result.deleted[id] === 'deleted') {
-			console.log('tetss');
 			res.json({ msg: 'file deleted' });
 		}
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({ err: 'del : something went wrong' });
 	}
 });
@@ -35,7 +33,6 @@ router.post('/query', async (req, res) => {
 		});
 		res.send(files);
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({ err: 'something went wrong2' });
 	}
 });
@@ -57,9 +54,7 @@ router.post('/upload', async (req, res) => {
 
 router.post('/deleteAll', async (req, res) => {
 	try {
-		console.log('olololololololololol');
 		const toBeDeleted = req.body.selectedImages;
-		console.log(toBeDeleted);
 		toBeDeleted.forEach(async (img) => {
 			const id = img.public_id;
 			const result = await cloudinary.api.delete_resources([id]);

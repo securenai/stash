@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { DashSideTop } from '../../../src/components/DashBoard/DashSide/DashSideTop/DashSideTop';
-import { selectUser, logout } from '../../slices/userSlice';
+import {
+	selectUser,
+	logout,
+	setUserInfo,
+	setUserStashList,
+	setUserPlanner
+} from '../../slices/userSlice';
 import {
 	selectBannerColor,
 	selectSideBarClosed,
@@ -23,6 +29,9 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 	const [openSettings, setOpenSettings] = useState(false);
 
 	const handleLogout = () => {
+		dispatch(setUserInfo(null));
+		dispatch(setUserStashList(null));
+		dispatch(setUserPlanner(null));
 		dispatch(
 			logout({
 				token: null,
@@ -41,7 +50,6 @@ const UserProfileContainer: React.FC<UserProfileContainerProps> = () => {
 	};
 
 	const handleOpenModal = () => {
-		console.log('open');
 		setOpenUserOptionsModal(true);
 	};
 

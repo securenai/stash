@@ -39,8 +39,6 @@ export interface ImgDialogProps {
 }
 
 const ImgDialog: React.FC<ImgDialogProps> = ({ img, onClose }) => {
-	// console.log(img);
-
 	const [open, setOpen] = useState(false);
 
 	const handleClickOpen = () => {

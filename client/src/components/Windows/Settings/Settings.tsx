@@ -56,7 +56,6 @@ const Settings: React.FC<SettingsProps> = ({
 	tabNo,
 	setTabNo
 }) => {
-	// console.log(user);
 	const transition = useTransition(isOpen, {
 		from: { opacity: 0 },
 		enter: { opacity: 1 },

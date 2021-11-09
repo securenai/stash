@@ -28,7 +28,6 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/update', (req, res) => {
-	console.log(req.body);
 	TextStash.findOneAndUpdate({ _id: req.body._id }, req.body, {
 		upsert: false
 	}).then((result, err) => {
@@ -41,7 +40,6 @@ router.post('/update', (req, res) => {
 });
 
 router.post('/delete', (req, res) => {
-	console.log(req.body);
 	TextStash.deleteOne({ _id: req.body.data }).then((result, err) => {
 		if (result) {
 			res.send(result);

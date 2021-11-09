@@ -1,6 +1,7 @@
-.code-stash-add-icon{
+.code-stash-add-icon {
 	font-size: 40px;
+	cursor: pointer;
 }
-.code-stash-add-icon:hover{
-	color:rgb(159, 211, 125)
+.code-stash-add-icon:hover {
+	color: rgb(159, 211, 125);
 }

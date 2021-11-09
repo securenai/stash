@@ -26,7 +26,6 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
 	const [tabNo, setTabNo] = useState(1);
 
 	const handleSetThemeMode = (mode: boolean) => {
-		console.log(mode);
 		dispatch(
 			setAppTheme({
 				currentTheme: mode ? 'DARK' : 'LIGHT'
@@ -41,7 +40,6 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
 		b: number;
 		a: number;
 	}) => {
-		console.log(rgba);
 		dispatch(
 			setBannerColor({
 				bannerColor: rgba

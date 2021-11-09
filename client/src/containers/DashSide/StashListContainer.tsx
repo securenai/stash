@@ -39,25 +39,46 @@ const StashListContainer: React.FC<StashListProps> = () => {
 	});
 
 	useEffect(() => {
+		initCurrentStash();
 		queryStashList();
 	}, []);
+
+	const initCurrentStash = () => {
+		if (currentStash.owner !== user.userInfo._id) {
+			dispatch(
+				setAppInfo({
+					currentStash: {}
+				})
+			);
+		}
+	};
 
 	const queryStashList = async () => {
 		const data = { uid: user.userInfo._id };
 		const result = await fetchApi(data, 'userInventory/query');
-		console.log(result);
 		if (result.stashes) {
 			dispatch(setUserStashList(result.stashes));
 			setFilteredStashList(result.stashes);
+		} else if (result.length === 0) {
+			dispatch(setUserStashList([]));
+			dispatch(
+				setAppInfo({
+					currentStash: {}
+				})
+			);
+			setFilteredStashList([]);
 		}
 	};
 
 	const handleItemClick = (id: string, type: string, name: string) => {
-		console.log(id, type, name);
-		localStorage.setItem('currentStash', JSON.stringify({ id, type, name }));
+		const owner = user.userInfo._id;
+		localStorage.setItem(
+			'currentStash',
+			JSON.stringify({ id, type, name, owner })
+		);
 		dispatch(
 			setAppInfo({
-				currentStash: { id, type, name }
+				currentStash: { id, type, name, owner }
 			})
 		);
 		dispatch(
@@ -84,8 +105,6 @@ const StashListContainer: React.FC<StashListProps> = () => {
 		},
 		options: boolean[]
 	) => {
-		console.log(editInfo);
-		console.log(options);
 		handleCloseEditStashWindow();
 		if (options[0]) {
 			// edit
@@ -119,7 +138,8 @@ const StashListContainer: React.FC<StashListProps> = () => {
 						currentStash: {
 							id: result._id,
 							name: result.name,
-							type: result.type
+							type: result.type,
+							owner: user.userInfo._id
 						}
 					})
 				);
@@ -127,7 +147,8 @@ const StashListContainer: React.FC<StashListProps> = () => {
 					currentStash: {
 						id: result._id,
 						name: result.name,
-						type: result.type
+						type: result.type,
+						owner: user.userInfo._id
 					}
 				});
 			}
@@ -141,7 +162,10 @@ const StashListContainer: React.FC<StashListProps> = () => {
 			};
 			const result = await fetchApi({ data }, 'userInventory/delete');
 			if (result) {
-				queryStashList();
+				// dispatch(setUserStashList({userStashList : {
+
+				// }}))
+
 				dispatch(
 					setAppInfo({
 						currentStash: {
@@ -158,6 +182,7 @@ const StashListContainer: React.FC<StashListProps> = () => {
 						type: filteredStashList[0].type
 					}
 				});
+				queryStashList();
 			}
 		}
 	};

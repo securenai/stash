@@ -20,3 +20,11 @@
 	list-style-type: none;
 	font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+.activeLink {
+	color: lightyellow;
+}
+
+.activeLinkItem {
+	border-bottom: 1px solid;
+}

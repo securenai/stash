@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { VscFileMedia } from 'react-icons/vsc';
+import { VscFileMedia, VscSync } from 'react-icons/vsc';
 import { CrudButton } from '../../../../Widgets/Button/CrudButtons/CrudButton';
 import './ImageStashHeader.scss';
 import styled from 'styled-components';
@@ -7,8 +7,10 @@ import ImageMultiSelectToolBar from './ImageMultiSelectToolBar/ImageMultiSelectT
 
 const Header = styled.div`
 	display: flex;
-	justify-content: center;
+	/* justify-content: center; */
+	flex-direction: row-reverse;
 	align-items: center;
+	width: 100%;
 `;
 
 const UpLoadWrapper = styled.div`
@@ -51,6 +53,7 @@ export interface ImageStashHeaderProps {
 	batchDelete: () => void;
 	batchClear: () => void;
 	batchSelect: () => void;
+	queryImageFiles: (showProgressBar: boolean) => Promise<void>;
 }
 
 const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
@@ -59,7 +62,8 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 	selectedImages,
 	batchDelete,
 	batchClear,
-	batchSelect
+	batchSelect,
+	queryImageFiles
 }) => {
 	const [imageSrc, setImageSrc] = useState(null);
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -70,7 +74,6 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 	}, [stashId]);
 
 	const handleFileSelected = (e) => {
-		console.log(e.target.files[0]);
 		const file = e.target.files[0];
 		setSelectedFile(file);
 		const reader = new FileReader();
@@ -90,6 +93,10 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 
 	return (
 		<Header>
+			<div className="refresh-btn" onClick={() => queryImageFiles(true)}>
+				<span className="label-text">Refresh</span>
+				<VscSync />
+			</div>
 			{selectedImages.length > 0 && (
 				<ImageMultiSelectToolBar
 					selectedImages={selectedImages}
@@ -128,6 +135,7 @@ const ImageStashHeader: React.FC<ImageStashHeaderProps> = ({
 			) : null}
 			{!showUploadBtn && (
 				<label className="image-upload-btn" htmlFor="actual-btn">
+					<span className="label-text">Upload</span>
 					<VscFileMedia />
 				</label>
 			)}

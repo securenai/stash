@@ -26,6 +26,9 @@ const TextStashSchema = new mongoose.Schema({
 	},
 	text: {
 		type: String
+	},
+	memo: {
+		type: String
 	}
 });
 

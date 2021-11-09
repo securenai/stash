@@ -19,7 +19,6 @@ router.post('/query', (req, res) => {
 
 router.post('/create', (req, res) => {
 	CodeStash.create(req.body).then((result, err) => {
-		console.log('123');
 		if (result) {
 			res.send(result);
 		} else {
@@ -29,7 +28,6 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/update', (req, res) => {
-	console.log(req.body);
 	CodeStash.findOneAndUpdate({ _id: req.body._id }, req.body, {
 		upsert: false
 	}).then((result, err) => {
@@ -42,7 +40,6 @@ router.post('/update', (req, res) => {
 });
 
 router.post('/delete', (req, res) => {
-	console.log(req.body);
 	CodeStash.deleteOne({ _id: req.body.data }).then((result, err) => {
 		if (result) {
 			res.send(result);

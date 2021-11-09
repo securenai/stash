@@ -7,10 +7,10 @@ export interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = () => (
 	<ul className="nav">
-		<NavLink linkName="About" />
-		<NavLink linkName="Contact" />
-		<NavLink linkName="Support" />
-		<NavLink linkName="Documentation" />
-		<NavLink linkName="Safety" />
+		<NavLink linkTo="/about" linkName="About" />
+		<NavLink linkTo="/contact" linkName="Contact" />
+		<NavLink linkTo="/support" linkName="Support" />
+		{/* <NavLink linkName="Documentation" /> */}
+		<NavLink linkTo="/safety" linkName="Safety" />
 	</ul>
 );

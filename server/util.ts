@@ -66,7 +66,6 @@ const createSirvToken = () => {
 	};
 	return new Promise((resolve, reject) => {
 		const req = https.request(options, (res) => {
-			console.log('requesting......');
 			const chunks = [];
 
 			res.on('data', (chunk) => {
@@ -76,9 +75,6 @@ const createSirvToken = () => {
 			res.on('end', () => {
 				const body = Buffer.concat(chunks);
 				const apiResponse = JSON.parse(body.toString());
-				// console.log('token:', apiResponse.token);
-				// console.log('expiresIn:', apiResponse.expiresIn);
-				// console.log('scope:', apiResponse.scope);
 				resolve(apiResponse.token);
 			});
 		});

@@ -5,7 +5,12 @@ export const appSlice = createSlice({
 	initialState: {
 		currentStash: JSON.parse(localStorage.getItem('currentStash')) || {},
 		currentTheme: localStorage.getItem('currentTheme') || 'DARK',
-		bannerColor: JSON.parse(localStorage.getItem('bannerColor')),
+		bannerColor: JSON.parse(localStorage.getItem('bannerColor')) || {
+			r: 160,
+			g: 203,
+			b: 239,
+			a: 1
+		},
 		sideBarClosed: JSON.parse(localStorage.getItem('sideBarClosed')) || false,
 		selectedImages: []
 	},

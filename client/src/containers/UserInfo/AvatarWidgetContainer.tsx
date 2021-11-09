@@ -24,7 +24,6 @@ const AvatarWidgetContainer: React.FC<AvatarWidgetContainerProps> = () => {
 	}, [selectedAvatar]);
 
 	const queryAvatar = () => {
-		console.log('loadddddd');
 		const folderName = `stash/userAvatars/${user.userInfo._id}`;
 		const options = {
 			method: 'POST',
@@ -36,21 +35,16 @@ const AvatarWidgetContainer: React.FC<AvatarWidgetContainerProps> = () => {
 		fetch('http://localhost:5000/api/avatar/query', options)
 			.then(checkStatus)
 			.then((res) => {
-				// console.log(res.json());
 				return res.json();
 			})
 			.then((result) => {
-				console.log(result);
-				console.log('settt');
 				localStorage.setItem('userAvatar', JSON.stringify(selectedAvatar));
-				// setImageFiles(result);
 			});
 	};
 
 	const uploadImage = (data: File) => {
 		// setStartUpload(true);
 		// setUploadComplete(false);
-		console.log('uploadImage');
 		const userId = user.userInfo._id;
 		const saveTo = `stash/userAvatars/${user.userInfo._id}/Avatar`;
 		const options = {
@@ -66,15 +60,12 @@ const AvatarWidgetContainer: React.FC<AvatarWidgetContainerProps> = () => {
 				return res.json();
 			})
 			.then((result) => {
-				console.log(result.url);
 				if (result.url != null) {
 					// setUploadComplete(true);
 					// setStartUpload(false);
 					// dispatch
 					const user2 = JSON.parse(JSON.stringify(user));
-					console.log(user2);
 					user2.userInfo.avatarUrl = result.url;
-					console.log(user2);
 					dispatch(
 						login({
 							token: user2.token,
@@ -86,13 +77,11 @@ const AvatarWidgetContainer: React.FC<AvatarWidgetContainerProps> = () => {
 					setTimeout(() => {
 						queryAvatar();
 					}, 300);
-					console.log('success!!!');
 				}
 			});
 	};
 
 	const checkStatus = (response) => {
-		console.log('chk');
 		if (response.ok) {
 			return Promise.resolve(response);
 		} else {

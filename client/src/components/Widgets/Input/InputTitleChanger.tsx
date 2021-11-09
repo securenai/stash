@@ -15,13 +15,17 @@ const Title = styled.span`
 `;
 const TitleEditing = styled.input`
 	width: 100%;
-	/* color: rgb(253, 60, 53); */
-	background-color: indianred;
+	color: ${({ theme }) => theme.fontColors.primary};
+	/* background-color: indianred; */
+`;
+const TitlePlaceholder = styled.span`
+	opacity: 0.5;
 `;
 
 export interface InputTitleChangerProps {
 	enableTextEdit: boolean;
 	title: string;
+	placeholder?: string;
 	onChangeValue: (e) => void;
 	onClickEdit: () => void;
 }
@@ -29,6 +33,7 @@ export interface InputTitleChangerProps {
 const InputTitleChanger: React.FC<InputTitleChangerProps> = ({
 	enableTextEdit,
 	title,
+	placeholder,
 	onChangeValue,
 	onClickEdit
 }) => {
@@ -41,15 +46,16 @@ const InputTitleChanger: React.FC<InputTitleChangerProps> = ({
 						value={title}
 						onChange={onChangeValue}
 						spellCheck="false"
+						placeholder={placeholder}
 					/>
 				) : (
-					<span>
-						{title === undefined
-							? title
+					<TitlePlaceholder>
+						{title === undefined || title === ''
+							? placeholder
 							: title.length > 30
 							? title.substring(0, 30) + '...'
 							: title}
-					</span>
+					</TitlePlaceholder>
 				)}
 			</Title>
 			<IconButtonEdit onClick={onClickEdit} />

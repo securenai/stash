@@ -11,7 +11,6 @@ export interface StashCreateModalProps {
 
 const CreateStashModal = styled.div`
 	background-color: ${({ theme }) => {
-		/* console.log(theme); */
 		return theme.colors.primary;
 	}};
 	margin: auto;
@@ -77,7 +76,8 @@ const StashCreateModal: React.FC<StashCreateModalProps> = ({
 
 	return (
 		<CreateStashModal>
-			<Title>Create Stash
+			<Title>
+				Create Stash
 				<CloseButton onClick={closeCreate}>&times;</CloseButton>
 			</Title>
 			<ModalInfo>
@@ -92,7 +92,7 @@ const StashCreateModal: React.FC<StashCreateModalProps> = ({
 				<Label>stash type</Label>
 				<Select
 					onSelectChange={(e) => setStashType(e.target.value)}
-					options={['text', 'code', 'image']}
+					options={['memo', 'code', 'image']}
 				/>
 				<ButtonSection>
 					<CrudButton

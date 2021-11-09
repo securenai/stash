@@ -1,0 +1,143 @@
+.signUpPage {
+	display: flex;
+	flex-direction: column;
+	/* background-color: #6d81a3; */
+	background-image: url('../../containers/Home/assets/login_bg.jpg');
+	/* font-family: Arial, Helvetica, sans-serif; */
+	background-size: cover;
+	/* min-width: 890px; */
+	background-repeat: no-repeat;
+	height: 100vh;
+}
+.signUpBox {
+	font-family: 'Calamity-Regular';
+	background-color: #4c4e50a3;
+	border-radius: 5px;
+	padding: 20px;
+	width: 45%;
+	height: 50%;
+	/* margin: 65px auto; */
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+	min-width: 400px;
+	min-height: 265px;
+	align-items: center;
+	/* height: 100%; */
+}
+.signUpPageBody {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+.listFields {
+	list-style-type: none;
+}
+.error_msg {
+	color: rgb(236, 87, 87);
+}
+.success_msg {
+	color: rgb(75, 245, 75);
+}
+.signUp_greeting {
+	color: #66dbb0;
+	font-weight: 600;
+	letter-spacing: 2px;
+	font-size: 22px;
+}
+.form_wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.signUp_input {
+	width: 100%;
+	margin: 0 auto;
+}
+.input_title {
+	padding: 5px 0px;
+	font-size: 8px;
+	letter-spacing: 1px;
+	color: #e99fff;
+	text-align: left;
+	width: 100%;
+	font-weight: 600;
+	margin-top: 10px;
+}
+.input_outline {
+	margin-top: 2px;
+	background-color: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+}
+input {
+	background: transparent;
+	outline-width: 0;
+	border: none;
+}
+input:focus {
+	outline: 0;
+}
+.signUp_btn {
+	cursor: pointer;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	width: 50%;
+	background-color: #42b7a4;
+	padding: 5px 0px;
+	border-radius: 5px;
+	font-weight: 600;
+	color: #34373a;
+}
+.signUp_btn:hover {
+	background-color: #87dbcd;
+}
+.help_msg {
+	cursor: pointer;
+	font-size: xx-small;
+	color: #66dbb0;
+	width: 100%;
+	text-align: left;
+	margin-bottom: 5px;
+	padding: 5px 0px;
+}
+.help_msg_2 {
+	cursor: pointer;
+	font-size: xx-small;
+	color: #66dbb0;
+	/* width: 60%; */
+	text-align: left;
+	margin-bottom: 5px;
+	padding: 5px 0px;
+}
+.image_placer {
+	position: absolute;
+	background-color: #83a1c5;
+	padding: 10px;
+}
+.logo-img {
+	height: 25px;
+}
+.signUpForm {
+	width: 60%;
+}
+.username_input,
+.user_pw_input {
+	width: 100%;
+}
+.credit {
+	padding: 0px;
+	font-size: 10px;
+}
+.credit_link:link,
+.credit_link:visited,
+.credit_link:hover,
+.credit_link:active {
+	color: antiquewhite;
+}
+.sign_up_link:hover {
+	text-decoration: underline;
+}

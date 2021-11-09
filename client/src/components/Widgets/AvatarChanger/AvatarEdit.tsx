@@ -32,7 +32,6 @@ const ImageEdit: React.FC<ImageEditProps> = ({
 	const modalOuter = useRef(null);
 
 	const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-		// console.log(croppedArea, croppedAreaPixels);
 		setCroppedAreaPixels(croppedAreaPixels);
 	}, []);
 
@@ -41,7 +40,6 @@ const ImageEdit: React.FC<ImageEditProps> = ({
 	}, []);
 
 	// const onClickOutside = (e: any) => {
-	// 	console.log('close');
 	// 	if (e.target.className === 'modal') {
 	// 		e.preventDefault();
 	// 		e.stopPropagation();
@@ -57,14 +55,11 @@ const ImageEdit: React.FC<ImageEditProps> = ({
 				croppedAreaPixels,
 				rotation
 			);
-			// console.log('done', croppedImage);
 			setCroppedImage(croppedImage);
-			// console.log(typeof croppedImage);
 			// const reader = new FileReader();
 			// reader.readAsDataURL(croppedImage);
 			// reader.onloadend = function () {
 			// 	const base64data = reader.result;
-			// 	console.log(base64data);
 			// };
 			applyImage(croppedImage);
 		} catch (e) {

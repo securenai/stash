@@ -17,7 +17,6 @@ try {
 		process.env.ATLAS_URL,
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		() => {
-			console.log(' Mongoose is connected');
 			app.listen('5000', () => {
 				console.log(`the app is now listening on 5000 port`);
 			});
@@ -32,6 +31,7 @@ mongoose.connection.on('connected', () => {
 });
 
 app.use('/api/login', require('./routes/api/login'));
+app.use('/api/signup', require('./routes/api/signup'));
 app.use('/api/userInventory', require('./routes/api/userInventory'));
 app.use('/api/imageStash', require('./routes/api/imageStash'));
 app.use('/api/textStash', require('./routes/api/textStash'));

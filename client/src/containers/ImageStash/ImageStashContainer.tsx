@@ -33,7 +33,7 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	const [imageSelectedCleared, setImageSelectedCleared] = useState(false);
 
 	useEffect(() => {
-		queryFiles();
+		queryFiles(true);
 	}, [currStash]);
 
 	useEffect(() => {
@@ -57,15 +57,18 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		if (result.msg === 'file uploaded') {
 			setUploadComplete(true);
 			setStartUpload(false);
+			// setImageFiles(...imageFiles, );
 			setTimeout(() => {
-				queryFiles();
-			}, 1000);
+				queryFiles(false);
+			}, 2000);
 		}
 	};
 
-	const queryFiles = async () => {
-		setStartUpload(true);
-		setUploadComplete(false);
+	const queryFiles = async (showProgressBar: boolean) => {
+		if (showProgressBar) {
+			setStartUpload(true);
+			setUploadComplete(false);
+		}
 		const folderName = `stash/imageStash/${user.userInfo._id}/${currStash.id}`;
 		const result = await fetchApi({ folderName }, 'imageStash/query');
 		if (result) {
@@ -76,23 +79,19 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	};
 
 	const handleDeleteImage = async (src: string) => {
-		console.log(src);
 		setStartUpload(true);
 		setUploadComplete(false);
-		console.log('start');
 		const result = await fetchApi({ id: src }, 'imageStash/deleteById');
-		console.log(result);
 		if (result.msg === 'file deleted') {
 			setUploadComplete(true);
 			setStartUpload(false);
 			setTimeout(() => {
-				queryFiles();
+				queryFiles(false);
 			}, 1000);
 		}
 	};
 
 	const handleViewImage = (src: string) => {
-		console.log('qqq');
 		setShowImageViewer(true);
 		setCurrentImageSrc(src);
 	};
@@ -106,32 +105,23 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		const cloneArr = _.cloneDeep(imageFiles).filter((img) => {
 			return img.public_id !== image.public_id;
 		});
-		// console.log(cloneArr);
 		setMultiSelectedImages([...cloneArr, image]);
-		// setImageFiles([...cloneArr, image]);
-		// console.log(multiSelectedImages);
-
-		// console.log(selectedImages);
 	};
 
 	const handleBatchDelete = async () => {
-		// console.log(imageFiles);
-		console.log(selectedImages);
 		const result = await fetchApi({ selectedImages }, 'imageStash/deleteAll');
 		if (result.msg === 'files deleted') {
 			setUploadComplete(true);
 			setStartUpload(false);
 			setTimeout(() => {
-				queryFiles();
+				queryFiles(false);
 			}, 2000);
 		}
 	};
 
 	const handleBatchClear = () => {
-		console.log(selectedImages);
 		const copy = _.cloneDeep(selectedImages);
 		_.forEach(copy, (img) => {
-			console.log(img);
 			img.selected = false;
 		});
 		dispatch(
@@ -143,7 +133,6 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 
 		const copy2 = _.cloneDeep(imageFiles);
 		_.forEach(copy2, (img) => {
-			console.log(img);
 			img.selected = false;
 		});
 		setImageFiles(copy2);
@@ -155,10 +144,8 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 	};
 
 	const handleBatchSelect = () => {
-		console.log(selectedImages);
 		const copy = _.cloneDeep(selectedImages);
 		_.forEach(copy, (img) => {
-			console.log(img);
 			img.selected = true;
 		});
 		dispatch(
@@ -168,7 +155,6 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 		);
 		const copy2 = _.cloneDeep(imageFiles);
 		_.forEach(copy2, (img) => {
-			console.log(img);
 			img.selected = true;
 		});
 		setImageFiles(copy2);
@@ -187,6 +173,7 @@ const ImageStashContainer: React.FC<ImageStashContainerProps> = () => {
 				batchDelete={handleBatchDelete}
 				batchClear={handleBatchClear}
 				batchSelect={handleBatchSelect}
+				queryImageFiles={() => queryFiles(true)}
 			/>
 			{uploadComplete === false && startUpload === true ? <Processing /> : null}
 			<ImageStash

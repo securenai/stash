@@ -200,13 +200,10 @@ const Planner: React.FC<PlannerProps> = () => {
 
 	useEffect(() => {
 		let plannerData = userPlanner;
-		// console.log(userPlanner);
 		if (userPlanner === null) {
-			console.log('ppp');
 			plannerData = getDayArrayForMonthOfYear(new Date().getFullYear());
 		}
 		setCalenderData(plannerData);
-		// console.log(userPlanner);
 		setData(plannerData[currentDate.month - 1]);
 		plannerData[currentDate.month - 1].forEach((dayItem) => {
 			if (dayItem !== 0 && dayItem[0] === today().day) {
@@ -229,7 +226,6 @@ const Planner: React.FC<PlannerProps> = () => {
 
 	useEffect(() => {
 		if (selectedDayTasks.length >= 0) {
-			console.log(selectedDayTasks);
 			// setSelectedDayTasks(selectedDayTasks);
 			dispatch(setUserPlanner(calenderData));
 			setLocalStorage({
@@ -297,9 +293,7 @@ const Planner: React.FC<PlannerProps> = () => {
 
 	const handleSaveTask = (copy) => {
 		const copyCalenderData = _.cloneDeep(calenderData);
-		// console.log(data);
 		setData(copyCalenderData[currentDate.month - 1]);
-		// console.log(copyCalenderData[currentDate.month - 1]);
 		if (copyCalenderData[currentDate.month - 1].length > 0) {
 			copyCalenderData[currentDate.month - 1].forEach((dayItem) => {
 				if (dayItem !== 0 && dayItem[0] === currentDate.day) {
@@ -320,7 +314,6 @@ const Planner: React.FC<PlannerProps> = () => {
 				}
 			});
 		}
-		// console.log(copyCalenderData);
 		setCalenderData(copyCalenderData);
 		// setSelectedDayTasks(copy);
 	};
@@ -338,7 +331,6 @@ const Planner: React.FC<PlannerProps> = () => {
 			});
 		}
 		setCalenderData(copyCalenderData);
-		// console.log(copy[copy.length-1]);
 		setCurrentTaskIndex(copy.length - 1);
 		setCurrentTask(selectedDayTasks[copy.length - 1]);
 	};
@@ -375,7 +367,6 @@ const Planner: React.FC<PlannerProps> = () => {
 				</NameOfDays>
 				<CalenderBody>
 					{data.map((day, index) => {
-						// console.log(data);
 						const d = day === 0 ? [0] : day;
 						return (
 							<DayGrid
@@ -486,7 +477,6 @@ const Planner: React.FC<PlannerProps> = () => {
 					{/* <div>{selectedDayTasks.length}</div> */}
 					{selectedDayTasks.length > 0 &&
 						selectedDayTasks.map((task, index) => {
-							// console.log(task);
 							return (
 								<Task key={index.toString() + task}>
 									<div>

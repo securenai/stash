@@ -4,7 +4,6 @@ const User = require('../../db/models/user');
 const { cloudinary } = require('../../cloudinary/cloudinary');
 
 router.post('/query', async (req, res) => {
-	console.log('avaq');
 	const folder = req.body.folderName;
 	try {
 		const { resources } = await cloudinary.search
@@ -22,15 +21,13 @@ router.post('/query', async (req, res) => {
 		});
 		res.send(files);
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({ err: 'something went wrong2' });
 	}
 });
 
 router.post('/upload', async (req, res) => {
-	console.log('avau');
 	try {
-		const userId = req.body.userId
+		const userId = req.body.userId;
 		const fileStr = req.body.data;
 		const saveTo = req.body.saveTo;
 		if (fileStr === null || fileStr === '') return;
@@ -38,25 +35,22 @@ router.post('/upload', async (req, res) => {
 			fileStr,
 			(options = { public_id: saveTo })
 		);
-		console.log(uploadedResp);
-		if(uploadedResp.url){
-			console.log(userId , uploadedResp.url)
-			User.findOneAndUpdate({ _id: userId }, {$set: { avatarUrl: uploadedResp.url }}, {
-				upsert: false
-			}).then((result, err) => {
-				console.log('123456');
+		if (uploadedResp.url) {
+			User.findOneAndUpdate(
+				{ _id: userId },
+				{ $set: { avatarUrl: uploadedResp.url } },
+				{
+					upsert: false
+				}
+			).then((result, err) => {
 				if (result) {
-					// res.send(result);
-					console.log(result)
 				} else {
-					console.log('1234567890');
 					res.send(err);
 				}
 			});
 		}
 		res.json({ url: uploadedResp.url });
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({ err: 'something went wrong' });
 	}
 });

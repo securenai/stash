@@ -6,12 +6,7 @@ export interface HomeProps {}
 const Home: React.FC<HomeProps> = () => {
 	return (
 		<div>
-			<Page
-				onLogin={() => {}}
-				onLogout={() => {}}
-				onCreateAccount={() => {}}
-				pageType={'Home'}
-			/>
+			<Page pageType={'Home'} />
 		</div>
 	);
 };

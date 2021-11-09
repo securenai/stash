@@ -10,13 +10,17 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	avatarUrl: {
+	email: {
 		type: String,
 		required: true
 	},
+	avatarUrl: {
+		type: String,
+		// required: true
+	},
 	createDate: {
 		type: String,
-		required: true
+		// required: true
 	},
 	themeColor: {
 		type: Object

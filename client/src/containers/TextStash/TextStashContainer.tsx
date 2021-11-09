@@ -34,7 +34,6 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 		const data = currStash.id;
 		const result = await fetchApi({ data }, 'textStash/query');
 		if (result.textStashList) {
-			console.log('done');
 			setStartUpdate(false);
 			setUpdateComplete(true);
 			setTextList(result.textStashList);
@@ -45,7 +44,7 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 		const data = {
 			owner: user.userInfo._id,
 			title: '',
-			// content: '// type code here',
+			memo: 'type memo here',
 			createDate: moment().format('YYYY-MM-DD'),
 			modifiedDate: moment().format('YYYY-MM-DD'),
 			stashId: currStash.id
@@ -68,7 +67,6 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 					return res.json();
 				})
 				.then((result) => {
-					console.log(result);
 					resolve(result);
 				});
 		});
@@ -91,6 +89,7 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 		textStash: {
 			title: string;
 			link: string;
+			memo: string;
 		}
 	) => {
 		setStartUpdate(true);
@@ -100,6 +99,7 @@ const TextStashHeader: React.FC<TextStashHeaderProps> = () => {
 			owner: user.userInfo._id,
 			title: textStash.title,
 			link: textStash.link,
+			memo: textStash.memo,
 			modifiedDate: moment().format('YYYY-MM-DD')
 		};
 		const result = await fetchApi(data, 'textStash/update');

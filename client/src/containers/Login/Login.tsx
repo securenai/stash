@@ -9,8 +9,8 @@ import { setLocalStorage } from '../../api/utils/localStorageUtils';
 const Login = () => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
-	const [userName, setUserName] = useState('nova');
-	const [userPassword, setUserPassword] = useState('123');
+	const [userName, setUserName] = useState('');
+	const [userPassword, setUserPassword] = useState('');
 	const [valErrMsg, setValErrMsg] = useState('');
 
 	const handleSetUserName = (val: string) => {
@@ -40,6 +40,33 @@ const Login = () => {
 			);
 		} else {
 			setValErrMsg('login info incorrect!');
+			return false;
+		}
+		return true;
+	};
+
+	const handleLoginAsGuest = async (e: MouseEvent) => {
+		e.preventDefault();
+		const result = await fetchApi(
+			{ userName: 'tom', userPassword: '12345678' },
+			'login'
+		);
+		if (result.success) {
+			setLocalStorage(
+				{ token: result.token },
+				{ userInfo: JSON.stringify(result.userInfo) },
+				{ expiresAt: result.expiresAt }
+			);
+			dispatch(
+				login({
+					token: result.token,
+					expiresAt: result.expiresAt,
+					userInfo: result.userInfo,
+					isAuthenticated: true
+				})
+			);
+		} else {
+			setValErrMsg('login info incorrect!');
 		}
 	};
 
@@ -50,6 +77,7 @@ const Login = () => {
 				setUserName={handleSetUserName}
 				setUserPassword={handleSetUserPassword}
 				login={handleLogin}
+				loginAsGuest={handleLoginAsGuest}
 				errMsg={valErrMsg}
 			/>
 		</>

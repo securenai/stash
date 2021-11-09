@@ -33,7 +33,6 @@ const CodeStashContainer: React.FC<CodeStashContainerProps> = () => {
 		setUpdateComplete(false);
 		const data = currStash.id;
 		const result = await fetchApi({ data }, 'codeStash/query');
-		// console.log(typeof result);
 		if (result.codeStashList) {
 			setStartUpdate(false);
 			setUpdateComplete(true);

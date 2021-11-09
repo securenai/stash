@@ -16,7 +16,6 @@ router.post('/query', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-	console.log('qqq ', req.body);
 	UserInventory.create(req.body).then((result, err) => {
 		if (result) {
 			res.send(result);
@@ -43,7 +42,6 @@ router.post('/update', (req, res) => {
 });
 
 router.post('/delete', (req, res) => {
-	console.log('delete ', req.body.data.id);
 	const _id = req.body.data.id;
 	UserInventory.findByIdAndRemove(_id).then((result, err) => {
 		if (result) {

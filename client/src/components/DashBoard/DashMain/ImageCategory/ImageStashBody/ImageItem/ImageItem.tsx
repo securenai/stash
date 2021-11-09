@@ -81,10 +81,6 @@ export interface ImageItemProps {
 	selectedImage: any;
 }
 
-// const openImageViewer = (imageFile) => {
-// 	console.log(imageFile);
-// };
-
 const ImageItem: React.FC<ImageItemProps> = ({
 	imageFile,
 	imageClicked,
@@ -102,43 +98,6 @@ const ImageItem: React.FC<ImageItemProps> = ({
 		from: { opacity: 0 },
 		delay: 100
 	});
-
-	// useEffect(() => {
-	// 	console.log('ppp');
-	// 	setImageSelected(selected);
-	// }, [selected]);
-
-	const aaa = (toggle) => {
-		// if (toggle !== 'on' && toggle !== 'off') {
-		// 	console.log('dddddd');
-		// 	return '1';
-		// }
-		// if ((toggle = 'on' && selectedImages.length === 0)) {
-		// 	setImageSelected(false);
-		// } else if ((toggle = 'on')) {
-		// 	_.forEach(selectedImages, (item) => {
-		// 		// console.log(item);
-		// 		if (item.public_id === imageFile.public_id && item.selected === false) {
-		// 			// console.log('kkk1');
-		// 			return '1';
-		// 		}
-		// 	});
-		// }
-		// if ((toggle = 'off')) {
-		// 	_.forEach(selectedImages, (item) => {
-		// 		// console.log(item);
-		// 		if (item.public_id === imageFile.public_id && item.selected === true) {
-		// 			// console.log('kkk1');
-		// 			console.log(item.selected);
-		// 			return '2';
-		// 		}
-		// 	});
-		// }
-		// return '2';
-		// return '2';
-		// console.log(selectedImages);
-		// console.log(imageFile);
-	};
 
 	return (
 		<A_ImagePlaceholder

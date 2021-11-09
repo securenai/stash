@@ -7,7 +7,7 @@ export interface FooterProps {}
 export const Footer: React.FC<FooterProps> = () => (
 	<div className="page_footer">
 		<div className="page_footer_text">
-			stack application by zhengnaishiuan. | &copy; 2021 Stash
+			Stash application by zhengnaishiuan. | &copy; 2021 Stash
 		</div>
 	</div>
 );

@@ -30,8 +30,6 @@ export interface IframeCardProps {
 const IframeCard: React.FC<IframeCardProps> = ({ iframeData }) => {
 	const isCard: boolean = iframeData.options;
 	const hasThumb: boolean = iframeData.links.thumbnail[0].href;
-	console.log(isCard);
-	console.log(hasThumb);
 	return (
 		<div
 			dangerouslySetInnerHTML={{

@@ -28,16 +28,14 @@ export interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ user }) => {
-	const test = () => {
-		console.log(user);
-	};
-
 	return (
 		<header>
 			<div className="wrapper">
 				<div>
 					<Logo>
-						<Icon src={logo} onClick={test} />
+						<Link to="/">
+							<Icon src={logo} />
+						</Link>
 					</Logo>
 				</div>
 				<div>
@@ -53,7 +51,9 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
 							<Link to="/login">
 								<Button size="small" label="Log In" />
 							</Link>
-							<Button primary size="small" label="Sign Up" />
+							<Link to="/signup">
+								<Button primary size="small" label="Sign Up" />
+							</Link>
 						</>
 					)}
 				</div>

@@ -42,6 +42,7 @@ export interface DashMainHeaderProps {
 	batchDelete?: () => void;
 	batchClear?: () => void;
 	batchSelect?: () => void;
+	queryImageFiles?: (showProgressBar: boolean) => Promise<void>;
 }
 
 const DashMainHeader: React.FC<DashMainHeaderProps> = ({
@@ -56,7 +57,8 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 	selectedImages,
 	batchDelete,
 	batchClear,
-	batchSelect
+	batchSelect,
+	queryImageFiles
 }) => {
 	const renderStashHeaderTemplate = () => {
 		if (stashType === 'text') {
@@ -70,6 +72,7 @@ const DashMainHeader: React.FC<DashMainHeaderProps> = ({
 					batchDelete={batchDelete}
 					batchClear={batchClear}
 					batchSelect={batchSelect}
+					queryImageFiles={() => queryImageFiles(true)}
 				/>
 			);
 		} else if (stashType === 'code') {

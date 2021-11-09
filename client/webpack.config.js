@@ -2,6 +2,8 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
@@ -40,7 +42,7 @@ module.exports = {
 			},
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/i,
-				type: 'asset/resource',
+				type: 'asset/resource'
 			}
 		]
 	},
@@ -53,7 +55,8 @@ module.exports = {
 			template: './src/index.html',
 			filename: 'index.html',
 			favicon: './src/favicon.ico'
-		})
+		}),
+		new Dotenv()
 	],
 	devServer: {
 		contentBase: path.join(__dirname, 'dist'),

@@ -30,8 +30,6 @@ export interface IframeTwitterProps {
 const IframeTwitter: React.FC<IframeTwitterProps> = ({ iframeData }) => {
 	const isCard: boolean = iframeData.options;
 	const hasThumb: boolean = iframeData.links.thumbnail[0].href;
-	console.log(isCard);
-	console.log(hasThumb);
 	return (
 		<div
 			dangerouslySetInnerHTML={{

@@ -3,6 +3,7 @@ import { AiFillPlusSquare } from 'react-icons/ai';
 import styled from 'styled-components';
 
 const AddIcon = styled.div`
+	cursor: pointer;
 	font-size: 40px;
 	&:hover {
 		color: rgb(159, 211, 125);

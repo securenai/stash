@@ -16,7 +16,6 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	const [visible, setVisible] = React.useState(false);
 
 	useEffect(() => {
-		console.log('lklk');
 		if (showViewer) setVisible(true);
 	}, [showViewer]);
 
