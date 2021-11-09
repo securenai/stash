@@ -7,6 +7,7 @@ export const fetchApi = (data: object, route: string): Promise<any> => {
 				'Content-Type': 'application/json'
 			})
 		};
+		// fetch('http://localhost:5000/api/' + route, options)
 		fetch('http://localhost:5000/api/' + route, options)
 			.then(checkStatus)
 			.then((res) => {
