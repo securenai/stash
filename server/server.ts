@@ -9,6 +9,7 @@ import cors from 'cors';
 app.use(cors());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
+const port = process.env.PORT || 5000;
 // const mongoose = require('mongoose');
 
 try {
@@ -17,8 +18,8 @@ try {
 		process.env.ATLAS_URL,
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		() => {
-			app.listen('5000', () => {
-				console.log(`the app is now listening on 5000 port`);
+			app.listen(port, () => {
+				console.log(`the app is now listening on ${port} port`);
 			});
 		}
 	);
