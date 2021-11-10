@@ -53,8 +53,7 @@ module.exports = {
 			template: './src/index.html',
 			filename: 'index.html',
 			favicon: './src/favicon.ico'
-		}),
-		new Dotenv()
+		})
 	],
 	devServer: {
 		contentBase: path.join(__dirname, 'dist'),
