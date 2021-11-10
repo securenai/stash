@@ -2,7 +2,7 @@
   "name": "ts-react-webpack-starter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "build:watch": "./node_modules/.bin/webpack -w",
